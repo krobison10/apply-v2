@@ -1,9 +1,9 @@
 
-export default function Home() {
+export default function Interviews() {
   return (
     <main>
       <div className='flex items-center justify-center h-screen'>
-        <h1>Root</h1>
+        <h1>Interviews</h1>
       </div>
     </main>
   )

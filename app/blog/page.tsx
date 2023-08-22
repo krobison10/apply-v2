@@ -1,9 +1,9 @@
 
-export default function Home() {
+export default function Blog() {
   return (
     <main>
       <div className='flex items-center justify-center h-screen'>
-        <h1>Root</h1>
+        <h1>Blog</h1>
       </div>
     </main>
   )
