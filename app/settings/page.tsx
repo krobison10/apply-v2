@@ -1,3 +1,8 @@
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Apply | Settings"
+}
 
 export default function Settings() {
   return (

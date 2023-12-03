@@ -1,11 +1,15 @@
+import ApplicationsFeed from "@/components/ApplicationsFeed"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Apply | Dashboard"
+}
 
 export default function Home() {
   return (
     <main>
-      <div className='flex items-center justify-center h-screen'>
-        <h1>Home</h1>
-      </div>
+      <ApplicationsFeed/>
     </main>
-  )
+  );
 }
 

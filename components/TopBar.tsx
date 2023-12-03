@@ -4,7 +4,7 @@ import Link from 'next/link';
 function TopBar() {
 
   return (
-    <div className='fixed w-full h-14 border-b-2 flex justify-between items-center'>
+    <div className='z-10 fixed w-full h-14 border-b-2 flex justify-between items-center'>
       <Link href={'/'} className='font-bold p-2 inline-block border rounded my-auto ml-2'>
         Apply Logo
       </Link>

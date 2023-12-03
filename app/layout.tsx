@@ -19,12 +19,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <TopBar/>
-        <div className='fixed top-14 left-0 h-full flex'>
-          <SideDrawer/>
-          <div className='relative w-screen h-full left-64 flex-grow' style={{width: 'calc(100vw - 16rem)'}}>
+    <html lang='en'>
+      <body className='h-screen w-full flex flex-col'>
+        <div className='fixed top-0 w-full z-10'> {/* Adjust z-index if needed */}
+          <TopBar/>
+        </div>
+        <div className='flex flex-grow overflow-hidden pt-14'>
+          <aside className='h-full fixed w-64'> 
+            <SideDrawer/>
+          </aside>
+          <div className='flex-grow ml-64 overflow-auto'>
             {children}
           </div>
         </div>
