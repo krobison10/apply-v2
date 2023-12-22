@@ -1,9 +1,13 @@
-import { Metadata } from "next"
+import React from 'react';
 
-export const metadata: Metadata = {
-  title: "Apply | Settings"
-}
+export const metadata = {
+  title: 'Apply | Settings',
+};
 
+/**
+ * Settings page
+ * @return {React.Component}
+ */
 export default function Settings() {
   return (
     <main>
@@ -11,6 +15,6 @@ export default function Settings() {
         <h1>Settings</h1>
       </div>
     </main>
-  )
+  );
 }
 

@@ -1,9 +1,13 @@
-import { Metadata } from "next"
+import React from 'react';
 
-export const metadata: Metadata = {
-  title: "Apply | Interviews"
-}
+export const metadata = {
+  title: 'Apply | Interviews',
+};
 
+/**
+ * Interviews page
+ * @return {React.Component}
+ */
 export default function Interviews() {
   return (
     <main>
@@ -11,6 +15,6 @@ export default function Interviews() {
         <h1>Interviews</h1>
       </div>
     </main>
-  )
+  );
 }
 

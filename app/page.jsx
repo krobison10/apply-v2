@@ -1,9 +1,13 @@
-import { Metadata } from "next"
+import React from 'react';
 
-export const metadata: Metadata = {
-  title: "Apply"
-}
+export const metadata = {
+  title: 'Apply',
+};
 
+/**
+ * Root page
+ * @return {React.Component}
+ */
 export default function Home() {
   return (
     <main>
@@ -11,6 +15,6 @@ export default function Home() {
         <h1>Root</h1>
       </div>
     </main>
-  )
+  );
 }
 

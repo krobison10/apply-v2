@@ -1,3 +1,3 @@
 module.exports = {
-    BASE_API_URL: '/api/',
-}
+  BASE_API_URL: '/api/',
+};

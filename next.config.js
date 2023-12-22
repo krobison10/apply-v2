@@ -1,12 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   server: {
-    host: '0.0.0.0', 
-    port: 3000, 
+    host: '0.0.0.0',
+    port: 3000,
   },
   compiler: {
-    styledComponents: true
-  }
-}
+    styledComponents: true,
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
