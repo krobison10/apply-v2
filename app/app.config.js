@@ -1,3 +1,4 @@
 module.exports = {
-  BASE_API_URL: '/api/',
+  ROOT_PATH: 'https://dev.applyapp.io/',
+  BASE_API_URL: 'api/',
 };

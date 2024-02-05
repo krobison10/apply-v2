@@ -1,4 +1,4 @@
-import ApplicationsFeed from '@/components/ApplicationsFeed';
+import ApplicationsFeed from '@/components/applications_feed/ApplicationsFeed';
 import React from 'react';
 
 export const metadata = {
@@ -9,7 +9,7 @@ export const metadata = {
  * Applications page
  * @return {React.Component}
  */
-export default function Applications() {
+export default async function Applications() {
   return (
     <main>
       <ApplicationsFeed/>

@@ -3,7 +3,7 @@
 import React from 'react';
 
 import {useEffect, useState} from 'react';
-import {BASE_API_URL} from '../app/app.config';
+import {BASE_API_URL} from '../../app/app.config';
 import ApplicationCard from './ApplicationCard';
 
 /**

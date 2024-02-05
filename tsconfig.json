@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/app.config.js", "components/ApplicationCard.jsx", "components/ApplicationsFeed.jsx", "app/layout.jsx", "app/settings/page.jsx", "app/interviews/page.jsx", "app/home/page.jsx", "app/blog/page.jsx", "components/TopBar.jsx", "components/SideDrawer.jsx", "app/page.jsx", "app/applications/page.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/app.config.js", "components/applications_feed/ApplicationCard.jsx", "components/applications_feed/ApplicationsFeed.jsx", "app/layout.jsx", "app/settings/page.jsx", "app/interviews/page.jsx", "app/home/page.jsx", "app/blog/page.jsx", "components/nav/TopBar.jsx", "components/nav/SideDrawer.jsx", "app/page.jsx", "app/applications/page.jsx", "tailwind.config.js"],
   "exclude": ["node_modules"]
 }

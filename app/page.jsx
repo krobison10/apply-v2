@@ -8,7 +8,7 @@ export const metadata = {
  * Root page
  * @return {React.Component}
  */
-export default function Home() {
+export default function Root() {
   return (
     <main>
       <div className='flex items-center justify-center h-screen'>

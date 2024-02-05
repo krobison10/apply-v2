@@ -1,4 +1,7 @@
+'use client';
+
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const MAX_DESCRIPTION_LENGTH = 200;
 
@@ -32,11 +35,11 @@ export default function ApplicationCard({data}) {
     );
   }
   Field.propTypes = {
-    children: propTypes.React.ReactNode,
+    children: PropTypes.any,
   };
 
   return (
-    <div className="rounded shadow-sm m-4 p-3 bg-white">
+    <div className="rounded shadow-sm m-4 p-3 bg-base-100">
       <h1 className="font-semibold">{data.title}- {data.name}</h1>
       <ul>
         <li><Field>Status: </Field> {data.status}</li>
@@ -57,5 +60,5 @@ export default function ApplicationCard({data}) {
 }
 
 ApplicationCard.propTypes = {
-  data: Object,
+  data: PropTypes.object,
 };
