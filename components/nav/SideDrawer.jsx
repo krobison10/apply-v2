@@ -28,7 +28,7 @@ function NavItem({isActive, href, label, icon}) {
   const activeClass = isActive ? 'bg-primary-light text-white' : 'hover:bg-gray-200 text';
   return (
     <div className={`w-full mb-2 h-10 pl-3 cursor-pointer 
-    rounded-md flex items-center pl-3] ${activeClass}`}
+    rounded-md flex items-center ${activeClass}`}
     onClick={() => handleNavigation(href)}>
       <div className='w-5 h-5 inline-block'>{icon}</div>
       <span className='inline-block ml-2'>{label}</span>

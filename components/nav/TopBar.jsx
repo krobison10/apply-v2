@@ -4,7 +4,7 @@ import CreateModal from '@/components/CreateModal';
 
 import React from 'react';
 import Link from 'next/link';
-import {Button, Avatar} from '@mui/material';
+import {Avatar} from '@mui/material';
 
 /**
  *
@@ -20,8 +20,6 @@ function TopBar() {
 
       <div className='flex items-center'>
         <CreateModal />
-
-        <Button variant='contained' className='mx-4' color='success'>Create</Button>
 
         <Avatar className='mr-4 cursor-pointer'>KR</Avatar>
 
