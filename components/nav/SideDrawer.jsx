@@ -1,14 +1,17 @@
 'use client';
 
+import {
+  HomeIcon,
+  UserGroupIcon,
+  Bars3CenterLeftIcon,
+  ChatBubbleBottomCenterIcon,
+  Cog6ToothIcon,
+} from '@heroicons/react/24/solid';
+
 import React from 'react';
 import PropTypes from 'prop-types';
-import Link from 'next/link';
-import {usePathname} from 'next/navigation';
-import {HouseDoorFill} from 'react-bootstrap-icons';
-import {JournalText} from 'react-bootstrap-icons';
-import {PersonLinesFill} from 'react-bootstrap-icons';
-import {MenuUp} from 'react-bootstrap-icons';
-import {GearFill} from 'react-bootstrap-icons';
+import {usePathname, useRouter} from 'next/navigation';
+
 
 /**
  * Component representing a navigation item in the sidebar
@@ -16,13 +19,20 @@ import {GearFill} from 'react-bootstrap-icons';
  * @return {React.Component}
  */
 function NavItem({isActive, href, label, icon}) {
+  const router = useRouter();
+
+  const handleNavigation = (path) => {
+    router.push(path);
+  };
+
+  const activeClass = isActive ? 'bg-primary-light text-white' : 'hover:bg-gray-200 text';
   return (
-    <li className='mb-2'>
-      <Link href={href} className={isActive ? 'active' : ''}>
-        <div className='inline-block my-auto text-lg mr-2'>{icon}</div>
-        {label}
-      </Link>
-    </li>
+    <div className={`w-full mb-2 h-10 pl-3 cursor-pointer 
+    rounded-md flex items-center pl-3] ${activeClass}`}
+    onClick={() => handleNavigation(href)}>
+      <div className='w-5 h-5 inline-block'>{icon}</div>
+      <span className='inline-block ml-2'>{label}</span>
+    </div>
   );
 }
 
@@ -32,26 +42,23 @@ function NavItem({isActive, href, label, icon}) {
  */
 function SideDrawer() {
   const pathName = usePathname();
-
   return (
-    <nav className='absolute top-0 left-0 h-screen w-64 shadow-md bg-base-200'>
-      <ul className="menu bg-base-200 w-full">
-        {[
-          {icon: <HouseDoorFill/>, label: 'Home', href: '/home'},
-          {icon: <JournalText/>, label: 'Applications', href: '/applications'},
-          {icon: <PersonLinesFill/>, label: 'Interviews', href: '/interviews'},
-          {icon: <MenuUp/>, label: 'Blog', href: '/blog'},
-          {icon: <GearFill/>, label: 'Settings', href: '/settings'},
-        ].map(({icon, label, href}) => (
-          <NavItem
-            key={href}
-            icon={icon}
-            label={label}
-            href={href}
-            isActive={pathName === href}
-          />
-        ))}
-      </ul>
+    <nav className="absolute top-0 left-0 h-screen w-64 p-4">
+      {[
+        {icon: <HomeIcon/>, label: 'Home', href: '/home'},
+        {icon: <Bars3CenterLeftIcon/>, label: 'Applications', href: '/applications'},
+        {icon: <UserGroupIcon/>, label: 'Interviews', href: '/interviews'},
+        {icon: <ChatBubbleBottomCenterIcon/>, label: 'Blog', href: '/blog'},
+        {icon: <Cog6ToothIcon/>, label: 'Settings', href: '/settings'},
+      ].map(({icon, label, href}) => (
+        <NavItem
+          key={href}
+          icon={icon}
+          label={label}
+          href={href}
+          isActive={pathName === href}
+        />
+      ))}
     </nav>
   );
 }

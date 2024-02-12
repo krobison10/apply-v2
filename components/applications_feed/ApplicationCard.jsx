@@ -2,6 +2,16 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+  ArchiveBoxIcon,
+  BuildingOffice2Icon,
+  EllipsisHorizontalIcon,
+  InformationCircleIcon,
+  MapPinIcon,
+  PencilSquareIcon,
+  StarIcon,
+  TrashIcon,
+} from '@heroicons/react/24/solid';
 
 const MAX_DESCRIPTION_LENGTH = 200;
 
@@ -38,9 +48,58 @@ export default function ApplicationCard({data}) {
     children: PropTypes.any,
   };
 
+  function OptionsMenu() {
+    return (
+      // <Menu placement='bottom-end' className='p-1'>
+      //   <MenuHandler>
+      //     <div className="absolute top-2 right-2">
+      //       <IconButton variant='text' className=''>
+      //         <EllipsisHorizontalIcon className="h-6 w-6"/>
+      //       </IconButton>
+      //     </div>
+      //   </MenuHandler>
+      //   <MenuList>
+      //     <MenuItem className='flex items-center h-8'>
+      //       <InformationCircleIcon className='w-5 h-5 inline-block mr-2'/>
+      //     View details
+      //     </MenuItem>
+      //     <hr className="my-1" />
+      //     <MenuItem className='flex items-center h-8'>
+      //       <BuildingOffice2Icon className='w-5 h-5 inline-block mr-2'/>
+      //     Create Interview
+      //     </MenuItem>
+      //     <MenuItem className='flex items-center h-8'>
+      //       <PencilSquareIcon className='w-5 h-5 inline-block mr-2'/>
+      //     Edit
+      //     </MenuItem>
+      //     <MenuItem className='flex items-center h-8' disabled={true}>
+      //       <MapPinIcon className='w-5 h-5 inline-block mr-2'/>
+      //     Pin
+      //     </MenuItem>
+      //     <MenuItem className='flex items-center h-8' disabled={true}>
+      //       <ArchiveBoxIcon className='w-5 h-5 inline-block mr-2'/>
+      //     Archive
+      //     </MenuItem>
+      //     <MenuItem className='flex items-center h-8' disabled={true}>
+      //       <StarIcon className='w-5 h-5 inline-block mr-2'/>
+      //     Favorite
+      //     </MenuItem>
+      //     <hr className="my-1" />
+      //     <MenuItem className='flex items-center h-8 group'>
+      //       <TrashIcon className='w-5 h-5 inline-block mr-2 group-hover:fill-red-700'/>
+      //       <span className='group-hover:text-red-700'>Delete</span>
+      //     </MenuItem>
+      //   </MenuList>
+      // </Menu>
+      <></>
+    );
+  }
+
   return (
-    <div className="rounded shadow-sm m-4 p-3 bg-base-100">
-      <h1 className="font-semibold">{data.title}- {data.name}</h1>
+    <div className="rounded-lg relative shadow-sm m-4 p-3 bg-white">
+      <OptionsMenu />
+
+      <h1 className="font-semibold">{data.title}- {data.company}</h1>
       <ul>
         <li><Field>Status: </Field> {data.status}</li>
         {data.description &&

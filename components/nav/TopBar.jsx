@@ -1,8 +1,10 @@
 'use client';
 
+import CreateModal from '@/components/CreateModal';
+
 import React from 'react';
 import Link from 'next/link';
-import CreateApplicationModal from '@/components/applications/create/CreateApplicationModal';
+import {Button, Avatar} from '@mui/material';
 
 /**
  *
@@ -10,24 +12,20 @@ import CreateApplicationModal from '@/components/applications/create/CreateAppli
  */
 function TopBar() {
   return (
-    <div className='z-10 fixed w-full h-16 shadow-sm flex justify-between items-center bg-base-100'>
+    <div className='z-10 fixed w-full h-16 flex justify-between items-center shadow-md bg-primary'>
 
-      <Link href={'/'} className='font-bold p-2 inline-block my-auto ml-2'>
-        <img src='/Logo.png' style={{width: '100px'}}/>
+      <Link href={'/'} className='font-bold p-2 inline-block my-auto ml-2 mt-2'>
+        <img src='/Logo-white.png' style={{width: '100px'}}/>
       </Link>
 
-      <input type="text" placeholder="Search" className="input input-bordered w-96" />
-
       <div className='flex items-center'>
-        <button className="hidden md:inline-block lg:inline-block btn btn-success"
-          onClick={()=>document.getElementById('create_app_modal').showModal()}>Create Application</button>
-        <CreateApplicationModal id={'create_app_modal'} title={'Create Application'} />
+        <CreateModal />
 
-        <div className="avatar online mx-3">
-          <div className="w-12 mx-auto hover:cursor-pointer bg-neutral text-neutral-content rounded-full">
-            <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-          </div>
-        </div>
+        <Button variant='contained' className='mx-4' color='success'>Create</Button>
+
+        <Avatar className='mr-4 cursor-pointer'>KR</Avatar>
+
+        <div></div>
       </div>
     </div>
   );

@@ -1,54 +1,32 @@
-const config = {
+// https://mui.com/material-ui/integrations/interoperability/#tailwind-css
+/** @type {import('tailwindcss').Config} */
+
+module.exports = {
+  corePlugins: {
+    preflight: false,
+  },
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  daisyui: {
-    themes: [ // https://daisyui.com/docs/themes/
-      'light',
-      'dark',
-      'cupcake',
-      'bumblebee',
-      'emerald',
-      'corporate',
-      'synthwave',
-      'retro',
-      'cyberpunk',
-      'valentine',
-      'halloween',
-      'garden',
-      'forest',
-      'aqua',
-      'lofi',
-      'pastel',
-      'fantasy',
-      'wireframe',
-      'black',
-      'luxury',
-      'dracula',
-      'cmyk',
-      'autumn',
-      'business',
-      'acid',
-      'lemonade',
-      'night',
-      'coffee',
-      'winter',
-      'dim',
-      'nord',
-      'sunset',
-    ],
-  },
+  important: true,
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      colors: {
+        'primary': '#2D6A80',
+        'primary-dark': '#1f4a59',
+        'primary-light': '#578799',
+        'secondary': '#802d6a',
+        'secondary-dark': '#591f4a',
+        'secondary-light': '#995787',
+        'success': '#b9f030',
+        'warning': '#E67A3E',
+        'white': '#FEFEFE',
+        'lightgrey': '#F5F3F3',
+        'blacktext': '#1C1C1C',
       },
     },
   },
-  plugins: [require('daisyui')],
+  plugins: [],
 };
-export default config;

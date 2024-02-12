@@ -1,5 +1,7 @@
-import ApplicationsFeed from '@/components/applications_feed/ApplicationsFeed';
 import React from 'react';
+
+import ApplicationsFeed from '@/components/applications_feed/ApplicationsFeed';
+import InternalPageLayoutV1 from '@/components/InternalPageLayout';
 
 export const metadata = {
   title: 'Apply | Applications',
@@ -9,11 +11,11 @@ export const metadata = {
  * Applications page
  * @return {React.Component}
  */
-export default async function Applications() {
+export default function Applications() {
   return (
-    <main>
+    <InternalPageLayoutV1>
       <ApplicationsFeed/>
-    </main>
+    </InternalPageLayoutV1>
   );
 }
 

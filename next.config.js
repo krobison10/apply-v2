@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  server: {
-  },
+  reactStrictMode: true,
   compiler: {
     styledComponents: false,
   },

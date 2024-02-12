@@ -1,5 +1,7 @@
 import React from 'react';
 
+import InternalPageLayoutV1 from '@/components/InternalPageLayout';
+
 export const metadata = {
   title: 'Apply | Blog',
 };
@@ -10,11 +12,11 @@ export const metadata = {
  */
 export default function Blog() {
   return (
-    <main>
+    <InternalPageLayoutV1>
       <div className='flex items-center justify-center h-screen'>
         <h1>Blog</h1>
       </div>
-    </main>
+    </InternalPageLayoutV1>
   );
 }
 

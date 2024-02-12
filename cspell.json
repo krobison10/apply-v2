@@ -4,6 +4,6 @@
   // Define custom words or patterns to ignore
   "ignoreWords": [],
   "words": [
-    "daisyui"
+    "roboto"
   ]
 }
