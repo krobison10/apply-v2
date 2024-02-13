@@ -76,14 +76,14 @@ const theme = createTheme({
 
 export default function ThemeProviders({children}) {
   return (
-    <AppRouterCacheProvider options={{enableCssLayer: true}}>
-      <ThemeProvider theme={theme}>
-        <StyledEngineProvider injectFirst>
+    <StyledEngineProvider injectFirst>
+      <AppRouterCacheProvider options={{enableCssLayer: true}}>
+        <ThemeProvider theme={theme}>
           <CssBaseline />
           {children}
-        </StyledEngineProvider>
-      </ThemeProvider>
-    </AppRouterCacheProvider>
+        </ThemeProvider>
+      </AppRouterCacheProvider>
+    </StyledEngineProvider>
   );
 }
 

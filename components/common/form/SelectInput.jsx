@@ -2,17 +2,9 @@
 
 import {FormControl, InputLabel, MenuItem, Select} from '@mui/material';
 import React from 'react';
-import {useState} from 'react';
 import PropTypes from 'prop-types';
 
-function SelectInput({className, value, name, label, options, onChange}) {
-  const [formValue, setValue] = useState(value);
-
-  const handleChange = (event) => {
-    setValue(event.target.value);
-    onChange(event);
-  };
-
+function SelectInput({className, value, name, label, options, onChange, ...props}) {
   return (
     <div className={className}>
       <FormControl fullWidth>
@@ -21,10 +13,11 @@ function SelectInput({className, value, name, label, options, onChange}) {
         <Select
           labelId={`${name}-select-label`}
           id={`${name}-select`}
-          value={formValue}
+          value={value}
           label={label}
           className='w-full'
-          onChange={handleChange}
+          onChange={onChange}
+          {...props}
         >
           {options.map((option, index) => (
             <MenuItem key={index} value={option}>{option}</MenuItem>

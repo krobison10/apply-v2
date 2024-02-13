@@ -1,16 +1,15 @@
 'use client';
 
-import {
-  HomeIcon,
-  UserGroupIcon,
-  Bars3CenterLeftIcon,
-  ChatBubbleBottomCenterIcon,
-  Cog6ToothIcon,
-} from '@heroicons/react/24/solid';
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import {usePathname, useRouter} from 'next/navigation';
+
+import HomeIcon from '@mui/icons-material/Home';
+import ArticleIcon from '@mui/icons-material/Article';
+import BusinessIcon from '@mui/icons-material/Business';
+import ChatIcon from '@mui/icons-material/Chat';
+import SettingsIcon from '@mui/icons-material/Settings';
+import {ButtonBase, Typography} from '@mui/material';
 
 
 /**
@@ -25,14 +24,19 @@ function NavItem({isActive, href, label, icon}) {
     router.push(path);
   };
 
-  const activeClass = isActive ? 'bg-primary-light text-white' : 'hover:bg-gray-200 text';
+  const activeClass = isActive ? 'bg-primary-light text-white' : 'hover:bg-gray-200 text-gray-700';
   return (
-    <div className={`w-full mb-2 h-10 pl-3 cursor-pointer 
-    rounded-md flex items-center ${activeClass}`}
+    <ButtonBase className={`w-full mb-2 h-10 pl-3 cursor-pointer 
+    rounded-md ${activeClass}`}
     onClick={() => handleNavigation(href)}>
-      <div className='w-5 h-5 inline-block'>{icon}</div>
-      <span className='inline-block ml-2'>{label}</span>
-    </div>
+      <div className='flex items-center align-center w-full'>
+        <div className='w-5 h-5 inline-block'>
+          {icon}
+        </div>
+        <Typography variant='body1' className='inline-block ml-2 font-bold'>{label}</Typography>
+      </div>
+
+    </ButtonBase>
   );
 }
 
@@ -45,11 +49,11 @@ function SideDrawer() {
   return (
     <nav className="absolute top-0 left-0 h-screen w-64 p-4">
       {[
-        {icon: <HomeIcon/>, label: 'Home', href: '/home'},
-        {icon: <Bars3CenterLeftIcon/>, label: 'Applications', href: '/applications'},
-        {icon: <UserGroupIcon/>, label: 'Interviews', href: '/interviews'},
-        {icon: <ChatBubbleBottomCenterIcon/>, label: 'Blog', href: '/blog'},
-        {icon: <Cog6ToothIcon/>, label: 'Settings', href: '/settings'},
+        {icon: <HomeIcon className='w-full h-full'/>, label: 'Home', href: '/home'},
+        {icon: <ArticleIcon className='w-full h-full'/>, label: 'Applications', href: '/applications'},
+        {icon: <BusinessIcon className='w-full h-full'/>, label: 'Interviews', href: '/interviews'},
+        {icon: <ChatIcon className='w-full h-full'/>, label: 'Blog', href: '/blog'},
+        {icon: <SettingsIcon className='w-full h-full'/>, label: 'Settings', href: '/settings'},
       ].map(({icon, label, href}) => (
         <NavItem
           key={href}

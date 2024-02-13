@@ -1,17 +1,19 @@
 'use client';
 
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {
-  ArchiveBoxIcon,
-  BuildingOffice2Icon,
-  EllipsisHorizontalIcon,
-  InformationCircleIcon,
-  MapPinIcon,
-  PencilSquareIcon,
-  StarIcon,
-  TrashIcon,
-} from '@heroicons/react/24/solid';
+
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import InfoIcon from '@mui/icons-material/Info';
+import EditIcon from '@mui/icons-material/Edit';
+import BusinessIcon from '@mui/icons-material/Business';
+import PushPinIcon from '@mui/icons-material/PushPin';
+import ArchiveIcon from '@mui/icons-material/Archive';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+import DeleteIcon from '@mui/icons-material/Delete';
+
+import {Divider, IconButton, ListItemText, Menu, MenuItem} from '@mui/material';
+import {ContentCut} from '@mui/icons-material';
 
 const MAX_DESCRIPTION_LENGTH = 200;
 
@@ -49,54 +51,91 @@ export default function ApplicationCard({data}) {
   };
 
   function OptionsMenu() {
+    const [anchor, setAnchor] = useState(null);
+    const open = Boolean(anchor);
+
+    const handleClick = (event) => {
+      setAnchor(event.currentTarget);
+    };
+
+    const handleClose = () => {
+      setAnchor(null);
+    };
+
     return (
-      // <Menu placement='bottom-end' className='p-1'>
-      //   <MenuHandler>
-      //     <div className="absolute top-2 right-2">
-      //       <IconButton variant='text' className=''>
-      //         <EllipsisHorizontalIcon className="h-6 w-6"/>
-      //       </IconButton>
-      //     </div>
-      //   </MenuHandler>
-      //   <MenuList>
-      //     <MenuItem className='flex items-center h-8'>
-      //       <InformationCircleIcon className='w-5 h-5 inline-block mr-2'/>
-      //     View details
-      //     </MenuItem>
-      //     <hr className="my-1" />
-      //     <MenuItem className='flex items-center h-8'>
-      //       <BuildingOffice2Icon className='w-5 h-5 inline-block mr-2'/>
-      //     Create Interview
-      //     </MenuItem>
-      //     <MenuItem className='flex items-center h-8'>
-      //       <PencilSquareIcon className='w-5 h-5 inline-block mr-2'/>
-      //     Edit
-      //     </MenuItem>
-      //     <MenuItem className='flex items-center h-8' disabled={true}>
-      //       <MapPinIcon className='w-5 h-5 inline-block mr-2'/>
-      //     Pin
-      //     </MenuItem>
-      //     <MenuItem className='flex items-center h-8' disabled={true}>
-      //       <ArchiveBoxIcon className='w-5 h-5 inline-block mr-2'/>
-      //     Archive
-      //     </MenuItem>
-      //     <MenuItem className='flex items-center h-8' disabled={true}>
-      //       <StarIcon className='w-5 h-5 inline-block mr-2'/>
-      //     Favorite
-      //     </MenuItem>
-      //     <hr className="my-1" />
-      //     <MenuItem className='flex items-center h-8 group'>
-      //       <TrashIcon className='w-5 h-5 inline-block mr-2 group-hover:fill-red-700'/>
-      //       <span className='group-hover:text-red-700'>Delete</span>
-      //     </MenuItem>
-      //   </MenuList>
-      // </Menu>
-      <></>
+      <div>
+        <IconButton
+          aria-label="more"
+          id={`application-${data.id}-options`}
+          aria-controls={open ? 'long-menu' : undefined}
+          aria-expanded={open ? 'true' : undefined}
+          aria-haspopup="true"
+          onClick={handleClick}
+          className='absolute top-2 right-2'
+        >
+          <MoreHorizIcon />
+        </IconButton>
+
+        <Menu
+          id={`application-${data.id}-options-menu`}
+          anchorEl={anchor}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            'aria-labelledby': 'basic-button',
+          }}
+        >
+          <MenuItem onClick={handleClose}>
+            <InfoIcon>
+              <ContentCut fontSize='small' />
+            </InfoIcon>
+            <ListItemText className='ml-2'>View details</ListItemText>
+          </MenuItem>
+          <Divider className='my-1' />
+          <MenuItem onClick={handleClose}>
+            <EditIcon>
+              <ContentCut fontSize='small' />
+            </EditIcon>
+            <ListItemText className='ml-2'>Edit</ListItemText>
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <BusinessIcon>
+              <ContentCut fontSize='small' />
+            </BusinessIcon>
+            <ListItemText className='ml-2'>Create Interview</ListItemText>
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <PushPinIcon>
+              <ContentCut fontSize='small' />
+            </PushPinIcon>
+            <ListItemText className='ml-2'>Pin</ListItemText>
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <ArchiveIcon>
+              <ContentCut fontSize='small' />
+            </ArchiveIcon>
+            <ListItemText className='ml-2'>Archive</ListItemText>
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <StarBorderIcon>
+              <ContentCut fontSize='small' />
+            </StarBorderIcon>
+            <ListItemText className='ml-2'>Favorite</ListItemText>
+          </MenuItem>
+          <Divider className='my-1'/>
+          <MenuItem onClick={handleClose} className='hover:text-red-500'>
+            <DeleteIcon>
+              <ContentCut fontSize='small' />
+            </DeleteIcon>
+            <ListItemText className='ml-2'>Delete</ListItemText>
+          </MenuItem>
+        </Menu>
+      </div>
     );
   }
 
   return (
-    <div className="rounded-lg relative shadow-sm m-4 p-3 bg-white">
+    <div className="rounded-lg relative m-4 p-3 mb-6 shadow-sm bg-white">
       <OptionsMenu />
 
       <h1 className="font-semibold">{data.title}- {data.company}</h1>

@@ -2,6 +2,7 @@
 import SideDrawer from '@/components/nav/SideDrawer';
 import TopBar from '@/components/nav/TopBar';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const metadata = {
   title: 'Apply',
@@ -16,10 +17,10 @@ function InternalPageLayoutV1({children}) {
           <TopBar/>
         </div>
         <div className="flex flex-grow overflow-hidden pt-16">
-          <aside className="h-full fixed w-64 shadow-md">
+          <aside className="h-full fixed w-64 shadow-md bg-[#fcfaf9]">
             <SideDrawer />
           </aside>
-          <div className="flex-grow ml-64 overflow-auto bg-gray-100">
+          <div className="flex-grow ml-64 overflow-auto bg-[#fcfaf9]">
             {children}
           </div>
         </div>
@@ -29,7 +30,7 @@ function InternalPageLayoutV1({children}) {
 }
 
 InternalPageLayoutV1.propTypes = {
-  children: React.ReactNode,
+  children: PropTypes.any,
 };
 
 export default InternalPageLayoutV1;

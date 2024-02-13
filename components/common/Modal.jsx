@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import {IconButton} from '@mui/material';
+import {IconButton, Typography} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 
@@ -15,8 +14,8 @@ export default function Modal({isOpen, title, content, closeModal, maxWidth, ful
         onClick={closeModal}
         sx={{
           position: 'absolute',
-          right: 8,
-          top: 8,
+          right: 12,
+          top: 12,
           color: (theme) => theme.palette.grey[500],
         }}
       >
@@ -31,12 +30,12 @@ export default function Modal({isOpen, title, content, closeModal, maxWidth, ful
       open={isOpen}
       onClose={closeOffFocus ? closeModal : () => {}}
     >
-      <div className='p-3'>
-        <DialogTitle>
-          {title}
+      <div className='p-2'>
+        <div className='p-6 pb-0'>
+          <Typography variant='h4' className='font-medium mb-0'>{title}</Typography>
           <CloseButton />
-        </DialogTitle>
-        <DialogContent>
+        </div>
+        <DialogContent className='pt-0'>
           {content}
         </DialogContent>
       </div>

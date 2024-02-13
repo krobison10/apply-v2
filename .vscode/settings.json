@@ -2,6 +2,15 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
+  "emeraldwalk.runonsave": {
+    "commands": [
+      {
+        "match": ".*",
+        "isAsync": true,
+        "cmd": "rsync -rav --progress --chmod=Dg=rwx,Fo=rw --filter=':- .rsyncignore'  --exclude='.git' --delete -e 'ssh' /Users/kyler/Documents/dev//applyV2/apply-v2-web/ apply-dev:~/web"
+      }
+    ]
+  },
   "eslint.alwaysShowStatus": true,
   "eslint.validate": [
       "javascript",
@@ -22,7 +31,4 @@
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "javascript.preferences.importModuleSpecifier": "non-relative",
   "typescript.tsdk": "node_modules/typescript/lib",
-  "cSpell.words": [
-    "daisyui"
-  ]
 }

@@ -1,7 +1,8 @@
 'use client';
 import React from 'react';
-import {Button} from '@mui/material';
+import {Box, Button, Tab, Tabs, Typography} from '@mui/material';
 import {useState} from 'react';
+import PropTypes from 'prop-types';
 
 import Modal from '@/components/common/Modal';
 import CreateApplicationForm from '@/components/applications/CreateApplicationForm';
@@ -18,9 +19,69 @@ export default function CreateModal() {
     setOpen(false);
   };
 
+  function TabPanel(props) {
+    const {children, value, index, ...other} = props;
+
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`simple-tabpanel-${index}`}
+        aria-labelledby={`simple-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box className='p-3'>
+            <Typography>{children}</Typography>
+          </Box>
+        )}
+      </div>
+    );
+  }
+
+  TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+  };
+
+
+  function CreateModalTabs() {
+    const [tab, setTab] = useState(0);
+
+    const handleChange = (event, newTab) => {
+      setTab(newTab);
+    };
+
+    return (
+      <Box className='w-[640px] mt-2'>
+        <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
+          <Tabs value={tab} onChange={handleChange} aria-label="create-options">
+            <Tab label="Application" />
+            <Tab label="Interview" />
+            <Tab label="Goal"/>
+          </Tabs>
+        </Box>
+        <TabPanel value={tab} index={0}>
+          <CreateApplicationForm closeModal={closeModal}/>
+        </TabPanel>
+        <TabPanel value={tab} index={1}>
+          <div className='h-[800px]'>
+
+          </div>
+        </TabPanel>
+        <TabPanel value={tab} index={2}>
+          <div className='h-[800px]'>
+
+          </div>
+        </TabPanel>
+      </Box>
+    );
+  }
+
   function CreateModalContent() {
     return (
-      <CreateApplicationForm/>
+      <CreateModalTabs/>
     );
   }
 
@@ -29,11 +90,11 @@ export default function CreateModal() {
       <Button variant='contained' className='mx-4' color='success' onClick={() => openModal()}>Create</Button>
       <Modal
         isOpen={open}
-        title='Create Application'
+        title='Create'
         content={<CreateModalContent/>}
         closeModal={closeModal}
-        maxWidth='sm'
-        fullWidth={true}
+        maxWidth='md'
+        fullWidth={false}
         closeOffFocus={false}/>
     </>
   );

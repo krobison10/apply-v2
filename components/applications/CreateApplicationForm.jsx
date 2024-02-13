@@ -1,76 +1,81 @@
 'use client';
 import React, {useState} from 'react';
-import {Button, FormControl, InputAdornment, InputLabel, OutlinedInput, TextField} from '@mui/material';
+import PropTypes from 'prop-types';
+import {Button, TextField} from '@mui/material';
+import {useApi} from '@/hooks/queries/useApi';
 
 import SelectInput from '@/components/common/form/SelectInput';
 
-export default function CreateApplicationForm() {
+// See: https://www.freecodecamp.org/news/how-to-build-forms-in-react/
+export default function CreateApplicationForm({closeModal}) {
   const [formValues, setFormValues] = useState({
-    status: 'Not Submitted',
     title: '',
-    description: '',
-    field: '',
-    position: '',
-    wage: '',
     company: '',
-    industry: '',
-    website: '',
-    phone: '',
+    status: 'Not Submitted',
+    description: '',
   });
 
-  const handleChange = (e) => {
-    const {id, value} = e.target;
-    // Using id as the key to update the corresponding value in the state
-    setFormValues((prevState) => ({
-      ...prevState,
-      [id]: value,
-    }));
-  };
+  const [response, isLoading, error, clearError, createApplication] = useApi('POST', '/applications');
+
+  if (response) {
+    closeModal();
+    window.location.reload();
+  }
+
+  if (error) {
+    window.alert('Error creating application');
+    clearError();
+  }
+
+  function handleChange(event, field) {
+    setFormValues({...formValues, [field]: event.target.value});
+  }
 
   function submitForm(e) {
     e.preventDefault();
     console.log(formValues);
+    const data = {...formValues};
+    data.status = data.status.toLowerCase();
+    createApplication(data);
   }
 
   return (
-    <div className='pt-2'>
+    <div className='pt-2 w-full'>
       <div>
         <TextField
           id="job-title-input"
           label="Position"
           variant="outlined"
-          className='w-96'
+          className='w-full'
           value={formValues.title || ''}
-          onChange={handleChange} />
+          onChange={(event) => handleChange(event, 'title')} />
 
         <TextField
           id="company-input"
           label="Company"
           variant="outlined"
-          className='w-96 mt-4'
+          className='w-full mt-6'
           value={formValues.company || ''}
-          onChange={handleChange} />
+          onChange={(event) => handleChange(event, 'company')} />
 
         <SelectInput
-          className='w-40 mt-4'
+          className='w-40 mt-8'
           name='status'
           label="Status"
+          defaultValue='Not Submitted'
           options={['Not Submitted', 'Submitted', 'Ignored', 'Responded', 'Interviewing', 'Offered', 'Rejected', 'Accepted']}
           value={formValues.status || ''}
-          onChange={handleChange}
-        />
+          onChange={(event) => handleChange(event, 'status')} />
 
         <TextField
           id="description-input"
           label="Description"
-          placeholder="Description"
           multiline
-          className='w-full mt-4'
+          className='w-full mt-8'
           value={formValues.description || ''}
-          onChange={handleChange}
-        />
+          onChange={(event) => handleChange(event, 'description')} />
 
-        <TextField
+        {/* <TextField
           id="field-input"
           label="Field"
           variant="outlined"
@@ -122,7 +127,7 @@ export default function CreateApplicationForm() {
           variant="outlined"
           className='w-96 mt-4'
           value={formValues.phone || ''}
-          onChange={handleChange}/>
+          onChange={handleChange}/> */}
 
       </div>
 
@@ -131,10 +136,16 @@ export default function CreateApplicationForm() {
           onClick={submitForm}
           variant='contained'
           color='success'
-          className='mx-auto'>
+          className='mx-auto'
+          size='large'
+          disabled={isLoading}>
             Create Application
         </Button>
       </div>
     </div>
   );
 }
+
+CreateApplicationForm.propTypes = {
+  closeModal: PropTypes.func,
+};

@@ -3,7 +3,7 @@
 import React from 'react';
 
 import {useEffect, useState} from 'react';
-import {BASE_API_URL} from '../../app/app.config';
+import {BASE_API_URL} from '@/app/app.config';
 import ApplicationCard from './ApplicationCard';
 
 /**
@@ -26,7 +26,7 @@ export default function ApplicationsFeed() {
   }, []);
 
   return (
-    <div>
+    <div className='p-4'>
       {appData.length === 0 && <h1>Loading...</h1>}
       {appData.length !== 0 &&
         appData.map((application) => (
