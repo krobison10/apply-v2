@@ -3,9 +3,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ApplicationsCardMenu from '@/components/applications_feed/ApplicationCardMenu';
+import {Chip, Divider, Stack, Typography} from '@mui/material';
+import ArticleIcon from '@mui/icons-material/Article';
 
 
-const MAX_DESCRIPTION_LENGTH = 200;
+// const MAX_DESCRIPTION_LENGTH = 200;
 
 /**
  * Application card component for the ApplicationsFeed
@@ -18,13 +20,13 @@ export default function ApplicationCard({data}) {
    * @param {string} description
    * @return {string}
    */
-  function displayDescription(description) {
-    if (description.length > MAX_DESCRIPTION_LENGTH) {
-      description = description.slice(0, MAX_DESCRIPTION_LENGTH + 1);
-      description += '...';
-    }
-    return description;
-  }
+  // function displayDescription(description) {
+  //   if (description.length > MAX_DESCRIPTION_LENGTH) {
+  //     description = description.slice(0, MAX_DESCRIPTION_LENGTH + 1);
+  //     description += '...';
+  //   }
+  //   return description;
+  // }
 
   /**
    * Formats a field in the component card
@@ -40,25 +42,86 @@ export default function ApplicationCard({data}) {
     children: PropTypes.any,
   };
 
+  let statusChipColor = 'default';
+  let statusChipVariant = 'filled';
+
+  switch (data.status) {
+    case 'not submitted':
+      statusChipColor = 'default';
+      statusChipVariant = 'outlined';
+      break;
+    case 'submitted':
+      statusChipColor = 'default';
+      statusChipVariant = 'filled';
+      break;
+    case 'interviewing':
+      statusChipColor = 'success';
+      statusChipVariant = 'filled';
+      break;
+    case 'offered':
+      statusChipColor = 'success';
+      statusChipVariant = 'filled';
+      break;
+    case 'rejected':
+      statusChipColor = 'warning';
+      statusChipVariant = 'filled';
+      break;
+    case 'accepted':
+      statusChipColor = 'success';
+      statusChipVariant = 'filled';
+      break;
+    default:
+      statusChipColor = 'default';
+      statusChipVariant = 'filled';
+  }
+
+  const renderDate = () => {
+    return new Date(data.created_at)
+        .toLocaleDateString(
+            'en-US', {
+              weekday: 'short',
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit',
+              timeZoneName: 'short',
+            });
+  };
+
   return (
-    <div className="rounded-lg relative m-4 p-3 mb-6 shadow-sm bg-white">
+    <div className="rounded-lg relative m-4 p-4 mb-6 shadow-sm bg-white">
       <ApplicationsCardMenu aid={data.aid}/>
 
-      <h1 className="font-semibold">{data.title}- {data.company}</h1>
-      <ul>
-        <li><Field>Status: </Field> {data.status}</li>
-        {data.description &&
-        <li>
-          <Field>Description: </Field>
-          {displayDescription(data.description)}
-        </li>}
-        <li>
-          <Field>Created: </Field>{
-            // eslint-disable-next-line max-len
-            new Date(data.created_at).toLocaleDateString('en-US', {weekday: 'short', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZoneName: 'short'})
-          }
-        </li>
-      </ul>
+      {/* Top row */}
+      <div style={{width: 'calc(100% - 3rem)'}} className='flex items-center -mr-20'>
+        <ArticleIcon className="text-primary inline-block w-10 h-10"/>
+        <Typography variant="h6" className="ml-1 font-semibold inline-block">{data.title}</Typography>
+        <Divider orientation="vertical" variant="middle" className='ml-2 mr-1 text-primary' flexItem />
+        <Typography variant="h6" className="ml-1 font-semibold inline-block">{data.company}</Typography>
+      </div>
+
+      {/* Second row */}
+      <Stack direction="row" className='mt-2' spacing={1}>
+        <Chip size='small' label={data.status} color={statusChipColor} variant={statusChipVariant} />
+        {/* Interviews will go here */}
+      </Stack>
+
+      {/* Third row */}
+      <div className='w-full'>
+        <Typography variant="body2" className="mt-2">
+          <span className='font-semibold'>{data.description?.length > 0 ? 'Description: ' : ''}</span>
+          {data.description}
+        </Typography>
+      </div>
+
+      {/* Fourth row */}
+      <div className='w-full'>
+        <Typography variant="body2" className="mt-2 text-bold">
+          <span className='font-semibold'>Created: </span>
+          {renderDate()}
+        </Typography>
+      </div>
     </div>
   );
 }
