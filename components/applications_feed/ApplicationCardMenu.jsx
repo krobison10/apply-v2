@@ -15,12 +15,14 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import {Divider, IconButton, ListItemText, Menu, MenuItem} from '@mui/material';
 import {ContentCut} from '@mui/icons-material';
 import {useApi} from '@/hooks/queries/useApi';
+import {useConfirm} from 'material-ui-confirm';
 
 function ApplicationCardMenu({aid}) {
   const [anchor, setAnchor] = useState(null);
 
   // eslint-disable-next-line no-unused-vars
   const [data, isLoading, error, clearError, deleteApplication] = useApi('DELETE', `/applications?aid=${aid}`);
+  const confirmDelete = useConfirm();
 
   const open = Boolean(anchor);
 
@@ -36,8 +38,21 @@ function ApplicationCardMenu({aid}) {
   };
 
   const handleDelete = () => {
-    deleteApplication();
-    handleClose();
+    // https://github.com/jonatanklosko/material-ui-confirm
+    confirmDelete({
+      title: 'Delete application',
+      description: 'Are you sure you want to delete this application? This action cannot be undone.',
+      confirmationText: 'Delete',
+      cancellationTest: 'Cancel',
+      confirmationButtonProps: {variant: 'contained', color: 'error'},
+      cancellationButtonProps: {variant: 'outlined'},
+      allowClose: true,
+      dialogProps: {maxWidth: 'xs'},
+    })
+        .then(() => {
+          deleteApplication();
+          handleClose();
+        });
   };
 
   const handleClose = () => {
