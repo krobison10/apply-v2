@@ -90,7 +90,7 @@ export default function ApplicationCard({data}) {
   };
 
   return (
-    <div className="rounded-lg relative m-4 p-4 mb-6 shadow-sm bg-white">
+    <div className="rounded-lg relative p-4 mb-4 shadow-sm bg-white">
       <ApplicationsCardMenu aid={data.aid}/>
 
       {/* Top row */}

@@ -26,7 +26,7 @@ export default function ApplicationsFeed() {
   }, []);
 
   return (
-    <div className='p-4'>
+    <div className='py-4 px-8'>
       {appData.length === 0 && <h1>Loading...</h1>}
       {appData.length !== 0 &&
         appData.map((application) => (
