@@ -24,6 +24,7 @@ export default function CreateApplicationForm({closeModal}) {
   if (response) {
     closeModal();
     alert.success('Application created successfully');
+    window.location.reload();
   }
 
 
