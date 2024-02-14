@@ -1,11 +1,13 @@
 
 import {BASE_API_URL} from '@/app/app.config';
 import {useState} from 'react';
+import useAlert from '@/hooks/useAlert';
 
 export const useApi = (method, url) => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const alert = useAlert();
 
   const clearError = () => {
     setError(null);
@@ -23,12 +25,14 @@ export const useApi = (method, url) => {
         body: JSON.stringify(body),
       });
       if (!response.ok) {
-        throw new Error('Error making API call');
+        const errorBody = await response.json();
+        throw new Error(`${errorBody.error} - ${errorBody.message}`);
       }
       const result = await response.json();
       setData(result);
     } catch (error) {
       setError(error.message);
+      alert.error('Error: ' + error.message);
     } finally {
       setIsLoading(false);
     }

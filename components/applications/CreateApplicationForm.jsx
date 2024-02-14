@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {Button, TextField} from '@mui/material';
 import {useApi} from '@/hooks/queries/useApi';
+import useAlert from '@/hooks/useAlert';
 
 import SelectInput from '@/components/common/form/SelectInput';
 
@@ -15,17 +16,16 @@ export default function CreateApplicationForm({closeModal}) {
     description: '',
   });
 
+  const alert = useAlert();
+
+  // eslint-disable-next-line no-unused-vars
   const [response, isLoading, error, clearError, createApplication] = useApi('POST', '/applications');
 
   if (response) {
     closeModal();
-    window.location.reload();
+    alert.success('Application created successfully');
   }
 
-  if (error) {
-    window.alert('Error creating application');
-    clearError();
-  }
 
   function handleChange(event, field) {
     setFormValues({...formValues, [field]: event.target.value});
@@ -33,7 +33,6 @@ export default function CreateApplicationForm({closeModal}) {
 
   function submitForm(e) {
     e.preventDefault();
-    console.log(formValues);
     const data = {...formValues};
     data.status = data.status.toLowerCase();
     createApplication(data);
@@ -138,7 +137,8 @@ export default function CreateApplicationForm({closeModal}) {
           color='success'
           className='mx-auto'
           size='large'
-          disabled={isLoading}>
+          // disabled={isLoading}
+        >
             Create Application
         </Button>
       </div>

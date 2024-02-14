@@ -3,6 +3,7 @@ import SideDrawer from '@/components/nav/SideDrawer';
 import TopBar from '@/components/nav/TopBar';
 import React from 'react';
 import PropTypes from 'prop-types';
+import AlertComponent from '@/components/alertComponent';
 
 export const metadata = {
   title: 'Apply',
@@ -11,7 +12,8 @@ export const metadata = {
 
 function InternalPageLayoutV1({children}) {
   return (
-    <>
+    <div>
+      <AlertComponent />
       <div className="h-screen w-full flex flex-col">
         <div className="fixed top-0 w-full z-10 ">
           <TopBar/>
@@ -25,7 +27,7 @@ function InternalPageLayoutV1({children}) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
