@@ -4,6 +4,7 @@
   // Define custom words or patterns to ignore
   "ignoreWords": [],
   "words": [
+    "Dont",
     "Horiz",
     "labelledby",
     "nextjs",

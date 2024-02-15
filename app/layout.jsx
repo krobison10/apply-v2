@@ -4,6 +4,7 @@ import ThemeProviders from '@/components/providers/themeProviders';
 import GlobalProviders from '@/components/providers/globalProviders';
 import React from 'react';
 import PropTypes from 'prop-types';
+import AlertComponent from '@/components/alertComponent';
 
 export const metadata = {
   title: 'Apply',
@@ -16,6 +17,7 @@ export default function RootLayout({children}) {
       <body>
         <ThemeProviders>
           <GlobalProviders>
+            <AlertComponent />
             {children}
           </GlobalProviders>
         </ThemeProviders>

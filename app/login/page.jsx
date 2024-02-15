@@ -1,21 +1,20 @@
 import React from 'react';
 
-import InternalPageLayoutV1 from '@/components/layouts/InternalPageLayout';
+import ExternalPageLayoutV1 from '@/components/layouts/externalPageLayout';
+import Login from '@/components/auth/login';
 
 export const metadata = {
   title: 'Apply | Log In',
 };
 
 /**
- * Interviews page
+ * Login page
  * @return {React.Component}
  */
-export default function Interviews() {
+export default function LoginPage() {
   return (
-    <InternalPageLayoutV1>
-      <div className='flex items-center justify-center h-screen'>
-        <h1>Interviews</h1>
-      </div>
-    </InternalPageLayoutV1>
+    <ExternalPageLayoutV1>
+      <Login />
+    </ExternalPageLayoutV1>
   );
 }
