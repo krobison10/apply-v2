@@ -108,7 +108,7 @@ export default function AvatarMenu() {
           <div className='flex ml-[6px] justify-center'> {/* This might be redundant unless you have specific styling needs */}
             <Avatar />
           </div>
-          <div className='mx-[4px]'> {/* Keep as inline-block or adjust as needed */}
+          <div className='mx-[2px]'> {/* Keep as inline-block or adjust as needed */}
             <Typography variant='body1'>
               {user?.firstname} {user?.lastname}
             </Typography>
