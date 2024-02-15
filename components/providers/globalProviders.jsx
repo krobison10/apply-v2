@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {AlertProvider} from '@/context/alertContext';
 import {ConfirmProvider} from 'material-ui-confirm';
 
-export default function Providers({children}) {
+export default function GlobalProviders({children}) {
   return (
     <AlertProvider>
       <ConfirmProvider>
@@ -14,6 +14,6 @@ export default function Providers({children}) {
   );
 }
 
-Providers.propTypes = {
+GlobalProviders.propTypes = {
   children: PropTypes.node.isRequired,
 };

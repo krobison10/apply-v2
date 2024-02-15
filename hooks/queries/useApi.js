@@ -1,5 +1,5 @@
 
-import {BASE_API_URL} from '@/app/app.config';
+import {BASE_API_URL} from '@/app.config';
 import {useState} from 'react';
 import useAlert from '@/hooks/useAlert';
 

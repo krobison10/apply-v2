@@ -2,34 +2,27 @@
 
 import React from 'react';
 
-import {useEffect, useState} from 'react';
-import {BASE_API_URL} from '@/app/app.config';
+import {useEffect} from 'react';
 import ApplicationCard from './ApplicationCard';
+import {useApi} from '@/hooks/queries/useApi';
 
 /**
  * Infinite scroll (soon) feed for the applications
  * @return {React.Component}
  */
 export default function ApplicationsFeed() {
-  const [appData, setAppData] = useState([]);
+  // eslint-disable-next-line no-unused-vars
+  const [data, isLoading, error, setError, getApplications] = useApi('GET', 'applications?expand=true');
 
   useEffect(() => {
-    fetch(`${BASE_API_URL}applications?expand=true`)
-        .then(async (response) => await response.json())
-        .then((res) => {
-          console.log(res);
-          setAppData(res.results);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    getApplications();
   }, []);
 
   return (
     <div className='py-4 px-8'>
-      {appData.length === 0 && <h1>Loading...</h1>}
-      {appData.length !== 0 &&
-        appData.map((application) => (
+      {isLoading && <h1>Loading...</h1>}
+      {data && data.results &&
+        data.results.map((application) => (
           <ApplicationCard key={application.id} data={application} />
         ))}
     </div>

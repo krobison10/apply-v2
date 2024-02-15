@@ -3,7 +3,7 @@ import React from 'react';
 import InternalPageLayoutV1 from '@/components/layouts/InternalPageLayout';
 
 export const metadata = {
-  title: 'Apply | Interviews',
+  title: 'Apply | Log In',
 };
 
 /**
@@ -19,4 +19,3 @@ export default function Interviews() {
     </InternalPageLayoutV1>
   );
 }
-

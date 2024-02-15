@@ -1,7 +1,7 @@
 // Internal modules
-import './global.css';
-import ThemeProviders from '@/app/theme_providers';
-import Providers from '@/app/providers';
+import '@/styles/global.css';
+import ThemeProviders from '@/components/providers/themeProviders';
+import GlobalProviders from '@/components/providers/globalProviders';
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -15,9 +15,9 @@ export default function RootLayout({children}) {
     <html lang="en">
       <body>
         <ThemeProviders>
-          <Providers>
+          <GlobalProviders>
             {children}
-          </Providers>
+          </GlobalProviders>
         </ThemeProviders>
       </body>
     </html>

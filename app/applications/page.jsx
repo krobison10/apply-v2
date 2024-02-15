@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ApplicationsFeed from '@/components/applications_feed/ApplicationsFeed';
-import InternalPageLayoutV1 from '@/components/InternalPageLayout';
+import InternalPageLayoutV1 from '@/components/layouts/InternalPageLayout';
 
 export const metadata = {
   title: 'Apply | Applications',

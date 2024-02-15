@@ -1,6 +1,6 @@
 import React from 'react';
 
-import InternalPageLayoutV1 from '@/components/InternalPageLayout';
+import InternalPageLayoutV1 from '@/components/layouts/InternalPageLayout';
 
 export const metadata = {
   title: 'Apply | Settings',
