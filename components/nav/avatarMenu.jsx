@@ -8,14 +8,18 @@ import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-
 import {useApi} from '@/hooks/queries/useApi';
+import UserContext from '@/context/userContext';
+import {useContext} from 'react';
+import {Divider, Typography} from '@mui/material';
 
 
 export default function AvatarMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   // eslint-disable-next-line no-unused-vars
   const [logoutResponse, logoutLoading, logoutError, clearLogoutError, callLogout] = useApi('POST', 'logout');
+
+  const {user} = useContext(UserContext);
 
   const open = Boolean(anchorEl);
 
@@ -35,6 +39,17 @@ export default function AvatarMenu() {
     window.location.href = '/login';
   }
 
+  let userCharacters = '';
+  if (user?.firstname) {
+    userCharacters += user.firstname.charAt(0);
+  }
+  if (user?.lastname) {
+    userCharacters += user.lastname.charAt(0);
+  }
+  if (userCharacters === '' && user?.email) {
+    userCharacters = user.email.charAt(0);
+  }
+
   function renderIcon() {
     return (
       <Tooltip title="Account">
@@ -46,7 +61,7 @@ export default function AvatarMenu() {
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
         >
-          <Avatar sx={{width: 40, height: 40}}>KR</Avatar>
+          <Avatar sx={{width: 40, height: 40}}>{userCharacters}</Avatar>
         </IconButton>
       </Tooltip>
     );
@@ -89,6 +104,20 @@ export default function AvatarMenu() {
         transformOrigin={{horizontal: 'right', vertical: 'top'}}
         anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
       >
+        <div className='px-2 flex items-center mb-2'> {/* Use flex and items-center here */}
+          <div className='flex ml-[6px] justify-center'> {/* This might be redundant unless you have specific styling needs */}
+            <Avatar />
+          </div>
+          <div className='mx-[4px]'> {/* Keep as inline-block or adjust as needed */}
+            <Typography variant='body1'>
+              {user?.firstname} {user?.lastname}
+            </Typography>
+            <Typography variant='body2'>
+              {user?.email}
+            </Typography>
+          </div>
+        </div>
+        <Divider />
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <PersonAdd fontSize="small" />
