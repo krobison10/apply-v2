@@ -87,7 +87,7 @@ export default function CreateModal() {
 
   return (
     <>
-      <Button variant='contained' className='mx-4' color='success' onClick={() => openModal()}>Create</Button>
+      <Button variant='contained' className='mx-2' color='success' onClick={() => openModal()}>Create</Button>
       <Modal
         isOpen={open}
         title='Create'

@@ -4,8 +4,7 @@ import CreateModal from '@/components/CreateModal';
 
 import React from 'react';
 import Link from 'next/link';
-import {Avatar} from '@mui/material';
-
+import AvatarMenu from '@/components/nav/avatarMenu';
 /**
  *
  * @return {React.Component}
@@ -21,8 +20,7 @@ function TopBar() {
       <div className='flex items-center'>
         <CreateModal />
 
-        <Avatar className='mr-4 cursor-pointer'>KR</Avatar>
-
+        <AvatarMenu />
         <div></div>
       </div>
     </div>
