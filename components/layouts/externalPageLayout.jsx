@@ -8,9 +8,17 @@ export const metadata = {
 
 function ExternalPageLayoutV1({children}) {
   return (
-    <>
-      {children}
-    </>
+    <div className="flex flex-col min-h-screen">
+      <header className='h-16 w-full flex items-center'>
+        <img src='/Logo.png' className='w-[100px] ml-4'/>
+      </header>
+
+      <main className="flex-grow">{children}</main>
+
+      <footer className="h-16 w-full flex items-center justify-center">
+        © 2024 Made with ❤️ by Kyler Robison
+      </footer>
+    </div>
   );
 }
 

@@ -1,6 +1,6 @@
 'use client';
 
-import {FormControl, FormHelperText, IconButton, InputAdornment, InputLabel, OutlinedInput, Paper, TextField} from '@mui/material';
+import {FormControl, FormHelperText, IconButton, InputAdornment, InputLabel, OutlinedInput, Paper, TextField, Typography} from '@mui/material';
 import React, {useState} from 'react';
 import {useApi} from '@/hooks/queries/useApi';
 import {Visibility, VisibilityOff} from '@mui/icons-material';
@@ -143,9 +143,8 @@ export default function Login() {
     <div>
       <Paper
         variant='outlined'
-        className='fixed top-[220px] left-1/2 transform -translate-x-1/2
-            w-[520px] p-8 pb-14'>
-        <h1 className='mt-0 text-center'>Log into App.ly </h1>
+        className='my-[220px] mx-auto w-[520px] p-8 pb-14'>
+        <Typography variant='h4' className='mt-0 text-center font-semibold'>Log into App.ly</Typography>
         {renderForm()}
       </Paper>
     </div>
