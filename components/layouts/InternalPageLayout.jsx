@@ -1,9 +1,10 @@
 // Internal modules
 import SideDrawer from '@/components/nav/SideDrawer';
 import TopBar from '@/components/nav/TopBar';
-import React from 'react';
+import React, {Suspense} from 'react';
 import PropTypes from 'prop-types';
 import InternalProviders from '@/components/providers/internalProviders';
+import LoadingSpinner from '@/components/common/loadingSpinner';
 
 export const metadata = {
   title: 'Apply',
@@ -23,7 +24,9 @@ function InternalPageLayoutV1({children}) {
               <SideDrawer />
             </aside>
             <div className="flex-grow ml-64 overflow-auto bg-[#fcfaf9]">
-              {children}
+              <Suspense fallback={<LoadingSpinner />}>
+                {children}
+              </Suspense>
             </div>
           </div>
         </div>
