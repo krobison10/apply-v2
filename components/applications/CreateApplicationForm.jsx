@@ -1,7 +1,7 @@
 'use client';
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {Button, TextField} from '@mui/material';
+import {Button, FormControl, InputAdornment, InputLabel, OutlinedInput, TextField} from '@mui/material';
 import {useApi} from '@/hooks/queries/useApi';
 
 import SelectInput from '@/components/common/form/SelectInput';
@@ -13,10 +13,22 @@ export default function CreateApplicationForm({closeModal}) {
     company: '',
     status: 'Not Submitted',
     description: '',
+
+    field: '',
+    position: '',
+    wage: null,
+    industry: '',
+    website: '',
+    phone: '',
+
   });
+
+  const extraFieldPopulated = formValues.field || formValues.position || formValues.wage || formValues.industry || formValues.website || formValues.phone;
 
   // eslint-disable-next-line no-unused-vars
   const [response, isLoading, error, clearError, createApplication] = useApi('POST', 'applications');
+
+  const [showExtraFields, setShowExtraFields] = useState(false);
 
   if (response) {
     closeModal();
@@ -32,6 +44,7 @@ export default function CreateApplicationForm({closeModal}) {
     e.preventDefault();
     const data = {...formValues};
     data.status = data.status.toLowerCase();
+    data.wage = Number.parseFloat(data.wage || 0);
     createApplication(data);
   }
 
@@ -43,7 +56,7 @@ export default function CreateApplicationForm({closeModal}) {
           label="Position"
           variant="outlined"
           className='w-full'
-          value={formValues.title || ''}
+          value={formValues.title}
           onChange={(event) => handleChange(event, 'title')} />
 
         <TextField
@@ -51,79 +64,92 @@ export default function CreateApplicationForm({closeModal}) {
           label="Company"
           variant="outlined"
           className='w-full mt-6'
-          value={formValues.company || ''}
+          value={formValues.company}
           onChange={(event) => handleChange(event, 'company')} />
 
         <SelectInput
-          className='w-40 mt-8'
+          className='w-40 mt-6'
           name='status'
           label="Status"
           defaultValue='Not Submitted'
           options={['Not Submitted', 'Submitted', 'Ignored', 'Responded', 'Interviewing', 'Offered', 'Rejected', 'Accepted']}
-          value={formValues.status || ''}
+          value={formValues.status}
           onChange={(event) => handleChange(event, 'status')} />
 
         <TextField
           id="description-input"
           label="Description"
           multiline
-          className='w-full mt-8'
-          value={formValues.description || ''}
+          className='w-full mt-6'
+          value={formValues.description}
           onChange={(event) => handleChange(event, 'description')} />
 
-        {/* <TextField
-          id="field-input"
-          label="Field"
-          variant="outlined"
-          className='w-96 mt-4'
-          value={formValues.field || ''}
-          onChange={handleChange}/>
 
-        <TextField
-          id="level-input"
-          label="Level"
-          variant="outlined"
-          className='w-96 mt-4'
-          value={formValues.field}
-          onChange={handleChange || ''}/>
+        {/* Extra Fields */}
+        {!extraFieldPopulated &&
+          <Button onClick={() => setShowExtraFields(!showExtraFields)} className='mt-4'>
+            {showExtraFields ? 'Hide' : 'Show'} extra fields
+          </Button>}
 
-        <div>
-          <FormControl fullWidth className='mt-4 w-40'>
-            <InputLabel htmlFor="wage-input">Wage</InputLabel>
-            <OutlinedInput
-              id="wage-input"
-              startAdornment={<InputAdornment position="start">$</InputAdornment>}
-              label="Wage"
-              type='number'
-              value={formValues.wage || 0}
-              onChange={handleChange}
-            />
-          </FormControl>
-        </div>
+        {showExtraFields &&
+        (<>
+          <TextField
+            id="field-input"
+            label="Field"
+            variant="outlined"
+            className='w-full mt-6'
+            value={formValues.field}
+            onChange={(event) => handleChange(event, 'field')}/>
 
-        <TextField
-          id="industry-input"
-          label="Industry"
-          variant="outlined"
-          className='w-96 mt-4'
-          value={formValues.industry || ''}
-          onChange={handleChange} />
+          <TextField
+            id="level-input"
+            label="Level"
+            variant="outlined"
+            className='w-full mt-6'
+            value={formValues.position}
+            onChange={(event) => handleChange(event, 'position')}/>
 
-        <TextField
-          id="company-website-input"
-          label="Company website"
-          variant="outlined"
-          className='w-96 mt-4'
-          value={formValues.website || ''}
-          onChange={handleChange} />
+          <div>
+            <FormControl fullWidth className='mt-6 w-40'>
+              <InputLabel htmlFor="wage-input">Wage</InputLabel>
+              <OutlinedInput
+                id="wage-input"
+                startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                label="Wage"
+                type='number'
+                value={formValues.wage}
+                onChange={(event) => handleChange(event, 'wage')}
+              />
+            </FormControl>
+          </div>
 
-        <TextField
-          id="company-phone-input"
-          label="Company phone"
-          variant="outlined"
-          className='w-96 mt-4'
-          value={formValues.phone || ''}
-          onChange={handleChange}/> */}
+          <TextField
+            id="industry-input"
+            label="Industry"
+            variant="outlined"
+            className='w-full mt-6'
+            value={formValues.industry}
+            onChange={(event) => handleChange(event, 'industry')} />
+
+          <TextField
+            id="company-website-input"
+            label="Company website"
+            variant="outlined"
+            className='w-full mt-6'
+            value={formValues.website}
+            onChange={(event) => handleChange(event, 'website')} />
+
+          <TextField
+            id="company-phone-input"
+            label="Company phone"
+            variant="outlined"
+            className='w-full mt-6'
+            value={formValues.phone}
+            onChange={(event) => handleChange(event, 'phone')}/>
+
+        </>
+
+        )}
 
       </div>
 
