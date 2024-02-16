@@ -21,7 +21,7 @@ function ApplicationCardMenu({aid}) {
   const [anchor, setAnchor] = useState(null);
 
   // eslint-disable-next-line no-unused-vars
-  const [data, isLoading, error, clearError, deleteApplication] = useApi('DELETE', `/applications?aid=${aid}`);
+  const [data, isLoading, error, clearError, deleteApplication] = useApi('DELETE', `applications?aid=${aid}`);
   const confirmDelete = useConfirm();
 
   const open = Boolean(anchor);

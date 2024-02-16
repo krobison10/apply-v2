@@ -14,7 +14,6 @@ export default function ApplicationsFeed() {
   // eslint-disable-next-line no-unused-vars
   const [data, isLoading, error, setError, getApplications] = useApi('GET', 'applications?expand=true');
 
-  // TODO: this api is being called twice every time
   useEffect(() => {
     getApplications();
   }, []);

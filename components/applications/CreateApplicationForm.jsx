@@ -19,7 +19,7 @@ export default function CreateApplicationForm({closeModal}) {
   const alert = useAlert();
 
   // eslint-disable-next-line no-unused-vars
-  const [response, isLoading, error, clearError, createApplication] = useApi('POST', '/applications');
+  const [response, isLoading, error, clearError, createApplication] = useApi('POST', 'applications');
 
   if (response) {
     closeModal();

@@ -104,11 +104,11 @@ export default function AvatarMenu() {
         transformOrigin={{horizontal: 'right', vertical: 'top'}}
         anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
       >
-        <div className='px-2 flex items-center mb-2'> {/* Use flex and items-center here */}
-          <div className='flex ml-[6px] justify-center'> {/* This might be redundant unless you have specific styling needs */}
+        <div className='px-2 flex items-center mb-2'>
+          <div className='flex ml-[6px] justify-center'>
             <Avatar />
           </div>
-          <div className='mx-[2px]'> {/* Keep as inline-block or adjust as needed */}
+          <div className='mx-[2px]'>
             <Typography variant='body1'>
               {user?.firstname} {user?.lastname}
             </Typography>

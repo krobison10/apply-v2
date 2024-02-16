@@ -4,6 +4,7 @@
   // Define custom words or patterns to ignore
   "ignoreWords": [],
   "words": [
+    "bgcolor",
     "Dont",
     "firstname",
     "Horiz",
