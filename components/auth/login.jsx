@@ -1,10 +1,11 @@
 'use client';
 
-import {Button, FormControl, FormHelperText, IconButton, InputAdornment, InputLabel, OutlinedInput, Paper, TextField} from '@mui/material';
+import {FormControl, FormHelperText, IconButton, InputAdornment, InputLabel, OutlinedInput, Paper, TextField} from '@mui/material';
 import React, {useState} from 'react';
 import {useApi} from '@/hooks/queries/useApi';
 import {Visibility, VisibilityOff} from '@mui/icons-material';
 import PropTypes from 'prop-types';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 function PasswordInput({className, value, handleChange, error, helpertext}) {
   const [showPassword, setShowPassword] = useState(false);
@@ -124,7 +125,16 @@ export default function Login() {
           helpertext={formErrors.password}
         />
 
-        <Button variant='contained' size='large' color='primary' className='w-96 mt-8' onClick={handleLogin}> Log In </Button>
+        <LoadingButton
+          loading={isLoading}
+          variant='contained'
+          size='large'
+          color='primary'
+          className='w-96 mt-8'
+          onClick={handleLogin}
+        >
+        Log In
+        </LoadingButton>
       </div>
     );
   }

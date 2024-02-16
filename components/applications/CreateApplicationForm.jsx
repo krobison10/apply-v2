@@ -3,7 +3,6 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {Button, TextField} from '@mui/material';
 import {useApi} from '@/hooks/queries/useApi';
-import useAlert from '@/hooks/useAlert';
 
 import SelectInput from '@/components/common/form/SelectInput';
 
@@ -16,14 +15,11 @@ export default function CreateApplicationForm({closeModal}) {
     description: '',
   });
 
-  const alert = useAlert();
-
   // eslint-disable-next-line no-unused-vars
   const [response, isLoading, error, clearError, createApplication] = useApi('POST', 'applications');
 
   if (response) {
     closeModal();
-    alert.success('Application created successfully');
     window.location.reload();
   }
 

@@ -11,7 +11,9 @@
   "dependencies": {
     "@fontsource/roboto": "^5.0.8",
     "@mui/icons-material": "^5.15.9",
+    "@mui/lab": "^5.0.0-alpha.165",
     "@mui/material": "^5.15.9",
+    "@mui/material-next": "^6.0.0-alpha.123",
     "@mui/material-nextjs": "^5.15.9",
     "@types/node": "^20.11.17",
     "@types/react": "^18.2.55",
