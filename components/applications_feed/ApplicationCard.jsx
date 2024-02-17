@@ -42,6 +42,8 @@ export default function ApplicationCard({data}) {
     children: PropTypes.any,
   };
 
+  const status = data.status.charAt(0).toUpperCase() + data.status.slice(1).toLowerCase();
+
   let statusChipColor = 'default';
   let statusChipVariant = 'filled';
 
@@ -96,22 +98,22 @@ export default function ApplicationCard({data}) {
       {/* Top row */}
       <div style={{width: 'calc(100% - 3rem)'}} className='flex items-center -mr-20'>
         <ArticleIcon className="text-primary inline-block w-10 h-10"/>
-        <Typography variant="h6" className="ml-1 font-semibold inline-block">{data.title}</Typography>
+        <Typography variant="h6" className="ml-1 font-semibold inline-block">{data.position_title}</Typography>
         <Divider orientation="vertical" variant="middle" className='ml-2 mr-1 text-primary' flexItem />
-        <Typography variant="h6" className="ml-1 font-semibold inline-block">{data.company}</Typography>
+        <Typography variant="h6" className="ml-1 font-semibold inline-block">{data.company_name}</Typography>
       </div>
 
       {/* Second row */}
       <Stack direction="row" className='mt-2' spacing={1}>
-        <Chip size='small' label={data.status} color={statusChipColor} variant={statusChipVariant} />
+        <Chip size='small' label={status} color={statusChipColor} variant={statusChipVariant} className='select-none cursor-pointer' />
         {/* Interviews will go here */}
       </Stack>
 
       {/* Third row */}
       <div className='w-full'>
         <Typography variant="body2" className="mt-2">
-          <span className='font-semibold'>{data.description?.length > 0 ? 'Description: ' : ''}</span>
-          {data.description}
+          <span className='font-semibold'>{data.notes?.length > 0 ? 'Notes: ' : ''}</span>
+          {data.notes}
         </Typography>
       </div>
 

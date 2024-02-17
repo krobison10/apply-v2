@@ -9,21 +9,27 @@ import SelectInput from '@/components/common/form/SelectInput';
 // See: https://www.freecodecamp.org/news/how-to-build-forms-in-react/
 export default function CreateApplicationForm({closeModal}) {
   const [formValues, setFormValues] = useState({
-    title: '',
-    company: '',
+    position_title: '',
+    company_name: '',
     status: 'Not Submitted',
-    description: '',
+    notes: '',
+    posting_url: '',
 
-    field: '',
-    position: '',
-    wage: null,
-    industry: '',
-    website: '',
-    phone: '',
-
+    priority: 0,
+    application_date: undefined,
+    position_level: '',
+    position_wage: null,
+    company_industry: '',
+    company_website: '',
+    job_location: '',
+    posting_source: '',
+    job_start: undefined,
   });
 
-  const extraFieldPopulated = formValues.field || formValues.position || formValues.wage || formValues.industry || formValues.website || formValues.phone;
+  const extraFieldPopulated = formValues.application_date || formValues.position_level ||
+  formValues.position_wage || formValues.company_industry || formValues.company_website ||
+  formValues.job_location || formValues.posting_source || formValues.priority ||
+  formValues.job_start;
 
   // eslint-disable-next-line no-unused-vars
   const [response, isLoading, error, clearError, createApplication] = useApi('POST', 'applications');
@@ -44,7 +50,7 @@ export default function CreateApplicationForm({closeModal}) {
     e.preventDefault();
     const data = {...formValues};
     data.status = data.status.toLowerCase();
-    data.wage = Number.parseFloat(data.wage || 0);
+    data.position_wage = Number.parseFloat(data.position_wage || 0);
     createApplication(data);
   }
 
@@ -56,23 +62,23 @@ export default function CreateApplicationForm({closeModal}) {
           label="Position"
           variant="outlined"
           className='w-full'
-          value={formValues.title}
-          onChange={(event) => handleChange(event, 'title')} />
+          value={formValues.position_title}
+          onChange={(event) => handleChange(event, 'position_title')} />
 
         <TextField
           id="company-input"
           label="Company"
           variant="outlined"
           className='w-full mt-6'
-          value={formValues.company}
-          onChange={(event) => handleChange(event, 'company')} />
+          value={formValues.company_name}
+          onChange={(event) => handleChange(event, 'company_name')} />
 
         <SelectInput
           className='w-40 mt-6'
           name='status'
           label="Status"
           defaultValue='Not Submitted'
-          options={['Not Submitted', 'Submitted', 'Ignored', 'Responded', 'Interviewing', 'Offered', 'Rejected', 'Accepted']}
+          options={['Not Submitted', 'Submitted', 'Responded', 'Rejected', 'Interviewing', 'Offer received', 'Withdrawn', 'Closed']}
           value={formValues.status}
           onChange={(event) => handleChange(event, 'status')} />
 
@@ -81,8 +87,16 @@ export default function CreateApplicationForm({closeModal}) {
           label="Description"
           multiline
           className='w-full mt-6'
-          value={formValues.description}
-          onChange={(event) => handleChange(event, 'description')} />
+          value={formValues.notes}
+          onChange={(event) => handleChange(event, 'notes')} />
+
+        <TextField
+          id="posting-url-input"
+          label="Posting Link"
+          variant="outlined"
+          className='w-full mt-6'
+          value={formValues.posting_url}
+          onChange={(event) => handleChange(event, 'posting_url')}/>
 
 
         {/* Extra Fields */}
@@ -93,21 +107,17 @@ export default function CreateApplicationForm({closeModal}) {
 
         {showExtraFields &&
         (<>
-          <TextField
-            id="field-input"
-            label="Field"
-            variant="outlined"
-            className='w-full mt-6'
-            value={formValues.field}
-            onChange={(event) => handleChange(event, 'field')}/>
+          {/* Priority */}
+
+          {/* Application date */}
 
           <TextField
-            id="level-input"
-            label="Level"
+            id="position-level-input"
+            label="Position Level"
             variant="outlined"
             className='w-full mt-6'
-            value={formValues.position}
-            onChange={(event) => handleChange(event, 'position')}/>
+            value={formValues.position_level}
+            onChange={(event) => handleChange(event, 'position_level')}/>
 
           <div>
             <FormControl fullWidth className='mt-6 w-40'>
@@ -117,8 +127,8 @@ export default function CreateApplicationForm({closeModal}) {
                 startAdornment={<InputAdornment position="start">$</InputAdornment>}
                 label="Wage"
                 type='number'
-                value={formValues.wage}
-                onChange={(event) => handleChange(event, 'wage')}
+                value={formValues.position_wage}
+                onChange={(event) => handleChange(event, 'position_wage')}
               />
             </FormControl>
           </div>
@@ -128,25 +138,34 @@ export default function CreateApplicationForm({closeModal}) {
             label="Industry"
             variant="outlined"
             className='w-full mt-6'
-            value={formValues.industry}
-            onChange={(event) => handleChange(event, 'industry')} />
+            value={formValues.company_industry}
+            onChange={(event) => handleChange(event, 'company_industry')} />
 
           <TextField
             id="company-website-input"
             label="Company website"
             variant="outlined"
             className='w-full mt-6'
-            value={formValues.website}
-            onChange={(event) => handleChange(event, 'website')} />
+            value={formValues.company_website}
+            onChange={(event) => handleChange(event, 'company_website')} />
 
           <TextField
-            id="company-phone-input"
-            label="Company phone"
+            id="job-location-input"
+            label="Job Location"
             variant="outlined"
             className='w-full mt-6'
-            value={formValues.phone}
-            onChange={(event) => handleChange(event, 'phone')}/>
+            value={formValues.job_location}
+            onChange={(event) => handleChange(event, 'job_location')} />
 
+          <TextField
+            id="posting-source-input"
+            label="Posting Source"
+            variant="outlined"
+            className='w-full mt-6'
+            value={formValues.posting_source}
+            onChange={(event) => handleChange(event, 'posting_source')} />
+
+          {/* Job Start */}
         </>
 
         )}
