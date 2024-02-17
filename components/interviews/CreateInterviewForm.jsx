@@ -1,7 +1,7 @@
 'use client';
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {Autocomplete, Button, CircularProgress, Divider, TextField, Typography} from '@mui/material';
+import {Autocomplete, Button, CircularProgress, TextField} from '@mui/material';
 import {useApi} from '@/hooks/queries/useApi';
 import {DateTimePicker} from '@mui/x-date-pickers/DateTimePicker';
 

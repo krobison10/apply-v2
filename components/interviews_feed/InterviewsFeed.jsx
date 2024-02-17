@@ -28,7 +28,7 @@ export default function InterviewsFeed() {
         <div className='w-96'>
           <Typography variant='h5' className='font-bold text-center'>No interviews found!</Typography>
           <div className='flex justify-center pt-4'>
-            <CreateModal/>
+            <CreateModal tabIndex={1}/>
           </div>
         </div>
 

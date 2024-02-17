@@ -8,8 +8,33 @@ import Modal from '@/components/common/Modal';
 import CreateApplicationForm from '@/components/applications/CreateApplicationForm';
 import CreateInterviewForm from '@/components/interviews/CreateInterviewForm';
 
+function TabPanel(props) {
+  const {children, value, index, ...other} = props;
 
-const CreateModal = memo(function CreateModal() {
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box className='p-3'>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+const CreateModal = memo(function CreateModal({tabIndex}) {
   const [open, setOpen] = useState(false);
 
   const openModal = () => {
@@ -20,35 +45,8 @@ const CreateModal = memo(function CreateModal() {
     setOpen(false);
   };
 
-  function TabPanel(props) {
-    const {children, value, index, ...other} = props;
-
-    return (
-      <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`simple-tabpanel-${index}`}
-        aria-labelledby={`simple-tab-${index}`}
-        {...other}
-      >
-        {value === index && (
-          <Box className='p-3'>
-            <Typography>{children}</Typography>
-          </Box>
-        )}
-      </div>
-    );
-  }
-
-  TabPanel.propTypes = {
-    children: PropTypes.node,
-    index: PropTypes.number.isRequired,
-    value: PropTypes.number.isRequired,
-  };
-
-
   function CreateModalTabs() {
-    const [tab, setTab] = useState(0);
+    const [tab, setTab] = useState(tabIndex || 0);
 
     const handleChange = (event, newTab) => {
       setTab(newTab);
@@ -98,5 +96,9 @@ const CreateModal = memo(function CreateModal() {
     </>
   );
 });
+
+CreateModal.propTypes = {
+  tabIndex: PropTypes.number,
+};
 
 export default CreateModal;
