@@ -83,8 +83,8 @@ export default function CreateApplicationForm({closeModal}) {
           onChange={(event) => handleChange(event, 'status')} />
 
         <TextField
-          id="description-input"
-          label="Description"
+          id="notes-input"
+          label="Notes"
           multiline
           className='w-full mt-6'
           value={formValues.notes}
