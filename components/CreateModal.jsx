@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 
 import Modal from '@/components/common/Modal';
 import CreateApplicationForm from '@/components/applications/CreateApplicationForm';
+import CreateInterviewForm from '@/components/interviews/CreateInterviewForm';
 
 
 const CreateModal = memo(function CreateModal() {
@@ -66,9 +67,7 @@ const CreateModal = memo(function CreateModal() {
           <CreateApplicationForm closeModal={closeModal}/>
         </TabPanel>
         <TabPanel value={tab} index={1}>
-          <div className='h-[800px]'>
-
-          </div>
+          <CreateInterviewForm closeModal={closeModal}/>
         </TabPanel>
         <TabPanel value={tab} index={2}>
           <div className='h-[800px]'>

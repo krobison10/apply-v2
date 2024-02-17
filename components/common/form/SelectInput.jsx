@@ -9,7 +9,7 @@ function SelectInput({className, value, name, label, options, onChange, ...props
     <div className={className}>
       <FormControl fullWidth>
 
-        <InputLabel id={`${name}-select-label`}>Status</InputLabel>
+        <InputLabel id={`${name}-select-label`}>{label}</InputLabel>
         <Select
           labelId={`${name}-select-label`}
           id={`${name}-select`}

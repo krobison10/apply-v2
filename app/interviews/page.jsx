@@ -1,6 +1,7 @@
 import React from 'react';
 
 import InternalPageLayoutV1 from '@/components/layouts/InternalPageLayout';
+import InterviewsFeed from '@/components/interviews_feed/InterviewsFeed';
 
 export const metadata = {
   title: 'Apply | Interviews',
@@ -13,9 +14,7 @@ export const metadata = {
 export default function Interviews() {
   return (
     <InternalPageLayoutV1>
-      <div className='flex items-center justify-center h-screen'>
-        <h1>Interviews</h1>
-      </div>
+      <InterviewsFeed />
     </InternalPageLayoutV1>
   );
 }
