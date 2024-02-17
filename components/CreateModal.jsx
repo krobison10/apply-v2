@@ -1,14 +1,14 @@
 'use client';
 import React from 'react';
 import {Box, Button, Tab, Tabs, Typography} from '@mui/material';
-import {useState} from 'react';
+import {useState, memo} from 'react';
 import PropTypes from 'prop-types';
 
 import Modal from '@/components/common/Modal';
 import CreateApplicationForm from '@/components/applications/CreateApplicationForm';
 
 
-export default function CreateModal() {
+const CreateModal = memo(function CreateModal() {
   const [open, setOpen] = useState(false);
 
   const openModal = () => {
@@ -98,4 +98,6 @@ export default function CreateModal() {
         closeOffFocus={false}/>
     </>
   );
-}
+});
+
+export default CreateModal;

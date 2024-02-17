@@ -4,6 +4,7 @@ const nextConfig = {
   compiler: {
     styledComponents: false,
   },
+  basePath: '',
 };
 
 module.exports = nextConfig;
