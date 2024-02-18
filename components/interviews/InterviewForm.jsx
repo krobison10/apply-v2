@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 
 import SelectInput from '@/components/common/form/SelectInput';
 
-function SelectApplicationDropdown({edit, aid, onChange}) {
+function SelectApplicationDropdown({aid, onChange}) {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -25,7 +25,7 @@ function SelectApplicationDropdown({edit, aid, onChange}) {
     if (data) {
       setOptions(data.results);
       // Preselect the option based on aid
-      if (edit && aid) {
+      if (aid) {
         const preselectedOption = data.results.find((option) => option.aid === aid);
         setSelectedOption(preselectedOption || null);
       }
@@ -95,7 +95,7 @@ export default function InterviewForm({data, edit, closeModal}) {
   });
 
   useEffect(() => {
-    if (data && edit) {
+    if (data) {
       setFormValues({
         aid: data?.aid || 0,
         date: data?.date || null,
@@ -112,7 +112,7 @@ export default function InterviewForm({data, edit, closeModal}) {
 
   if (createResponse) {
     closeModal();
-    // window.location.reload();
+    window.location.href = '/interviews';
   }
 
 

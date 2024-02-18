@@ -17,6 +17,7 @@ import {ContentCut} from '@mui/icons-material';
 import {useApi} from '@/hooks/queries/useApi';
 import {useConfirm} from 'material-ui-confirm';
 import EditApplicationModal from '@/components/applications/EditApplicationModal';
+import CreateInterviewModal from '@/components/interviews/CreateInterviewModal';
 import useModal from '@/components/providers/modalProvider';
 
 const fontSizeString = 'small';
@@ -98,7 +99,7 @@ function ApplicationCardMenu({aid}) {
           </EditIcon>
           <ListItemText className={menuItemClassName}>Edit</ListItemText>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => showModal(CreateInterviewModal, {aid})}>
           <BusinessIcon>
             <ContentCut fontSize={fontSizeString} />
           </BusinessIcon>
