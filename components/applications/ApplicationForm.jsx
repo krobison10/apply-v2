@@ -70,7 +70,7 @@ export default function ApplicationForm({data, edit, closeModal}) {
 
   if (response) {
     closeModal();
-    window.location.reload();
+    window.location.href = '/applications';
   }
 
   function handleChange(event, field) {
