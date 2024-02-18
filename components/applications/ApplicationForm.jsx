@@ -1,17 +1,22 @@
 'use client';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {Button, FormControl, InputAdornment, InputLabel, OutlinedInput, TextField} from '@mui/material';
 import {useApi} from '@/hooks/queries/useApi';
 
 import SelectInput from '@/components/common/form/SelectInput';
 
+function toUpperCase(str) {
+  if (!str) return '';
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
 // See: https://www.freecodecamp.org/news/how-to-build-forms-in-react/
-export default function CreateApplicationForm({closeModal}) {
+export default function ApplicationForm({data, edit, closeModal}) {
   const [formValues, setFormValues] = useState({
     position_title: '',
     company_name: '',
-    status: 'Not Submitted',
+    status: 'Not submitted',
     notes: '',
     posting_url: '',
 
@@ -26,21 +31,47 @@ export default function CreateApplicationForm({closeModal}) {
     job_start: undefined,
   });
 
+  useEffect(() => {
+    if (data && edit) {
+      setFormValues({
+        position_title: data?.position_title || '',
+        company_name: data?.company_name || '',
+        status: toUpperCase(data?.status) || 'Not submitted',
+        notes: data?.notes || '',
+        posting_url: data?.posting_url || '',
+        priority: data?.priority || 0,
+        application_date: data?.application_date || undefined,
+        position_level: data?.position_level || '',
+        position_wage: data?.position_wage || null,
+        company_industry: data?.company_industry || '',
+        company_website: data?.company_website || '',
+        job_location: data?.job_location || '',
+        posting_source: data?.posting_source || '',
+        job_start: data?.job_start || undefined,
+      });
+    }
+  }, [data]);
+
   const extraFieldPopulated = formValues.application_date || formValues.position_level ||
   formValues.position_wage || formValues.company_industry || formValues.company_website ||
   formValues.job_location || formValues.posting_source || formValues.priority ||
   formValues.job_start;
 
-  // eslint-disable-next-line no-unused-vars
-  const [response, isLoading, error, clearError, createApplication] = useApi('POST', 'applications');
+  useEffect(() => {
+    if (extraFieldPopulated) {
+      setShowExtraFields(true);
+    }
+  }, [extraFieldPopulated]);
 
-  const [showExtraFields, setShowExtraFields] = useState(false);
+  // eslint-disable-next-line no-unused-vars
+  const [response, isLoading, error, clearError, createApplication] = useApi(edit ? 'PUT' : 'POST', `applications${edit ? `?aid=${data?.aid}` : ''}`);
+
+  const [showExtraFields, setShowExtraFields] = useState(extraFieldPopulated);
 
   if (response) {
     closeModal();
     window.location.reload();
   }
-
 
   function handleChange(event, field) {
     setFormValues({...formValues, [field]: event.target.value});
@@ -55,7 +86,7 @@ export default function CreateApplicationForm({closeModal}) {
   }
 
   return (
-    <div className='pt-2 w-full'>
+    <div className='pt-2 w-[600px]'>
       <div>
         <TextField
           id="job-title-input"
@@ -78,7 +109,7 @@ export default function CreateApplicationForm({closeModal}) {
           name='status'
           label="Status"
           defaultValue='Not Submitted'
-          options={['Not Submitted', 'Submitted', 'Responded', 'Rejected', 'Interviewing', 'Offer received', 'Withdrawn', 'Closed']}
+          options={['Not submitted', 'Submitted', 'Responded', 'Rejected', 'Interviewing', 'Offer received', 'Withdrawn', 'Closed']}
           value={formValues.status}
           onChange={(event) => handleChange(event, 'status')} />
 
@@ -181,13 +212,15 @@ export default function CreateApplicationForm({closeModal}) {
           size='large'
           // disabled={isLoading}
         >
-            Create Application
+          {edit ? 'Submit' : 'Create Application'}
         </Button>
       </div>
     </div>
   );
 }
 
-CreateApplicationForm.propTypes = {
+ApplicationForm.propTypes = {
+  data: PropTypes.object,
+  edit: PropTypes.bool,
   closeModal: PropTypes.func,
 };

@@ -100,13 +100,11 @@ export default function CreateInterviewForm({closeModal}) {
     e.preventDefault();
     const data = {...formValues};
     data.date = data.date?.toISOString();
-    console.log(data);
     createInterview(data);
-    console.log(data);
   }
 
   return (
-    <div className='pt-2 w-full'>
+    <div className='pt-2 w-[600px]'>
       <div>
         <SelectApplicationDropdown onChange={(event, newValue) => handleApplicationSelect(event, newValue)}/>
 

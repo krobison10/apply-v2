@@ -1,33 +1,92 @@
 'use client';
-import React, {useState} from 'react';
-import {Button} from '@mui/material';
-import {memo} from 'react';
+import React from 'react';
+import {Box, Tab, Tabs, Typography} from '@mui/material';
+import {useState, memo} from 'react';
 import PropTypes from 'prop-types';
 
-import CreateModalContent from '@/components/CreateModalContent';
+import Modal from '@/components/common/Modal';
+import ApplicationForm from '@/components/applications/ApplicationForm';
+import CreateInterviewForm from '@/components/interviews/CreateInterviewForm';
 
+function TabPanel(props) {
+  const {children, value, index, ...other} = props;
 
-const CreateModal = memo(function CreateModal({tabIndex}) {
-  const [open, setOpen] = useState(false);
-  function openModal() {
-    setOpen(true);
-  }
-  function closeModal() {
-    setOpen(false);
-  }
   return (
-    <>
-      <Button variant='contained' className='mx-2' color='success' onClick={() => openModal()}>Create</Button>
-      <CreateModalContent
-        tabIndex={tabIndex}
-        isOpen={open}
-        closeModal={closeModal} />
-    </>
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box className='p-3'>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function CreateModalTabs({tabIndex, closeModal}) {
+  const [tab, setTab] = useState(tabIndex || 0);
+
+  const handleChange = (event, newTab) => {
+    setTab(newTab);
+  };
+
+  return (
+    <Box>
+      <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
+        <Tabs value={tab} onChange={handleChange} aria-label="create-options">
+          <Tab label="Application" />
+          <Tab label="Interview" />
+          <Tab label="Goal"/>
+        </Tabs>
+      </Box>
+      <TabPanel value={tab} index={0}>
+        <ApplicationForm closeModal={closeModal}/>
+      </TabPanel>
+      <TabPanel value={tab} index={1}>
+        <CreateInterviewForm closeModal={closeModal}/>
+      </TabPanel>
+      <TabPanel value={tab} index={2}>
+        <div className='h-[600px] w-[600px]'>
+
+        </div>
+      </TabPanel>
+    </Box>
+  );
+}
+
+CreateModalTabs.propTypes = {
+  tabIndex: PropTypes.number,
+  closeModal: PropTypes.func,
+};
+
+const CreateModal = memo(function CreateModal({tabIndex, isOpen, closeModal}) {
+  return (
+    <Modal
+      isOpen={isOpen}
+      title='Create'
+      content={<CreateModalTabs tabIndex={tabIndex} closeModal={closeModal} />}
+      closeModal={closeModal}
+      maxWidth='md'
+      fullWidth={false}
+      closeOffFocus={false}/>
   );
 });
 
 CreateModal.propTypes = {
   tabIndex: PropTypes.number,
+  isOpen: PropTypes.bool,
+  closeModal: PropTypes.func,
 };
 
 export default CreateModal;

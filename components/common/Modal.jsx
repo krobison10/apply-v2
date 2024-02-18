@@ -31,7 +31,7 @@ export default function Modal({isOpen, title, content, closeModal, maxWidth, ful
       onClose={closeOffFocus ? closeModal : () => {}}
     >
       <div className='p-2'>
-        <div className='p-6 pb-0'>
+        <div className='m-6'>
           <Typography variant='h4' className='font-medium mb-0'>{title}</Typography>
           <CloseButton />
         </div>

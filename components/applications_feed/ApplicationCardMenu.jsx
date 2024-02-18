@@ -16,9 +16,15 @@ import {Divider, IconButton, ListItemText, Menu, MenuItem} from '@mui/material';
 import {ContentCut} from '@mui/icons-material';
 import {useApi} from '@/hooks/queries/useApi';
 import {useConfirm} from 'material-ui-confirm';
+import EditApplicationModal from '@/components/applications/EditApplicationModal';
+import useModal from '@/components/providers/modalProvider';
+
+const fontSizeString = 'small';
+const menuItemClassName = 'ml-2';
 
 function ApplicationCardMenu({aid}) {
   const [anchor, setAnchor] = useState(null);
+  const {showModal} = useModal();
 
   // eslint-disable-next-line no-unused-vars
   const [data, isLoading, error, clearError, deleteApplication] = useApi('DELETE', `applications?aid=${aid}`);
@@ -29,9 +35,6 @@ function ApplicationCardMenu({aid}) {
   if (data) {
     window.location.reload();
   }
-
-  const fontSizeString = 'small';
-  const menuItemClassName = 'ml-2';
 
   const handleOpenClick = (event) => {
     setAnchor(event.currentTarget);
@@ -89,7 +92,7 @@ function ApplicationCardMenu({aid}) {
           <ListItemText className={menuItemClassName}>View details</ListItemText>
         </MenuItem>
         <Divider className='my-1' />
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => showModal(EditApplicationModal, {aid})}>
           <EditIcon>
             <ContentCut fontSize={fontSizeString} />
           </EditIcon>

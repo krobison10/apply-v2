@@ -6,7 +6,7 @@ import {useEffect} from 'react';
 import InterviewCard from '@/components/interviews_feed/InterviewCard';
 import {useApi} from '@/hooks/queries/useApi';
 import {Typography} from '@mui/material';
-import CreateModal from '@/components/CreateModal';
+import CreateModalButton from '@/components/CreateModalButton';
 import LoadingSpinner from '@/components/common/loadingSpinner';
 
 /**
@@ -28,7 +28,7 @@ export default function InterviewsFeed() {
         <div className='w-96'>
           <Typography variant='h5' className='font-bold text-center'>No interviews found!</Typography>
           <div className='flex justify-center pt-4'>
-            <CreateModal tabIndex={1}/>
+            <CreateModalButton tabIndex={1}/>
           </div>
         </div>
 
