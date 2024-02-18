@@ -2,7 +2,6 @@
 
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import InfoIcon from '@mui/icons-material/Info';
 import EditIcon from '@mui/icons-material/Edit';
@@ -11,14 +10,16 @@ import PushPinIcon from '@mui/icons-material/PushPin';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import DeleteIcon from '@mui/icons-material/Delete';
-
 import {Divider, IconButton, ListItemText, Menu, MenuItem} from '@mui/material';
 import {ContentCut} from '@mui/icons-material';
 import {useApi} from '@/hooks/queries/useApi';
 import {useConfirm} from 'material-ui-confirm';
+import EditInterviewModal from '@/components/interviews/EditInterviewModal';
+import useModal from '@/components/providers/modalProvider';
 
 function InterviewCardMenu({iid}) {
   const [anchor, setAnchor] = useState(null);
+  const {showModal} = useModal();
 
   // eslint-disable-next-line no-unused-vars
   const [data, isLoading, error, clearError, deleteInterview] = useApi('DELETE', `interviews?iid=${iid}`);
@@ -89,7 +90,7 @@ function InterviewCardMenu({iid}) {
           <ListItemText className={menuItemClassName}>View details</ListItemText>
         </MenuItem>
         <Divider className='my-1' />
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => showModal(EditInterviewModal, {iid})}>
           <EditIcon>
             <ContentCut fontSize={fontSizeString} />
           </EditIcon>

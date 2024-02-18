@@ -4,12 +4,15 @@ import PropTypes from 'prop-types';
 import {Autocomplete, Button, CircularProgress, TextField} from '@mui/material';
 import {useApi} from '@/hooks/queries/useApi';
 import {DateTimePicker} from '@mui/x-date-pickers/DateTimePicker';
+import dayjs from 'dayjs';
 
 import SelectInput from '@/components/common/form/SelectInput';
 
-function SelectApplicationDropdown({onChange}) {
+function SelectApplicationDropdown({edit, aid, onChange}) {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState([]);
+  const [selectedOption, setSelectedOption] = useState(null);
+
 
   // eslint-disable-next-line no-unused-vars
   const [data, isLoading, error, setError, getApplications] = useApi('GET', 'applications?expand=true');
@@ -21,8 +24,18 @@ function SelectApplicationDropdown({onChange}) {
   useEffect(() => {
     if (data) {
       setOptions(data.results);
+      // Preselect the option based on aid
+      if (edit && aid) {
+        const preselectedOption = data.results.find((option) => option.aid === aid);
+        setSelectedOption(preselectedOption || null);
+      }
     }
   }, [data]);
+
+  function onSelect(event, newValue) {
+    onChange(event, newValue);
+    setSelectedOption(newValue);
+  }
 
   function applicationText(option) {
     return `${option.position_title} - ${option.company_name}`;
@@ -38,7 +51,8 @@ function SelectApplicationDropdown({onChange}) {
       getOptionLabel={(option) => applicationText(option)}
       options={options}
       loading={isLoading}
-      onChange={onChange}
+      value={selectedOption}
+      onChange={onSelect}
       renderInput={(params) => (
         <TextField
           {...params}
@@ -59,12 +73,18 @@ function SelectApplicationDropdown({onChange}) {
 }
 
 SelectApplicationDropdown.propTypes = {
+  edit: PropTypes.bool,
+  aid: PropTypes.number,
   onChange: PropTypes.func,
 };
 
+function toUpperCase(str) {
+  if (!str) return '';
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
 
 // See: https://www.freecodecamp.org/news/how-to-build-forms-in-react/
-export default function CreateInterviewForm({closeModal}) {
+export default function InterviewForm({data, edit, closeModal}) {
   const [formValues, setFormValues] = useState({
     aid: 0,
     date: null,
@@ -74,12 +94,25 @@ export default function CreateInterviewForm({closeModal}) {
     notes: '',
   });
 
+  useEffect(() => {
+    if (data && edit) {
+      setFormValues({
+        aid: data?.aid || 0,
+        date: data?.date || null,
+        type: data?.type || '',
+        modality: toUpperCase(data?.modality) || 'In person',
+        location: data?.location || '',
+        notes: data?.notes || '',
+      });
+    }
+  }, [data]);
+
   // eslint-disable-next-line no-unused-vars
-  const [createResponse, isLoading, error, clearError, createInterview] = useApi('POST', 'interviews');
+  const [createResponse, isLoading, error, clearError, createInterview] = useApi(edit ? 'PUT' : 'POST', `interviews${edit ? `?iid=${data?.iid}` : ''}`);
 
   if (createResponse) {
     closeModal();
-    window.location.reload();
+    // window.location.reload();
   }
 
 
@@ -98,21 +131,22 @@ export default function CreateInterviewForm({closeModal}) {
 
   function submitForm(e) {
     e.preventDefault();
+    console.log(formValues);
     const data = {...formValues};
-    data.date = data.date?.toISOString();
+    console.log(data);
     createInterview(data);
   }
 
   return (
     <div className='pt-2 w-[600px]'>
       <div>
-        <SelectApplicationDropdown onChange={(event, newValue) => handleApplicationSelect(event, newValue)}/>
+        <SelectApplicationDropdown aid={formValues.aid} edit={edit} onChange={(event, newValue) => handleApplicationSelect(event, newValue)}/>
 
         <DateTimePicker
-          value={formValues.date}
+          value={formValues.date ? dayjs(formValues.date) : null}
           onChange={(newValue) => handleTimeSelect(newValue, 'date')}
           label="Time"
-          className='w-54 mt-6'/>
+          className='w-64 mt-6'/>
 
         <TextField
           id="type-input"
@@ -158,13 +192,15 @@ export default function CreateInterviewForm({closeModal}) {
           size='large'
           // disabled={isLoading}
         >
-            Create interview
+          {edit ? 'Submit' : 'Create interview'}
         </Button>
       </div>
     </div>
   );
 }
 
-CreateInterviewForm.propTypes = {
+InterviewForm.propTypes = {
+  data: PropTypes.object,
+  edit: PropTypes.bool,
   closeModal: PropTypes.func,
 };

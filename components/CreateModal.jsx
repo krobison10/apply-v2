@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import Modal from '@/components/common/Modal';
 import ApplicationForm from '@/components/applications/ApplicationForm';
-import CreateInterviewForm from '@/components/interviews/CreateInterviewForm';
+import InterviewForm from '@/components/interviews/InterviewForm';
 
 function TabPanel(props) {
   const {children, value, index, ...other} = props;
@@ -54,7 +54,7 @@ function CreateModalTabs({tabIndex, closeModal}) {
         <ApplicationForm closeModal={closeModal}/>
       </TabPanel>
       <TabPanel value={tab} index={1}>
-        <CreateInterviewForm closeModal={closeModal}/>
+        <InterviewForm closeModal={closeModal}/>
       </TabPanel>
       <TabPanel value={tab} index={2}>
         <div className='h-[600px] w-[600px]'>
