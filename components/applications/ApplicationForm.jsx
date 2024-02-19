@@ -220,7 +220,7 @@ export default function ApplicationForm({data, edit, closeModal}) {
         <Button
           onClick={submitForm}
           variant='contained'
-          color='success'
+          color='secondary'
           className='mx-auto'
           size='large'
           // disabled={isLoading}
