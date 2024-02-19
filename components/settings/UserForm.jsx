@@ -81,7 +81,7 @@ const UserForm = memo(function UserForm({userData}) {
   const [updateUserResponse, updateUserIsLoading, updateUserError, clearUpdateUserError, updateUser] = useApi('PUT', 'user');
 
   if (updateUserResponse) {
-    window.location.href = '/settings?user';
+    window.location.href = '/settings?profile';
   }
 
 
