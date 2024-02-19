@@ -2,6 +2,7 @@ import React, {memo, useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {Avatar, Button, OutlinedInput, Typography} from '@mui/material';
 import {useApi} from '@/hooks/queries/useApi';
+import {useConfirm} from 'material-ui-confirm';
 
 
 function SettingsInput({label, className, containerStyle, onChange, edit, ...remainingProps}) {
@@ -43,8 +44,8 @@ SettingsInput.propTypes = {
   edit: PropTypes.bool,
 };
 
-const UserForm = memo(function UserForm({userData, closeModal}) {
-  const [edit, setEdit] = useState(false);
+const UserForm = memo(function UserForm({userData}) {
+  // ---------- Form & AutoFill Functionality ----------
   const [formValues, setFormValues] = useState({
     firstname: '',
     lastname: '',
@@ -61,11 +62,20 @@ const UserForm = memo(function UserForm({userData, closeModal}) {
     });
   }
 
+  const [edit, setEdit] = useState(false);
+
   useEffect(() => {
     if (userData) {
       initFormValues();
     }
   }, [userData]);
+
+  function handleFormChange(event, field) {
+    setFormValues({...formValues, [field]: event.target.value});
+  }
+
+
+  // ---------- Update Functionality ----------
 
   // eslint-disable-next-line no-unused-vars
   const [updateUserResponse, updateUserIsLoading, updateUserError, clearUpdateUserError, updateUser] = useApi('PUT', 'user');
@@ -74,9 +84,33 @@ const UserForm = memo(function UserForm({userData, closeModal}) {
     window.location.href = '/settings?user';
   }
 
-  function handleFormChange(event, field) {
-    setFormValues({...formValues, [field]: event.target.value});
+
+  // ---------- Delete Functionality ----------
+  const confirmDelete = useConfirm();
+  // eslint-disable-next-line no-unused-vars
+  const [deleteUserResponse, deleteUserIsLoading, deleteUserError, clearDeleteUserError, deleteUser] = useApi('DELETE', 'user');
+
+  if (deleteUserResponse) {
+    window.location.href = '/login';
   }
+
+  function handleDeleteUser() {
+    // https://github.com/jonatanklosko/material-ui-confirm
+    confirmDelete({
+      title: 'Delete account',
+      description: 'Are you sure you want to delete your account and all data? This action cannot be undone.',
+      confirmationText: 'Delete',
+      cancellationTest: 'Cancel',
+      confirmationButtonProps: {variant: 'contained', color: 'error'},
+      cancellationButtonProps: {variant: 'outlined'},
+      allowClose: true,
+      dialogProps: {maxWidth: 'xs'},
+    })
+        .then(() => {
+          deleteUser();
+        });
+  }
+
 
   return (
     <div className='w-96 p-6'>
@@ -141,7 +175,7 @@ const UserForm = memo(function UserForm({userData, closeModal}) {
       />
 
       <div className='w-full flex mt-8 mb-6'>
-        {edit &&
+        {edit ?
         <>
           <Button
             color='primary'
@@ -160,7 +194,13 @@ const UserForm = memo(function UserForm({userData, closeModal}) {
           >
           Cancel
           </Button>
-        </>
+        </> :
+        <Button
+          variant='outlined'
+          color='error'
+          onClick={() => handleDeleteUser()}>
+            Delete Account
+        </Button>
         }
       </div>
 
