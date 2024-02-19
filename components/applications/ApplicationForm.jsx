@@ -3,6 +3,8 @@ import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {Button, FormControl, InputAdornment, InputLabel, OutlinedInput, TextField} from '@mui/material';
 import {useApi} from '@/hooks/queries/useApi';
+import {DatePicker} from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 
 import SelectInput from '@/components/common/form/SelectInput';
 
@@ -16,19 +18,19 @@ export default function ApplicationForm({data, edit, closeModal}) {
   const [formValues, setFormValues] = useState({
     position_title: '',
     company_name: '',
-    status: 'Not submitted',
-    notes: '',
+    status: 'Submitted',
+    application_date: dayjs(),
     posting_url: '',
+    notes: '',
 
     priority: 0,
-    application_date: undefined,
     position_level: '',
     position_wage: null,
     company_industry: '',
     company_website: '',
     job_location: '',
     posting_source: '',
-    job_start: undefined,
+    job_start: null,
   });
 
   useEffect(() => {
@@ -36,26 +38,26 @@ export default function ApplicationForm({data, edit, closeModal}) {
       setFormValues({
         position_title: data?.position_title || '',
         company_name: data?.company_name || '',
-        status: toUpperCase(data?.status) || 'Not submitted',
-        notes: data?.notes || '',
+        status: toUpperCase(data?.status) || 'Submitted',
+        application_date: data?.application_date || dayjs(),
         posting_url: data?.posting_url || '',
+        notes: data?.notes || '',
+
         priority: data?.priority || 0,
-        application_date: data?.application_date || undefined,
         position_level: data?.position_level || '',
         position_wage: data?.position_wage || null,
         company_industry: data?.company_industry || '',
         company_website: data?.company_website || '',
         job_location: data?.job_location || '',
         posting_source: data?.posting_source || '',
-        job_start: data?.job_start || undefined,
+        job_start: data?.job_start || null,
       });
     }
   }, [data]);
 
-  const extraFieldPopulated = formValues.application_date || formValues.position_level ||
+  const extraFieldPopulated = formValues.priority || formValues.position_level ||
   formValues.position_wage || formValues.company_industry || formValues.company_website ||
-  formValues.job_location || formValues.posting_source || formValues.priority ||
-  formValues.job_start;
+  formValues.job_location || formValues.posting_source || formValues.job_start;
 
   useEffect(() => {
     if (extraFieldPopulated) {
@@ -75,6 +77,10 @@ export default function ApplicationForm({data, edit, closeModal}) {
 
   function handleChange(event, field) {
     setFormValues({...formValues, [field]: event.target.value});
+  }
+
+  function handleTimeSelect(newValue, field) {
+    setFormValues({...formValues, [field]: newValue});
   }
 
   function submitForm(e) {
@@ -113,13 +119,11 @@ export default function ApplicationForm({data, edit, closeModal}) {
           value={formValues.status}
           onChange={(event) => handleChange(event, 'status')} />
 
-        <TextField
-          id="notes-input"
-          label="Notes"
-          multiline
-          className='w-full mt-6'
-          value={formValues.notes}
-          onChange={(event) => handleChange(event, 'notes')} />
+        <DatePicker
+          value={formValues.application_date ? dayjs(formValues.application_date) : null}
+          onChange={(newValue) => handleTimeSelect(newValue, 'application_date')}
+          label="Submit Date"
+          className='w-64 mt-6'/>
 
         <TextField
           id="posting-url-input"
@@ -129,6 +133,13 @@ export default function ApplicationForm({data, edit, closeModal}) {
           value={formValues.posting_url}
           onChange={(event) => handleChange(event, 'posting_url')}/>
 
+        <TextField
+          id="notes-input"
+          label="Notes"
+          multiline
+          className='w-full mt-6'
+          value={formValues.notes}
+          onChange={(event) => handleChange(event, 'notes')} />
 
         {/* Extra Fields */}
         {!extraFieldPopulated &&
@@ -139,8 +150,6 @@ export default function ApplicationForm({data, edit, closeModal}) {
         {showExtraFields &&
         (<>
           {/* Priority */}
-
-          {/* Application date */}
 
           <TextField
             id="position-level-input"
@@ -196,7 +205,11 @@ export default function ApplicationForm({data, edit, closeModal}) {
             value={formValues.posting_source}
             onChange={(event) => handleChange(event, 'posting_source')} />
 
-          {/* Job Start */}
+          <DatePicker
+            value={formValues.job_start ? dayjs(formValues.job_start) : null}
+            onChange={(newValue) => handleTimeSelect(newValue, 'job_start')}
+            label="Start Date"
+            className='w-64 mt-6'/>
         </>
 
         )}

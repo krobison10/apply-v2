@@ -132,9 +132,7 @@ export default function InterviewForm({data, edit, closeModal}) {
 
   function submitForm(e) {
     e.preventDefault();
-    console.log(formValues);
     const data = {...formValues};
-    console.log(data);
     createInterview(data);
   }
 
