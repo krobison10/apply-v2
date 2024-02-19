@@ -39,7 +39,7 @@ export default function ApplicationForm({data, edit, closeModal}) {
         position_title: data?.position_title || '',
         company_name: data?.company_name || '',
         status: toUpperCase(data?.status) || 'Submitted',
-        application_date: data?.application_date || dayjs(),
+        application_date: data?.application_date || null,
         posting_url: data?.posting_url || '',
         notes: data?.notes || '',
 
