@@ -120,6 +120,17 @@ const UserForm = memo(function UserForm({userData}) {
       </div>
 
       <SettingsInput
+        edit={false}
+        id="email-input"
+        label="Email"
+        containerStyle='w-full mt-4'
+        variant="outlined"
+        value={userData.email}
+        onChange={() => {}}
+        className={'select-none'}
+      />
+
+      <SettingsInput
         edit={edit}
         id="first-name-input"
         label="First name"
@@ -139,17 +150,6 @@ const UserForm = memo(function UserForm({userData}) {
         value={formValues.lastname}
         onMouseDown={() => setEdit(true)}
         onChange={(event) => handleFormChange(event, 'lastname')}
-      />
-
-      <SettingsInput
-        edit={false}
-        id="email-input"
-        label="Email"
-        containerStyle='w-full mt-4'
-        variant="outlined"
-        value={userData.email}
-        onChange={() => {}}
-        className={'select-none'}
       />
 
       <SettingsInput
