@@ -30,7 +30,7 @@ export default function ApplicationForm({data, edit, closeModal}) {
     company_website: '',
     job_location: '',
     posting_source: '',
-    job_start: null,
+    job_start: undefined,
   });
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function ApplicationForm({data, edit, closeModal}) {
         position_title: data?.position_title || '',
         company_name: data?.company_name || '',
         status: toUpperCase(data?.status) || 'Submitted',
-        application_date: data?.application_date || null,
+        application_date: data?.application_date || undefined,
         posting_url: data?.posting_url || '',
         notes: data?.notes || '',
 
@@ -50,7 +50,7 @@ export default function ApplicationForm({data, edit, closeModal}) {
         company_website: data?.company_website || '',
         job_location: data?.job_location || '',
         posting_source: data?.posting_source || '',
-        job_start: data?.job_start || null,
+        job_start: data?.job_start || undefined,
       });
     }
   }, [data]);
