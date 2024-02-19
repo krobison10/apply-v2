@@ -15,62 +15,41 @@ const roboto = Roboto({
   display: 'swap',
 });
 
+// cool red color #D23A3A
+
 const theme = createTheme({
   typography: {
     fontFamily: roboto.style.fontFamily,
   },
   palette: {
     primary: {
-      main: '#2D6A80',
+      main: '#397DB1',
     },
     secondary: {
-      main: '#1f4a59',
+      main: '#F1C235',
     },
-    // Add additional color settings as needed
     success: {
-      main: '#b9f030',
-      contrastText: '#192232', // Assuming a dark color provides contrast
+      main: '#52a348',
+      contrastText: '#FAFAFA',
     },
     warning: {
-      main: '#E67A3E',
-      contrastText: '#192232', // Assuming a dark color provides contrast
+      main: '#eb7534',
+      contrastText: '#FAFAFA',
     },
     error: {
-      main: '#E74C3C',
-      contrastText: '#FEFEFE',
+      main: '#D23A3A',
+      contrastText: '#FAFAFA',
     },
     background: {
-      default: '#FEFEFE',
-      paper: '#FFFFFF',
+      default: '#fcfaf9',
+      paper: '#FAFAFA',
     },
     text: {
       primary: '#1C1C1C',
-      secondary: '#192232',
-      disabled: '#F5F3F3',
+      secondary: '#242424',
+      disabled: '#A9A9A9',
     },
   },
-  // components: {
-  //   MuiPopover: {
-  //     defaultProps: {
-  //       container: rootElement,
-  //     },
-  //   },
-  //   MuiPopper: {
-  //     defaultProps: {
-  //       container: rootElement,
-  //     },
-  //   },
-  //   MuiDialog: {
-  //     defaultProps: {
-  //       container: rootElement,
-  //     },
-  //   },
-  //   MuiModal: {
-  //     defaultProps: {
-  //       container: rootElement,
-  //     },
-  //   },
-  // },
 });
 
 

@@ -121,7 +121,7 @@ function InterviewCardMenu({iid}) {
           <ListItemText className={menuItemClassName}>Favorite</ListItemText>
         </MenuItem>
         <Divider className='my-1'/>
-        <MenuItem onClick={handleDelete} className='hover:text-red-500'>
+        <MenuItem onClick={handleDelete} className='hover:text-error'>
           <DeleteIcon>
             <ContentCut fontSize={fontSizeString} />
           </DeleteIcon>

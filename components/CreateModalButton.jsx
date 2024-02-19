@@ -14,7 +14,7 @@ function CreateModalButton({tabIndex}) {
     <Button
       variant='contained'
       className='mx-2'
-      color='success'
+      color='secondary'
       onClick={() => showModal(CreateModal, {tabIndex})}>
       Create
     </Button>
