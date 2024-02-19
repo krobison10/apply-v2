@@ -116,7 +116,7 @@ const UserForm = memo(function UserForm({userData}) {
     <div className='w-96 p-6'>
       <div className='w-full flex items-center'>
         <Avatar>{formValues.firstname[0]}{formValues.lastname[0]}</Avatar>
-        <Typography variant='h4' className='font-medium text-center ml-3'>{formValues.firstname} {formValues.lastname}</Typography>
+        <Typography variant='h5' className='text-center ml-3'>{formValues.firstname} {formValues.lastname}</Typography>
       </div>
 
       <SettingsInput
