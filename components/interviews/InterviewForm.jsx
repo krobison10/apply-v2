@@ -44,6 +44,7 @@ function SelectApplicationDropdown({aid, onChange}) {
   return (
     <Autocomplete
       id="application-select"
+      className='mt-3'
       open={open}
       onOpen={() => setOpen(true)}
       onClose={() => setOpen(false)}

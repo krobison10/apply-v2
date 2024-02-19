@@ -92,7 +92,7 @@ export default function ApplicationForm({data, edit, closeModal}) {
           id="job-title-input"
           label="Position"
           variant="outlined"
-          className='w-full'
+          className='w-full mt-3'
           value={formValues.position_title}
           onChange={(event) => handleChange(event, 'position_title')} />
 

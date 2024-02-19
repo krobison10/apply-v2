@@ -3,6 +3,13 @@ import {BASE_API_URL} from '@/app.config';
 import {useState} from 'react';
 import useAlert from '@/hooks/useAlert';
 
+/**
+ * Testing documentation
+ * @param {string} method The request method
+ * @param {string} url The API URI
+ * @param {array} noDialogErrorCodes an array of error codes to not show a dialog for
+ * @return {array} `[data, isLoading, error, clearError, callApi]`
+ */
 export const useApi = (method, url, noDialogErrorCodes = []) => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);

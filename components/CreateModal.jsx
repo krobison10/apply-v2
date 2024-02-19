@@ -1,38 +1,13 @@
 'use client';
 import React from 'react';
-import {Box, Tab, Tabs, Typography} from '@mui/material';
+import {Box, Tab, Tabs} from '@mui/material';
 import {useState, memo} from 'react';
 import PropTypes from 'prop-types';
 
 import Modal from '@/components/common/Modal';
 import ApplicationForm from '@/components/applications/ApplicationForm';
 import InterviewForm from '@/components/interviews/InterviewForm';
-
-function TabPanel(props) {
-  const {children, value, index, ...other} = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box className='p-3'>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
+import TabPanel from '@/components/common/TabPanel';
 
 function CreateModalTabs({tabIndex, closeModal}) {
   const [tab, setTab] = useState(tabIndex || 0);

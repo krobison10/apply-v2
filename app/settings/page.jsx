@@ -1,6 +1,7 @@
 import React from 'react';
 
 import InternalPageLayoutV1 from '@/components/layouts/InternalPageLayout';
+import Settings from '@/components/settings/Settings';
 
 export const metadata = {
   title: 'Apply | Settings',
@@ -10,12 +11,10 @@ export const metadata = {
  * Settings page
  * @return {React.Component}
  */
-export default function Settings() {
+export default function SettingsPage() {
   return (
     <InternalPageLayoutV1>
-      <div className='flex items-center justify-center h-screen'>
-        <h1>Settings</h1>
-      </div>
+      <Settings />
     </InternalPageLayoutV1>
   );
 }
