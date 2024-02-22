@@ -186,7 +186,7 @@ export default function InterviewForm({data, edit, closeModal}) {
         <Button
           onClick={submitForm}
           variant='contained'
-          color='secondary'
+          color='success'
           className='mx-auto'
           size='large'
           // disabled={isLoading}

@@ -14,12 +14,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'primary': '#397DB1',
-        'primary-dark': '#27577b',
-        'primary-light': '#6097c0',
-        'secondary': '#F1C235',
-        'secondary-dark': '#a88725',
-        'secondary-light': '#f3ce5d',
+        'primary': '#3f51b5',
+        'primary-dark': '#2c387e',
+        'primary-light': '#6573c3',
+        'secondary': '#ffc400',
+        'secondary-dark': '#b28900',
+        'secondary-light': '#ffcf33',
         'success': '#52a348',
         'warning': '#eb7534',
         'error': '#D23A3A',

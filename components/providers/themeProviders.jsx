@@ -16,17 +16,17 @@ const roboto = Roboto({
 });
 
 // cool red color #D23A3A
-
+// https://mui.com/material-ui/customization/color/
 const theme = createTheme({
   typography: {
     fontFamily: roboto.style.fontFamily,
   },
   palette: {
     primary: {
-      main: '#397DB1',
+      main: '#3f51b5',
     },
     secondary: {
-      main: '#F1C235',
+      main: '#ffc400',
     },
     success: {
       main: '#52a348',

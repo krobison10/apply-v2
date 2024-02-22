@@ -24,7 +24,7 @@ function NavItem({isActive, href, label, icon}) {
     router.push(path);
   };
 
-  const activeClass = isActive ? 'bg-primary-light text-white' : 'hover:bg-gray-200 text-gray-700';
+  const activeClass = isActive ? 'bg-primary text-white' : 'hover:bg-gray-200 text-gray-700';
   return (
     <ButtonBase className={`w-full mb-2 h-10 pl-3 cursor-pointer 
     rounded-md ${activeClass}`}
