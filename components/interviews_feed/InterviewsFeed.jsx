@@ -47,7 +47,7 @@ export default function InterviewsFeed() {
     if (searchParams) {
       setAllInterviews([]);
       setNextUrl(defaultNextUrl);
-      getInterviews(undefined, nextUrl);
+      getInterviews(undefined, defaultNextUrl);
     }
   }, [searchParams]);
 
