@@ -21,11 +21,11 @@ export const useApi = (method, url, noDialogErrorCodes = []) => {
     setError(null);
   };
 
-  const callApi = async (body) => {
+  const callApi = async (body, urlOverride) => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${BASE_API_URL}${url}`, {
+      const response = await fetch(`${BASE_API_URL}${urlOverride || url}`, {
         method: method,
         headers: {
           'Content-Type': 'application/json',

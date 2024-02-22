@@ -33,7 +33,7 @@ export default function ApplicationsFeed() {
   const [nextUrl, setNextUrl] = useState(defaultNextUrl);
   const [allApplications, setAllApplications] = useState([]);
   // eslint-disable-next-line no-unused-vars
-  const [data, isLoading, error, setError, getApplications] = useApi('GET', nextUrl || defaultNextUrl);
+  const [data, isLoading, error, setError, getApplications] = useApi('GET');
 
   useEffect(() => {
     if (data?.results) {
@@ -47,13 +47,13 @@ export default function ApplicationsFeed() {
     if (searchParams) {
       setAllApplications([]);
       setNextUrl(defaultNextUrl);
-      getApplications();
+      getApplications(undefined, defaultNextUrl);
     }
   }, [searchParams]);
 
   function fetchApplications() {
     if (!isLoading) {
-      getApplications();
+      getApplications(undefined, nextUrl);
     }
   }
 

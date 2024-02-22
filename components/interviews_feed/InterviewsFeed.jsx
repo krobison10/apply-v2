@@ -33,7 +33,7 @@ export default function InterviewsFeed() {
   const [nextUrl, setNextUrl] = useState(defaultNextUrl);
   const [allInterviews, setAllInterviews] = useState([]);
   // eslint-disable-next-line no-unused-vars
-  const [data, isLoading, error, setError, getInterviews] = useApi('GET', nextUrl || defaultNextUrl);
+  const [data, isLoading, error, setError, getInterviews] = useApi('GET');
 
   useEffect(() => {
     if (data?.results) {
@@ -47,13 +47,13 @@ export default function InterviewsFeed() {
     if (searchParams) {
       setAllInterviews([]);
       setNextUrl(defaultNextUrl);
-      getInterviews();
+      getInterviews(undefined, nextUrl);
     }
   }, [searchParams]);
 
   function fetchInterviews() {
     if (!isLoading) {
-      getInterviews();
+      getInterviews(undefined, nextUrl);
     }
   }
 
