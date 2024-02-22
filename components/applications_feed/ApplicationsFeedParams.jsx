@@ -19,12 +19,12 @@ const MenuProps = {
 };
 
 const statuses = [
-  'not submitted',
+  'not_submitted',
   'submitted',
   'responded',
   'rejected',
   'interviewing',
-  'offer received',
+  'offer_received',
   'withdrawn',
   'closed',
 ];
@@ -98,12 +98,8 @@ export default function ApplicationsFeedParams({params, setParams, clearParams})
     }));
   }
 
-  console.log('params', params);
-
   const fromDate = params.from_days_ago || params.from_days_ago === 0 ? dayjs(dayjs().subtract(params.from_days_ago, 'day')) : null;
-
   const toDate = params.to_days_ago || params.to_days_ago === 0 ? dayjs(dayjs().subtract(params.to_days_ago, 'day')) : null;
-
   const dateRange = [fromDate, toDate];
 
 
@@ -120,14 +116,14 @@ export default function ApplicationsFeedParams({params, setParams, clearParams})
             value={params.status_filters}
             onChange={handleStatusSelect}
             input={<OutlinedInput label="Status" />}
-            renderValue={(selected) => selected ? selected.map((e) => capitalizeFirstLetter(e)).join(', ') : 'Any'}
+            renderValue={(selected) => selected ? selected.map((e) => capitalizeFirstLetter(e).replace('_', ' ')).join(', ') : 'Any'}
             MenuProps={MenuProps}
             size='small'
           >
             {statuses.map((name) => (
               <MenuItem key={name} value={name} className='h-9 pl-[7px]'>
                 <Checkbox checked={params.status_filters.indexOf(name) > -1} />
-                <ListItemText primary={capitalizeFirstLetter(name)} />
+                <ListItemText primary={capitalizeFirstLetter(name).replace('_', ' ')} />
               </MenuItem>
             ))}
           </Select>

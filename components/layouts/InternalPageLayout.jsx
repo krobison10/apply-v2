@@ -23,7 +23,7 @@ function InternalPageLayoutV1({children}) {
             <aside className="h-full fixed w-64 shadow-md bg-[#fcfaf9]">
               <SideDrawer />
             </aside>
-            <div className="flex-grow ml-64 overflow-auto bg-[#fcfaf9]">
+            <div className="flex-grow ml-64 overflow-auto bg-[#fcfaf9]" id='applications-scroll'>
               <Suspense fallback={<LoadingSpinner />}>
                 {children}
               </Suspense>

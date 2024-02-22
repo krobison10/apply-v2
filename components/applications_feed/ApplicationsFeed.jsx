@@ -5,12 +5,11 @@ import React from 'react';
 import {useEffect, useState} from 'react';
 import ApplicationCard from './ApplicationCard';
 import {useApi} from '@/hooks/queries/useApi';
-import {Typography} from '@mui/material';
+import {CircularProgress, Typography} from '@mui/material';
 import CreateModalButton from '@/components/CreateModalButton';
-import LoadingSpinner from '@/components/common/loadingSpinner';
 import useApplicationsFeedURL from '@/hooks/queries/useApplicationsFeedURL';
 import ApplicationsFeedParams from '@/components/applications_feed/ApplicationsFeedParams';
-
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const defaultSearchParams = {
   priority_filters: [],
@@ -21,36 +20,48 @@ const defaultSearchParams = {
   order: 'desc',
 };
 
+const defaultLimit = 15;
+
 /**
  * Infinite scroll feed for the applications
  * @return {React.Component}
  */
 export default function ApplicationsFeed() {
   const [searchParams, setSearchParams] = useState({...defaultSearchParams});
-
-  useEffect(() => {
-    let params;
-    if (params = localStorage.getItem('applicationFeedParams')) {
-      setSearchParams(JSON.parse(params));
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('applicationFeedParams', JSON.stringify(searchParams));
-  }, [searchParams]);
-
-  const dataUrl = useApplicationsFeedURL(searchParams, 100, 0);
-
+  const defaultNextUrl = useApplicationsFeedURL(searchParams, defaultLimit, 0);
+  const [nextUrl, setNextUrl] = useState(defaultNextUrl);
+  const [allApplications, setAllApplications] = useState([]);
   // eslint-disable-next-line no-unused-vars
-  const [data, isLoading, error, setError, getApplications] = useApi('GET', dataUrl);
+  const [data, isLoading, error, setError, getApplications] = useApi('GET', nextUrl || defaultNextUrl);
 
   useEffect(() => {
-    getApplications();
+    if (data?.results) {
+      setAllApplications((prev) => [...prev, ...data.results]);
+      setNextUrl(data.metadata.links.next?.split('/').at(-1));
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (searchParams) {
+      setAllApplications([]);
+      setNextUrl(defaultNextUrl);
+      getApplications();
+    }
   }, [searchParams]);
 
+  function fetchApplications() {
+    if (!isLoading) {
+      console.log('fetching applications', nextUrl);
+      getApplications();
+    }
+  }
+
+  // Handler for the clear filters button
   function clearParams() {
     setSearchParams({...defaultSearchParams});
   }
+
+  const showNoApplications = !nextUrl && !allApplications.length && !isLoading;
 
   function renderNoApplications() {
     return (
@@ -66,35 +77,54 @@ export default function ApplicationsFeed() {
     );
   };
 
+  function renderScrollLoader() {
+    return <div className='h-32 flex items-center justify-center'><CircularProgress/></div>;
+  }
+
+  function renderScrollEnd() {
+    return (
+      <div className='w-full h-32 flex items-center'>
+        <Typography variant='body1' className='text-center font-semibold w-full'>
+          Nothing to see here, get out and start applying!
+        </Typography>
+      </div>
+    );
+  }
+
   function renderList() {
     return (
       <>
-        <ApplicationsFeedParams params={searchParams} setParams={setSearchParams} clearParams={clearParams}/>
-        {data?.results && (
-          <div className='h-10 w-full my-4 flex items-center justify-end'>
-            <Typography
-              variant='subtitle2'
-              className='display-block'>
-              {`${data.metadata.total_results} Application${data.metadata.total_results === 1 ? '' : 's'}`}
-            </Typography>
-          </div>
-        )}
-        <div>
-          {data?.results?.length > 0 && data.results.map((application) => (
+        {searchParams && <ApplicationsFeedParams params={searchParams} setParams={setSearchParams} clearParams={clearParams}/>}
+
+        <div className='h-10 w-full my-4 flex items-center justify-end'>
+          <Typography
+            variant='subtitle2'
+            className='display-block'>
+            {`${data?.metadata.total_results || 0} Application${data?.metadata.total_results === 1 ? '' : 's'}`}
+          </Typography>
+        </div>
+        {!showNoApplications && <InfiniteScroll
+          dataLength={allApplications.length}
+          next={fetchApplications}
+          hasMore={nextUrl}
+          loader={renderScrollLoader()}
+          endMessage={renderScrollEnd()}
+          scrollableTarget='applications-scroll'
+        >
+          {allApplications.map((application) => (
             <ApplicationCard key={application.aid} data={application} />
           ))}
-        </div>
+        </InfiniteScroll>}
+        {showNoApplications && renderNoApplications()}
       </>
     );
-  }
+  };
 
   return (
     <div className='max-w-[1200px] mx-auto h-full'>
       <div className='p-8'>
         {renderList()}
       </div>
-      {isLoading && <LoadingSpinner loading/>}
-      {data?.results?.length === 0 && renderNoApplications()}
     </div>
   );
 }
