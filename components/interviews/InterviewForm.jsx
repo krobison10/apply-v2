@@ -122,7 +122,6 @@ export default function InterviewForm({data, edit, closeModal}) {
   }
 
   function handleApplicationSelect(event, application) {
-    // console.log(application);
     setFormValues({...formValues, aid: application?.aid});
   }
 

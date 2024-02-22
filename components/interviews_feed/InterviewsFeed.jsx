@@ -27,7 +27,8 @@ const defaultLimit = 15;
  * @return {React.Component}
  */
 export default function InterviewsFeed() {
-  const [searchParams, setSearchParams] = useState({...defaultSearchParams});
+  const savedSearchParams = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('interviewsFeedParams')) : null;
+  const [searchParams, setSearchParams] = useState(savedSearchParams || {...defaultSearchParams});
   const defaultNextUrl = useInterviewsFeedURL(searchParams, defaultLimit, 0);
   const [nextUrl, setNextUrl] = useState(defaultNextUrl);
   const [allInterviews, setAllInterviews] = useState([]);
@@ -42,6 +43,7 @@ export default function InterviewsFeed() {
   }, [data]);
 
   useEffect(() => {
+    localStorage.setItem('interviewsFeedParams', JSON.stringify(searchParams));
     if (searchParams) {
       setAllInterviews([]);
       setNextUrl(defaultNextUrl);

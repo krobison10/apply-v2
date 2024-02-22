@@ -99,7 +99,6 @@ export default function Login() {
 
     // Send request
     const data = {...formValues};
-    console.log('data', data);
     login(data);
   }
 

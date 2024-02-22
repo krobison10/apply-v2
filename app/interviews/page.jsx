@@ -1,7 +1,8 @@
 import React from 'react';
 
 import InternalPageLayoutV1 from '@/components/layouts/InternalPageLayout';
-import InterviewsFeed from '@/components/interviews_feed/InterviewsFeed';
+import dynamic from 'next/dynamic';
+const InterviewsFeed = dynamic(() => import('@/components/interviews_feed/InterviewsFeed'), {ssr: false});
 
 export const metadata = {
   title: 'Apply | Interviews',
@@ -14,7 +15,7 @@ export const metadata = {
 export default function Interviews() {
   return (
     <InternalPageLayoutV1>
-      <InterviewsFeed />
+      <InterviewsFeed/>
     </InternalPageLayoutV1>
   );
 }

@@ -27,7 +27,8 @@ const defaultLimit = 15;
  * @return {React.Component}
  */
 export default function ApplicationsFeed() {
-  const [searchParams, setSearchParams] = useState({...defaultSearchParams});
+  const savedSearchParams = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('applicationsFeedParams')) : null;
+  const [searchParams, setSearchParams] = useState(savedSearchParams || {...defaultSearchParams});
   const defaultNextUrl = useApplicationsFeedURL(searchParams, defaultLimit, 0);
   const [nextUrl, setNextUrl] = useState(defaultNextUrl);
   const [allApplications, setAllApplications] = useState([]);
@@ -42,6 +43,7 @@ export default function ApplicationsFeed() {
   }, [data]);
 
   useEffect(() => {
+    localStorage.setItem('applicationsFeedParams', JSON.stringify(searchParams));
     if (searchParams) {
       setAllApplications([]);
       setNextUrl(defaultNextUrl);
