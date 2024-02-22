@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
@@ -124,7 +126,7 @@ export default function AvatarMenu() {
           </ListItemIcon>
           Add another account
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => window.location.href ='/settings?profile'}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
