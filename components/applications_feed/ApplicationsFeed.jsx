@@ -51,7 +51,6 @@ export default function ApplicationsFeed() {
 
   function fetchApplications() {
     if (!isLoading) {
-      console.log('fetching applications', nextUrl);
       getApplications();
     }
   }
@@ -109,7 +108,7 @@ export default function ApplicationsFeed() {
           hasMore={nextUrl}
           loader={renderScrollLoader()}
           endMessage={renderScrollEnd()}
-          scrollableTarget='applications-scroll'
+          scrollableTarget='scroll'
         >
           {allApplications.map((application) => (
             <ApplicationCard key={application.aid} data={application} />

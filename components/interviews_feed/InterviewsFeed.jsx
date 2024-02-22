@@ -2,50 +2,128 @@
 
 import React from 'react';
 
-import {useEffect} from 'react';
-import InterviewCard from '@/components/interviews_feed/InterviewCard';
+import {useEffect, useState} from 'react';
+import InterviewCard from './InterviewCard';
 import {useApi} from '@/hooks/queries/useApi';
-import {Typography} from '@mui/material';
+import {CircularProgress, Typography} from '@mui/material';
 import CreateModalButton from '@/components/CreateModalButton';
-import LoadingSpinner from '@/components/common/loadingSpinner';
+import useInterviewsFeedURL from '@/hooks/queries/useInterviewsFeedURL';
+import InterviewsFeedParams from '@/components/interviews_feed/InterviewsFeedParams';
+import InfiniteScroll from 'react-infinite-scroll-component';
+
+const defaultSearchParams = {
+  priority_filters: [],
+  status_filters: [],
+  from_days_ago: null,
+  to_days_ago: null,
+  sort: 'date',
+  order: 'desc',
+};
+
+const defaultLimit = 15;
 
 /**
- * Infinite scroll (soon) feed for the applications
+ * Infinite scroll feed for the interviews
  * @return {React.Component}
  */
 export default function InterviewsFeed() {
+  const [searchParams, setSearchParams] = useState({...defaultSearchParams});
+  const defaultNextUrl = useInterviewsFeedURL(searchParams, defaultLimit, 0);
+  const [nextUrl, setNextUrl] = useState(defaultNextUrl);
+  const [allInterviews, setAllInterviews] = useState([]);
   // eslint-disable-next-line no-unused-vars
-  const [data, isLoading, error, setError, getInterviews] = useApi('GET', 'interviews?expand=true');
+  const [data, isLoading, error, setError, getInterviews] = useApi('GET', nextUrl || defaultNextUrl);
 
   useEffect(() => {
-    getInterviews();
-  }, []);
+    if (data?.results) {
+      setAllInterviews((prev) => [...prev, ...data.results]);
+      setNextUrl(data.metadata.links.next?.split('/').at(-1));
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (searchParams) {
+      setAllInterviews([]);
+      setNextUrl(defaultNextUrl);
+      getInterviews();
+    }
+  }, [searchParams]);
+
+  function fetchInterviews() {
+    if (!isLoading) {
+      getInterviews();
+    }
+  }
+
+  // Handler for the clear filters button
+  function clearParams() {
+    setSearchParams({...defaultSearchParams});
+  }
+
+  const showNoInterviews = !nextUrl && !allInterviews.length && !isLoading;
 
   function renderNoInterviews() {
     return (
-      <div className='flex justify-center items-center w-full h-full'>
-
+      <div className='flex justify-center items-center w-full mt-[360px]'>
         <div className='w-96'>
           <Typography variant='h5' className='font-bold text-center'>No interviews found!</Typography>
+          <Typography variant='body1' className='text-center'>Try adjusting your filters or create some more</Typography>
           <div className='flex justify-center pt-4'>
-            <CreateModalButton tabIndex={1}/>
+            <CreateModalButton/>
           </div>
         </div>
-
       </div>
     );
   };
 
-  return (
-    <>
-      {isLoading && <LoadingSpinner loading/>}
-      {data?.results?.length === 0 && renderNoInterviews()}
-      <div className='py-4 px-8'>
-        {data?.results?.length > 0 &&
-        data.results.map((interview) => (
-          <InterviewCard key={interview.iid} data={interview} />
-        ))}
+  function renderScrollLoader() {
+    return <div className='h-32 flex items-center justify-center'><CircularProgress/></div>;
+  }
+
+  function renderScrollEnd() {
+    return (
+      <div className='w-full h-32 flex items-center'>
+        <Typography variant='body1' className='text-center font-semibold w-full'>
+          Nothing to see here, get out and start applying!
+        </Typography>
       </div>
-    </>
+    );
+  }
+
+  function renderList() {
+    return (
+      <>
+        {searchParams && <InterviewsFeedParams params={searchParams} setParams={setSearchParams} clearParams={clearParams}/>}
+
+        <div className='h-10 w-full my-4 flex items-center justify-end'>
+          <Typography
+            variant='subtitle2'
+            className='display-block'>
+            {`${data?.metadata.total_results || 0} Interview${data?.metadata.total_results === 1 ? '' : 's'}`}
+          </Typography>
+        </div>
+        {!showNoInterviews && <InfiniteScroll
+          dataLength={allInterviews.length}
+          next={fetchInterviews}
+          hasMore={nextUrl}
+          loader={renderScrollLoader()}
+          endMessage={renderScrollEnd()}
+          scrollableTarget='scroll'
+        >
+          {allInterviews.map((interview) => (
+            <InterviewCard key={interview.aid} data={interview} />
+          ))}
+        </InfiniteScroll>}
+        {showNoInterviews && renderNoInterviews()}
+      </>
+    );
+  };
+
+  return (
+    <div className='max-w-[1200px] mx-auto h-full'>
+      <div className='p-8'>
+        {renderList()}
+      </div>
+    </div>
   );
 }
