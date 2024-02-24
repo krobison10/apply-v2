@@ -7,6 +7,7 @@ import {Chip, Divider, Stack, Typography} from '@mui/material';
 import ArticleIcon from '@mui/icons-material/Article';
 import LinkIcon from '@mui/icons-material/Link';
 import {formatSinceDateNicely} from '@/utils/helpers';
+import DownloadIcon from '@mui/icons-material/Download';
 import faviconFetch from 'favicon-fetch';
 
 /**
@@ -101,8 +102,12 @@ export default function ApplicationCard({data}) {
         {data.posting_url && <Chip size='small' icon={<LinkIcon />} label="Posting" onClick={() => {
           window.open(data.posting_url, '_blank', 'noopener,noreferrer');
         }} />}
-        <Chip size='small' icon={<ArticleIcon />} label="Resume" onClick={() => {}} />
-        <Chip size='small' icon={<ArticleIcon />} label="Cover letter" onClick={() => {}} />
+        {data.resume_url && <Chip size='small' icon={<DownloadIcon />} label="Resume" onClick={() => {
+          window.location.href = data.resume_url;
+        }} />}
+        {data.cover_letter_url && <Chip size='small' icon={<DownloadIcon />} label="Cover letter" onClick={() => {
+          window.location.href = data.cover_letter_url;
+        }} />}
         {/* Interviews will go here */}
       </Stack>
 
