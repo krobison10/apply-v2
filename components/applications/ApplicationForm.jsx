@@ -1,17 +1,26 @@
 'use client';
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {Button, FormControl, InputAdornment, InputLabel, OutlinedInput, TextField} from '@mui/material';
+import {Button, FormControl, InputAdornment, InputLabel, Link, OutlinedInput, TextField, Typography} from '@mui/material';
 import {useApi} from '@/hooks/queries/useApi';
 import {DatePicker} from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
-
+import {styled} from '@mui/material/styles';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import SelectInput from '@/components/common/form/SelectInput';
+import {capitalizeFirstLetter, fileToBase64} from '@/utils/helpers';
 
-function toUpperCase(str) {
-  if (!str) return '';
-  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-}
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
+});
 
 // See: https://www.freecodecamp.org/news/how-to-build-forms-in-react/
 export default function ApplicationForm({data, edit, closeModal}) {
@@ -22,6 +31,8 @@ export default function ApplicationForm({data, edit, closeModal}) {
     application_date: dayjs(),
     posting_url: '',
     notes: '',
+    resume: undefined,
+    cover_letter: undefined,
 
     priority: 0,
     position_level: '',
@@ -38,10 +49,12 @@ export default function ApplicationForm({data, edit, closeModal}) {
       setFormValues({
         position_title: data?.position_title || '',
         company_name: data?.company_name || '',
-        status: toUpperCase(data?.status) || 'Submitted',
+        status: capitalizeFirstLetter(data?.status) || 'Submitted',
         application_date: data?.application_date || undefined,
         posting_url: data?.posting_url || '',
         notes: data?.notes || '',
+        resume: data.resume_url || undefined,
+        cover_letter: data.cover_letter_url || undefined,
 
         priority: data?.priority || 0,
         position_level: data?.position_level || '',
@@ -83,11 +96,14 @@ export default function ApplicationForm({data, edit, closeModal}) {
     setFormValues({...formValues, [field]: newValue});
   }
 
-  function submitForm(e) {
+  async function submitForm(e) {
     e.preventDefault();
     const data = {...formValues};
+    data.resume = data.resume ? await fileToBase64(data.resume) : null;
+    data.cover_letter = data.cover_letter ? await fileToBase64(data.cover_letter) : null;
     data.status = data.status.toLowerCase();
     data.position_wage = Number.parseFloat(data.position_wage || 0);
+    console.log(data);
     createApplication(data);
   }
 
@@ -141,9 +157,64 @@ export default function ApplicationForm({data, edit, closeModal}) {
           value={formValues.notes}
           onChange={(event) => handleChange(event, 'notes')} />
 
+        <div className='w-full mt-6 flex align-top'>
+          <div className='flex flex-col w-1/2'>
+            <Button
+              className='w-[160px] mx-auto'
+              component="label"
+              role={undefined}
+              variant="contained"
+              tabIndex={-1}
+              startIcon={<CloudUploadIcon />}
+              onChange={(e) => {
+                console.log(e.target.files[0]);
+                setFormValues({...formValues, resume: e.target.files[0]});
+              }}
+            >
+              Resume
+              <VisuallyHiddenInput type="file"/>
+            </Button>
+            {formValues.resume &&
+            <Typography
+              variant='caption'
+              className='inline-block mx-auto'>
+              {formValues.resume?.name ? formValues.resume.name : <Link href={formValues.resume}>Download current</Link> }
+              {formValues.resume?.size ? <> ({Math.round(formValues.resume.size / 1024)} KB)</> : '' }
+            </Typography>}
+          </div>
+          <div className='flex flex-col w-1/2'>
+            <Button
+              className='w-[160px] mx-auto'
+              component="label"
+              role={undefined}
+              variant="contained"
+              tabIndex={-1}
+              startIcon={<CloudUploadIcon />}
+              onChange={(e) => {
+                console.log(e.target.files[0]);
+                setFormValues({...formValues, cover_letter: e.target.files[0]});
+              }}
+            >
+              Cover Letter
+              <VisuallyHiddenInput type="file"/>
+            </Button>
+            {formValues.cover_letter &&
+            <Typography
+              variant='caption'
+              className='inline-block mx-auto'>
+              {formValues.cover_letter?.name ? formValues.cover_letter.name : <Link href={formValues.cover_letter}>Download current</Link> }
+              {formValues.cover_letter?.size ? <> ({Math.round(formValues.cover_letter.size / 1024)}) KB</> : '' }
+            </Typography>}
+          </div>
+          <div>
+
+          </div>
+
+        </div>
+
         {/* Extra Fields */}
         {!extraFieldPopulated &&
-          <Button onClick={() => setShowExtraFields(!showExtraFields)} className='mt-4'>
+          <Button onClick={() => setShowExtraFields(!showExtraFields)} className='mt-6'>
             {showExtraFields ? 'Hide' : 'Show'} extra fields
           </Button>}
 
