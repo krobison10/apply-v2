@@ -14,13 +14,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'primary': '#3f51b5',
-        'primary-dark': '#2c387e',
-        'primary-light': '#6573c3',
-        'secondary': '#ffc400',
-        'secondary-dark': '#b28900',
-        'secondary-light': '#ffcf33',
-        'success': '#52a348',
+        'primary': '#1D2D44',
+        'primary-dark': '#141f2f',
+        'primary-light': '#4a5769',
+        'secondary': '#DCBF85',
+        'secondary-dark': '#9a855d',
+        'secondary-light': '#e3cb9d',
+        'success': '#656839',
         'warning': '#eb7534',
         'error': '#D23A3A',
         'background': '#fcfaf9',
