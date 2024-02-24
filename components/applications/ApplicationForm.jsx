@@ -99,11 +99,16 @@ export default function ApplicationForm({data, edit, closeModal}) {
   async function submitForm(e) {
     e.preventDefault();
     const data = {...formValues};
+
+    data.resume_name = data.resume ? data.resume.name : null;
     data.resume = data.resume ? await fileToBase64(data.resume) : null;
+
+    data.cover_letter_name = data.cover_letter ? data.cover_letter.name : null;
     data.cover_letter = data.cover_letter ? await fileToBase64(data.cover_letter) : null;
+
     data.status = data.status.toLowerCase();
     data.position_wage = Number.parseFloat(data.position_wage || 0);
-    console.log(data);
+
     createApplication(data);
   }
 
