@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 import {styled} from '@mui/material/styles';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import SelectInput from '@/components/common/form/SelectInput';
-import {capitalizeFirstLetter, fileToBase64} from '@/utils/helpers';
+import {capitalizeFirstLetter, fileToBase64, isValidUrl} from '@/utils/helpers';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -100,11 +100,15 @@ export default function ApplicationForm({data, edit, closeModal}) {
     e.preventDefault();
     const data = {...formValues};
 
-    data.resume_name = data.resume ? data.resume.name : null;
-    data.resume = data.resume ? await fileToBase64(data.resume) : null;
+    if (data.resume && !isValidUrl(data.resume)) {
+      data.resume_name = data.resume.name;
+      data.resume = await fileToBase64(data.resume);
+    }
 
-    data.cover_letter_name = data.cover_letter ? data.cover_letter.name : null;
-    data.cover_letter = data.cover_letter ? await fileToBase64(data.cover_letter) : null;
+    if (data.cover_letter && !isValidUrl(data.cover_letter)) {
+      data.cover_letter_name = data.cover_letter.name;
+      data.cover_letter = await fileToBase64(data.cover_letter);
+    }
 
     data.status = data.status.toLowerCase();
     data.position_wage = Number.parseFloat(data.position_wage || 0);

@@ -31,3 +31,12 @@ export const fileToBase64 = (file) => new Promise((resolve, reject) => {
   reader.onload = () => resolve(reader.result);
   reader.onerror = (error) => reject(error);
 });
+
+export function isValidUrl(string) {
+  try {
+    new URL(string);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
