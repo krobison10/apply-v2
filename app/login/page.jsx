@@ -4,7 +4,7 @@ import ExternalPageLayoutV1 from '@/components/layouts/externalPageLayout';
 import Login from '@/components/auth/login';
 
 export const metadata = {
-  title: 'Apply | Log In',
+  title: 'Log In | Apply',
 };
 
 /**

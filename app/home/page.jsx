@@ -3,7 +3,7 @@ import React from 'react';
 import InternalPageLayoutV1 from '@/components/layouts/InternalPageLayout';
 
 export const metadata = {
-  title: 'Apply | Dashboard',
+  title: 'Dashboard | Apply',
 };
 
 /**

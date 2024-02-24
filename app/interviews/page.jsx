@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 const InterviewsFeed = dynamic(() => import('@/components/interviews_feed/InterviewsFeed'), {ssr: false});
 
 export const metadata = {
-  title: 'Apply | Interviews',
+  title: 'Interviews | Apply',
 };
 
 /**
