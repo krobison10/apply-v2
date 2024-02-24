@@ -157,66 +157,64 @@ export default function ApplicationForm({data, edit, closeModal}) {
           value={formValues.notes}
           onChange={(event) => handleChange(event, 'notes')} />
 
-        <div className='w-full mt-6 flex align-top'>
-          <div className='flex flex-col w-1/2'>
-            <Button
-              className='w-[160px] mx-auto'
-              component="label"
-              role={undefined}
-              variant="contained"
-              tabIndex={-1}
-              startIcon={<CloudUploadIcon />}
-              onChange={(e) => {
-                console.log(e.target.files[0]);
-                setFormValues({...formValues, resume: e.target.files[0]});
-              }}
-            >
-              Resume
-              <VisuallyHiddenInput type="file"/>
-            </Button>
-            {formValues.resume &&
-            <Typography
-              variant='caption'
-              className='inline-block mx-auto'>
-              {formValues.resume?.name ? formValues.resume.name : <Link href={formValues.resume}>Download current</Link> }
-              {formValues.resume?.size ? <> ({Math.round(formValues.resume.size / 1024)} KB)</> : '' }
-            </Typography>}
-          </div>
-          <div className='flex flex-col w-1/2'>
-            <Button
-              className='w-[160px] mx-auto'
-              component="label"
-              role={undefined}
-              variant="contained"
-              tabIndex={-1}
-              startIcon={<CloudUploadIcon />}
-              onChange={(e) => {
-                console.log(e.target.files[0]);
-                setFormValues({...formValues, cover_letter: e.target.files[0]});
-              }}
-            >
-              Cover Letter
-              <VisuallyHiddenInput type="file"/>
-            </Button>
-            {formValues.cover_letter &&
-            <Typography
-              variant='caption'
-              className='inline-block mx-auto'>
-              {formValues.cover_letter?.name ? formValues.cover_letter.name : <Link href={formValues.cover_letter}>Download current</Link> }
-              {formValues.cover_letter?.size ? <> ({Math.round(formValues.cover_letter.size / 1024)}) KB</> : '' }
-            </Typography>}
-          </div>
-          <div>
+        <div className='w-full mt-6'>
+          <Button
+            className='w-[160px] mx-auto'
+            component="label"
+            role={undefined}
+            variant="contained"
+            tabIndex={-1}
+            startIcon={<CloudUploadIcon />}
+            onChange={(e) => {
+              console.log(e.target.files[0]);
+              setFormValues({...formValues, resume: e.target.files[0]});
+            }}
+          >
+            Resume
+            <VisuallyHiddenInput type="file" accept='.pdf'/>
+          </Button>
+        </div>
+        {formValues.resume &&
+          <Typography
+            variant='caption'>
+            {formValues.resume?.name ? formValues.resume.name : <Link href={formValues.resume}>Download current</Link> }
+            {formValues.resume?.size ? <> ({Math.round(formValues.resume.size / 1024)} KB)</> : '' }
+          </Typography>}
 
-          </div>
+        <div className='w-full mt-6'>
+          <Button
+            className='w-[160px] mx-auto'
+            component="label"
+            role={undefined}
+            variant="contained"
+            tabIndex={-1}
+            startIcon={<CloudUploadIcon />}
+            onChange={(e) => {
+              console.log(e.target.files[0]);
+              setFormValues({...formValues, cover_letter: e.target.files[0]});
+            }}
+          >
+            Cover Letter
+            <VisuallyHiddenInput type="file" accept='.pdf'/>
+          </Button>
 
         </div>
+        {formValues.cover_letter &&
+          <Typography
+            variant='caption'>
+            {formValues.cover_letter?.name ? formValues.cover_letter.name : <Link href={formValues.cover_letter}>Download current</Link> }
+            {formValues.cover_letter?.size ? <> ({Math.round(formValues.cover_letter.size / 1024)}) KB</> : '' }
+          </Typography>}
+
 
         {/* Extra Fields */}
         {!extraFieldPopulated &&
-          <Button onClick={() => setShowExtraFields(!showExtraFields)} className='mt-6'>
-            {showExtraFields ? 'Hide' : 'Show'} extra fields
-          </Button>}
+          <div>
+            <Button onClick={() => setShowExtraFields(!showExtraFields)} className='mt-6'>
+              {showExtraFields ? 'Hide' : 'Show'} extra fields
+            </Button>
+          </div>
+        }
 
         {showExtraFields &&
         (<>
