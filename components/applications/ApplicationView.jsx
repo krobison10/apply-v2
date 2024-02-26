@@ -15,13 +15,14 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import {VisuallyHiddenInput} from '@/utils/helpers';
 
 
-function PlaceholderInput({label, value, className, ...props}) {
+function PlaceholderInput({label, value, className, multiline, ...props}) {
+  const height = multiline ? 'min-h-10' : 'h-10';
   return (
     <div className={className}>
       {label && <div className='w-full'>
         <Typography variant='caption' className='font-medium'>{label}</Typography>
       </div>}
-      <div className='w-full bg-gray-100 rounded-[4px] py-2 px-[14px] cursor-text h-10' {...props}>
+      <div className={`w-full bg-gray-100 rounded-[4px] py-2 px-[14px] cursor-text ${height}`} {...props}>
         <Typography variant='body1'>{value}</Typography>
       </div>
     </div>
@@ -33,6 +34,7 @@ PlaceholderInput.propTypes = {
   value: PropTypes.any,
   className: PropTypes.string,
   onMouseDown: PropTypes.func,
+  multiline: PropTypes.bool,
 };
 
 const narrowWidth = 52;
@@ -253,12 +255,13 @@ function ApplicationViewForm({applicationData, refetchApplicationData}) {
           { edit ?
             <div className='w-full'>
               <div className='w-full'>
-                <Typography variant='caption' className='font-medium'>Posting Link</Typography>
+                <Typography variant='caption'>Posting Link</Typography>
               </div>
               <TextField
                 id="posting-url-input"
                 variant="outlined"
                 className='w-full'
+                multiline
                 size='small'
                 value={formValues.posting_url}
                 onChange={(event) => handleChange(event, 'posting_url')}/>
@@ -266,7 +269,8 @@ function ApplicationViewForm({applicationData, refetchApplicationData}) {
             <PlaceholderInput
               className='w-full'
               label='Posting Link'
-              value={<Link href={formValues.posting_url} target='_blank'>{formValues.posting_url}</Link>}
+              multiline
+              value={<Link href={formValues.posting_url} classes={{root: 'break-all'}} target='_blank'>{formValues.posting_url}</Link>}
               onClick={(e) => {
                 if (e.target.tagName !== 'A') {
                   setEdit(true);
@@ -411,6 +415,7 @@ function ApplicationViewForm({applicationData, refetchApplicationData}) {
                 id="company-website-input"
                 variant="outlined"
                 className='w-full'
+                multiline
                 size='small'
                 value={formValues.company_website}
                 onChange={(event) => handleChange(event, 'company_website')}/>
@@ -418,7 +423,8 @@ function ApplicationViewForm({applicationData, refetchApplicationData}) {
             <PlaceholderInput
               className='w-full'
               label='Company Website'
-              value={<Link href={formValues.company_website} target='_blank'>{formValues.company_website}</Link>}
+              multiline
+              value={<Link href={formValues.company_website} classes={{root: 'break-all'}} target='_blank'>{formValues.company_website}</Link>}
               onClick={(e) => {
                 if (e.target.tagName !== 'A') {
                   setEdit(true);
