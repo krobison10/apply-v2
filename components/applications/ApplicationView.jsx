@@ -2,8 +2,7 @@
 
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-import LoadingSpinner from '@/components/common/loadingSpinner';
-import {Button, InputAdornment, Link, OutlinedInput, TextField, Typography} from '@mui/material';
+import {Button, CircularProgress, InputAdornment, Link, OutlinedInput, TextField, Typography} from '@mui/material';
 import {useApi} from '@/hooks/queries/useApi';
 import HybridInput from '@/components/common/form/HybridInput';
 import dayjs from 'dayjs';
@@ -13,33 +12,14 @@ import SelectInput from '@/components/common/form/SelectInput';
 import {DatePicker} from '@mui/x-date-pickers/DatePicker';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import {VisuallyHiddenInput} from '@/utils/helpers';
-
-
-function PlaceholderInput({label, value, className, multiline, ...props}) {
-  const height = multiline ? 'min-h-10' : 'h-10';
-  return (
-    <div className={className}>
-      {label && <div className='w-full'>
-        <Typography variant='caption' className='font-medium'>{label}</Typography>
-      </div>}
-      <div className={`w-full bg-gray-100 rounded-[4px] py-2 px-[14px] cursor-text ${height}`} {...props}>
-        <Typography variant='body1'>{value}</Typography>
-      </div>
-    </div>
-  );
-}
-
-PlaceholderInput.propTypes = {
-  label: PropTypes.string,
-  value: PropTypes.any,
-  className: PropTypes.string,
-  onMouseDown: PropTypes.func,
-  multiline: PropTypes.bool,
-};
+import PlaceholderInput from '@/components/applications/PlaceholderInput';
+import useModal from '@/components/providers/modalProvider';
+import CreateInterviewModal from '@/components/interviews/CreateInterviewModal';
 
 const narrowWidth = 52;
 
 function ApplicationViewForm({applicationData, refetchApplicationData}) {
+  const {showModal} = useModal();
   // ---------- Form & AutoFill Functionality ----------
   const [formValues, setFormValues] = useState({
     position_title: '',
@@ -167,10 +147,24 @@ function ApplicationViewForm({applicationData, refetchApplicationData}) {
 
   return (
     <div className='w-full p-6'>
-      <div className='w-full flex items-center'>
-        <Typography variant='h5' className='text-center'>
-          {applicationData.company_name} | {applicationData.position_title}
-        </Typography>
+      <div className='w-full flex justify-between'>
+        <div className='flex items-center'>
+          <Typography variant='h5' className='text-center'>
+            {applicationData.company_name} | {applicationData.position_title}
+            {applicationData.job_location && <> | {applicationData.job_location}</>}
+          </Typography>
+        </div>
+        <div className='min-w-[160.5px]'>
+          <Button
+            className='max-h-min'
+            size='medium'
+            variant='contained'
+            color='primary'
+            onClick={() => showModal(CreateInterviewModal, {aid: applicationData.aid})}
+          >
+            Create Interview
+          </Button>
+        </div>
       </div>
 
       <Typography variant="body2" className="mt-2 text-bold">
@@ -255,7 +249,7 @@ function ApplicationViewForm({applicationData, refetchApplicationData}) {
           { edit ?
             <div className='w-full'>
               <div className='w-full'>
-                <Typography variant='caption'>Posting Link</Typography>
+                <Typography variant='caption' className='font-semibold'>Posting Link</Typography>
               </div>
               <TextField
                 id="posting-url-input"
@@ -553,9 +547,10 @@ export default function ApplicationView({aid}) {
     );
   }
 
+
   return (
-    <div className='w-full rounded-md bg-white shadow-sm mt-6'>
-      {isLoading && <LoadingSpinner containerHeight='h-[460px]' loading/>}
+    <div className='w-full rounded-md bg-white shadow-sm mt-6 min-h-[460px]'>
+      {isLoading && <div className='w-full h-[460px] flex items-center justify-center'><CircularProgress/></div>}
       {applicationData &&
         <ApplicationViewForm
           key={applicationData.updated_at}

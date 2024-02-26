@@ -17,7 +17,7 @@ import {useConfirm} from 'material-ui-confirm';
 import EditInterviewModal from '@/components/interviews/EditInterviewModal';
 import useModal from '@/components/providers/modalProvider';
 
-function InterviewCardMenu({iid}) {
+function InterviewCardMenu({iid, aid}) {
   const [anchor, setAnchor] = useState(null);
   const {showModal} = useModal();
 
@@ -83,7 +83,7 @@ function InterviewCardMenu({iid}) {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => window.location.href = `/application?aid=${aid}`}>
           <InfoIcon>
             <ContentCut fontSize={fontSizeString} />
           </InfoIcon>
@@ -96,7 +96,7 @@ function InterviewCardMenu({iid}) {
           </EditIcon>
           <ListItemText className={menuItemClassName}>Edit</ListItemText>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => window.location.href = `/application?aid=${aid}`}>
           <BusinessIcon>
             <ContentCut fontSize={fontSizeString} />
           </BusinessIcon>
@@ -134,6 +134,7 @@ function InterviewCardMenu({iid}) {
 
 InterviewCardMenu.propTypes = {
   iid: PropTypes.number,
+  aid: PropTypes.number,
 };
 
 export default InterviewCardMenu;

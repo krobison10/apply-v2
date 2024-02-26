@@ -40,9 +40,8 @@ export default function InterviewCard({data}) {
 
   return (
     <div className="rounded-lg relative p-4 mb-4 shadow-sm bg-white">
-      <InterviewCardMenu iid={data.iid}/>
+      <InterviewCardMenu iid={data.iid} aid={data.aid}/>
 
-      {/* Top row */}
       <div style={{width: 'calc(100% - 3rem)'}} className='flex items-center -mr-20'>
         <div className='flex items-center'>
           {renderIcon()}
@@ -58,12 +57,19 @@ export default function InterviewCard({data}) {
           </div></>}
       </div>
 
-      {/* Second row */}
       <div className='w-full'>
         <Typography variant="body2" className="mt-2 font-semibold">{formatDate(data.date)}</Typography>
       </div>
 
-      {/* Third row */}
+      <div className='w-full inline-block'>
+        <Typography variant="subtitle2" className="mt-2 inline-block">
+            Type:
+        </Typography>
+        <Typography variant="body2" className="ml-1 inline-block">
+          {data.type || 'Not specified'}
+        </Typography>
+      </div>
+
       <div className='w-full inline-block'>
         <Typography variant="subtitle2" className="mt-2">
             Notes:
@@ -73,7 +79,6 @@ export default function InterviewCard({data}) {
         </Typography>
       </div>
 
-      {/* Fourth row */}
       <div className='w-full'>
         <Typography variant="body2" className="mt-2 text-bold">
           {renderDate()}
