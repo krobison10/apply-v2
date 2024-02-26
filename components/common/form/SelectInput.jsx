@@ -4,17 +4,16 @@ import {FormControl, InputLabel, MenuItem, Select} from '@mui/material';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function SelectInput({className, value, name, label, options, onChange, ...props}) {
+function SelectInput({className, value, name, options, onChange, ...props}) {
   return (
     <div className={className}>
       <FormControl fullWidth>
 
-        <InputLabel id={`${name}-select-label`}>{label}</InputLabel>
+        <InputLabel id={`${name}-select-label`}>{props.label}</InputLabel>
         <Select
           labelId={`${name}-select-label`}
           id={`${name}-select`}
           value={value}
-          label={label}
           className='w-full'
           onChange={onChange}
           {...props}

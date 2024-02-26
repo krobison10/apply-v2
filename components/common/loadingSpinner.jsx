@@ -2,11 +2,11 @@ import CircularProgress from '@mui/material/CircularProgress';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function LoadingSpinner({loading}) {
+export default function LoadingSpinner({loading, containerHeight = 'h-full'}) {
   return (
     <>
       {loading &&
-        <div className='w-full h-full flex justify-center items-center'>
+        <div className={`${containerHeight} h-full flex justify-center items-center`}>
           <CircularProgress/>
         </div>
       }
@@ -16,4 +16,5 @@ export default function LoadingSpinner({loading}) {
 
 LoadingSpinner.propTypes = {
   loading: PropTypes.bool,
+  containerHeight: PropTypes.string,
 };

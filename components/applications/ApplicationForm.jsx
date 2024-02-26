@@ -175,7 +175,6 @@ export default function ApplicationForm({data, edit, closeModal}) {
             tabIndex={-1}
             startIcon={<CloudUploadIcon />}
             onChange={(e) => {
-              console.log(e.target.files[0]);
               setFormValues({...formValues, resume: e.target.files[0]});
             }}
           >
@@ -199,7 +198,6 @@ export default function ApplicationForm({data, edit, closeModal}) {
             tabIndex={-1}
             startIcon={<CloudUploadIcon />}
             onChange={(e) => {
-              console.log(e.target.files[0]);
               setFormValues({...formValues, cover_letter: e.target.files[0]});
             }}
           >

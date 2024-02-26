@@ -86,7 +86,7 @@ function ApplicationCardMenu({aid}) {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => window.location.href = `/application?aid=${aid}`}>
           <InfoIcon>
             <ContentCut fontSize={fontSizeString} />
           </InfoIcon>
