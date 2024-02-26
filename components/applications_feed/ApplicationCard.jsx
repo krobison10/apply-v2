@@ -9,6 +9,7 @@ import LinkIcon from '@mui/icons-material/Link';
 import {formatSinceDateNicely} from '@/utils/helpers';
 import DownloadIcon from '@mui/icons-material/Download';
 import faviconFetch from 'favicon-fetch';
+import PinnedBadge from '@/components/common/badges/PinnedBadge';
 
 /**
  * Application card component for the ApplicationsFeed
@@ -78,7 +79,7 @@ export default function ApplicationCard({data}) {
 
   return (
     <div className="rounded-lg relative p-4 my-4 shadow-sm bg-white">
-      <ApplicationsCardMenu aid={data.aid}/>
+      <ApplicationsCardMenu aid={data.aid} data={data}/>
 
       {/* Top row */}
       <div style={{width: 'calc(100% - 3rem)'}} className='flex items-center flex-wrap -mr-20 line-clamp-1'>
@@ -98,6 +99,7 @@ export default function ApplicationCard({data}) {
 
       {/* Second row */}
       <Stack direction="row" className='mt-2' spacing={1}>
+        {data.pinned ? <PinnedBadge /> : undefined}
         <Chip size='small' label={status} color={statusChipColor} variant={statusChipVariant} className='select-none cursor-pointer' />
         {data.posting_url && <Chip size='small' icon={<LinkIcon />} label="Posting" onClick={() => {
           window.open(data.posting_url, '_blank', 'noopener,noreferrer');

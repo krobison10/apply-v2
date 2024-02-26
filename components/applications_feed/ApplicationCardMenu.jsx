@@ -23,19 +23,24 @@ import useModal from '@/components/providers/modalProvider';
 const fontSizeString = 'small';
 const menuItemClassName = 'ml-2';
 
-function ApplicationCardMenu({aid}) {
+function ApplicationCardMenu({aid, data}) {
   const [anchor, setAnchor] = useState(null);
   const {showModal} = useModal();
 
   // eslint-disable-next-line no-unused-vars
-  const [data, isLoading, error, clearError, deleteApplication] = useApi('DELETE', `applications?aid=${aid}`);
+  const [deleteResponse, deleteLoading, deleteError, clearDeleteError, deleteApplication] = useApi('DELETE', `applications?aid=${aid}`);
   const confirmDelete = useConfirm();
-
-  const open = Boolean(anchor);
-
-  if (data) {
+  if (deleteResponse) {
     window.location.reload();
   }
+
+  // eslint-disable-next-line no-unused-vars
+  const [pinResponse, pinLoading, pinError, clearPinError, pinApplication] = useApi('PUT', `applications/pin?aid=${aid}`);
+  if (pinResponse) {
+    window.location.reload();
+  }
+
+  const open = Boolean(anchor);
 
   const handleOpenClick = (event) => {
     setAnchor(event.currentTarget);
@@ -105,11 +110,11 @@ function ApplicationCardMenu({aid}) {
           </BusinessIcon>
           <ListItemText className={menuItemClassName}>Create Interview</ListItemText>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => pinApplication({pinned: data.pinned ? 0 : 1})}>
           <PushPinIcon>
             <ContentCut fontSize={fontSizeString} />
           </PushPinIcon>
-          <ListItemText className={menuItemClassName}>Pin</ListItemText>
+          <ListItemText className={menuItemClassName}>{data.pinned ? 'Unpin' : 'Pin'}</ListItemText>
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <ArchiveIcon>
@@ -137,6 +142,7 @@ function ApplicationCardMenu({aid}) {
 
 ApplicationCardMenu.propTypes = {
   aid: PropTypes.number,
+  data: PropTypes.object,
 };
 
 export default ApplicationCardMenu;
