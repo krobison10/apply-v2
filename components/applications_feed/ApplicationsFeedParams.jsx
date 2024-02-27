@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {Button, Checkbox, FormControl, InputLabel, ListItemText, MenuItem, OutlinedInput, Select} from '@mui/material';
+import {Button, Checkbox, FormControl, FormControlLabel, InputLabel, ListItemText, MenuItem, OutlinedInput, Select} from '@mui/material';
 import {DateRangePicker} from '@mui/x-date-pickers-pro/DateRangePicker';
 import {capitalizeFirstLetter} from '@/utils/helpers';
 import dayjs from 'dayjs';
@@ -198,6 +198,17 @@ export default function ApplicationsFeedParams({params, setParams, clearParams})
         >
         Clear filters
         </Button>
+      </div>
+
+      <div className='ml-4'>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={params.show_archived}
+              onChange={(event) => setParams((prevParams) => ({...prevParams, show_archived: event.target.checked}))}
+            />
+          }
+          label="Include archived" />
       </div>
 
 

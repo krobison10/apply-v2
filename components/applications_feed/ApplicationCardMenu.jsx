@@ -40,6 +40,12 @@ function ApplicationCardMenu({aid, data}) {
     window.location.reload();
   }
 
+  // eslint-disable-next-line no-unused-vars
+  const [archiveResponse, archiveLoading, archiveError, clearArchiveError, archiveApplication] = useApi('PUT', `applications/archive?aid=${aid}`);
+  if (archiveResponse) {
+    window.location.reload();
+  }
+
   const open = Boolean(anchor);
 
   const handleOpenClick = (event) => {
@@ -116,11 +122,11 @@ function ApplicationCardMenu({aid, data}) {
           </PushPinIcon>
           <ListItemText className={menuItemClassName}>{data.pinned ? 'Unpin' : 'Pin'}</ListItemText>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => archiveApplication({archived: data.archived ? 0 : 1})}>
           <ArchiveIcon>
             <ContentCut fontSize={fontSizeString} />
           </ArchiveIcon>
-          <ListItemText className={menuItemClassName}>Archive</ListItemText>
+          <ListItemText className={menuItemClassName}>{data.archived ? 'Unarchive' : 'Archive'}</ListItemText>
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <StarBorderIcon>

@@ -17,6 +17,7 @@ const defaultSearchParams = {
   status_filters: [],
   from_days_ago: null,
   to_days_ago: null,
+  show_archived: false,
   sort: 'created_at',
   order: 'desc',
 };

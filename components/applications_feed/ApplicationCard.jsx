@@ -10,6 +10,7 @@ import {formatSinceDateNicely} from '@/utils/helpers';
 import DownloadIcon from '@mui/icons-material/Download';
 import faviconFetch from 'favicon-fetch';
 import PinnedBadge from '@/components/common/badges/PinnedBadge';
+import ArchivedBadge from '@/components/common/badges/ArchivedBadge';
 
 /**
  * Application card component for the ApplicationsFeed
@@ -99,6 +100,7 @@ export default function ApplicationCard({data}) {
 
       {/* Second row */}
       <Stack direction="row" className='mt-2' spacing={1}>
+        {data.archived ? <ArchivedBadge /> : undefined}
         {data.pinned ? <PinnedBadge /> : undefined}
         <Chip size='small' label={status} color={statusChipColor} variant={statusChipVariant} className='select-none cursor-pointer' />
         {data.posting_url && <Chip size='small' icon={<LinkIcon />} label="Posting" onClick={() => {

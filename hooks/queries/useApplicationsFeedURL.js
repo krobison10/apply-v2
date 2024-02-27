@@ -26,6 +26,10 @@ export default function useApplicationsFeedURL(params, searchTerm = null, limit 
     query.append('to_days_ago', params.to_days_ago);
   }
 
+  if (params.show_archived) {
+    query.append('show_archived', params.show_archived);
+  }
+
   if (params.sort) {
     query.append('sort', params.sort);
   }
