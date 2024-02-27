@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import {useEffect, useState} from 'react';
 import ApplicationCard from './ApplicationCard';
@@ -26,10 +27,10 @@ const defaultLimit = 15;
  * Infinite scroll feed for the applications
  * @return {React.Component}
  */
-export default function ApplicationsFeed() {
+export default function ApplicationsFeed({searchTerm}) {
   const savedSearchParams = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('applicationsFeedParams')) : null;
   const [searchParams, setSearchParams] = useState(savedSearchParams || {...defaultSearchParams});
-  const defaultNextUrl = useApplicationsFeedURL(searchParams, defaultLimit, 0);
+  const defaultNextUrl = useApplicationsFeedURL(searchParams, searchTerm, defaultLimit, 0);
   const [nextUrl, setNextUrl] = useState(defaultNextUrl);
   const [allApplications, setAllApplications] = useState([]);
   // eslint-disable-next-line no-unused-vars
@@ -129,3 +130,7 @@ export default function ApplicationsFeed() {
     </div>
   );
 }
+
+ApplicationsFeed.propTypes = {
+  searchTerm: PropTypes.string,
+};

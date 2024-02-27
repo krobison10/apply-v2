@@ -1,10 +1,14 @@
 
-export default function useApplicationsFeedURL(params, limit = null, offset = null) {
+export default function useApplicationsFeedURL(params, searchTerm = null, limit = null, offset = null) {
   if (!params) {
     return 'applications';
   }
 
   const query = new URLSearchParams();
+
+  if (searchTerm) {
+    query.append('search', searchTerm);
+  }
 
   params.priority_filters.forEach((filter) => {
     query.append('priority_filters', filter);
