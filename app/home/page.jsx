@@ -1,6 +1,7 @@
 import React from 'react';
 
 import InternalPageLayoutV1 from '@/components/layouts/InternalPageLayout';
+import Homepage from '@/components/home/Homepage';
 
 export const metadata = {
   title: 'Dashboard | Apply',
@@ -13,9 +14,7 @@ export const metadata = {
 export default function Home() {
   return (
     <InternalPageLayoutV1>
-      <div className="flex items-center justify-center h-screen">
-        <h1>Home</h1>
-      </div>
+      <Homepage />
     </InternalPageLayoutV1>
   );
 }

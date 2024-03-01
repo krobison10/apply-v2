@@ -5,11 +5,18 @@ import PropTypes from 'prop-types';
 import {CssBaseline, ThemeProvider} from '@mui/material';
 import {AppRouterCacheProvider} from '@mui/material-nextjs/v13-appRouter';
 import {StyledEngineProvider} from '@mui/material/styles';
-import {Roboto} from 'next/font/google';
+import {Inter} from 'next/font/google';
 import {createTheme} from '@mui/material/styles';
 
 // eslint-disable-next-line new-cap
-const roboto = Roboto({
+// const roboto = Roboto({
+//   weight: ['300', '400', '500', '700'],
+//   subsets: ['latin'],
+//   display: 'swap',
+// });
+
+// eslint-disable-next-line new-cap
+const inter = Inter({
   weight: ['300', '400', '500', '700'],
   subsets: ['latin'],
   display: 'swap',
@@ -19,7 +26,7 @@ const roboto = Roboto({
 // https://mui.com/material-ui/customization/color/
 const theme = createTheme({
   typography: {
-    fontFamily: roboto.style.fontFamily,
+    fontFamily: inter.style.fontFamily,
   },
   palette: {
     primary: {
