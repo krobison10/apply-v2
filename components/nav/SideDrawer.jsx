@@ -7,7 +7,7 @@ import {usePathname, useRouter} from 'next/navigation';
 import HomeIcon from '@mui/icons-material/Home';
 import ArticleIcon from '@mui/icons-material/Article';
 import BusinessIcon from '@mui/icons-material/Business';
-import ChatIcon from '@mui/icons-material/Chat';
+import ConstructionIcon from '@mui/icons-material/Construction';
 import SettingsIcon from '@mui/icons-material/Settings';
 import {ButtonBase, Typography} from '@mui/material';
 
@@ -52,7 +52,7 @@ function SideDrawer() {
         {icon: <HomeIcon className='w-full h-full'/>, label: 'Home', href: '/home'},
         {icon: <ArticleIcon className='w-full h-full'/>, label: 'Applications', href: '/applications'},
         {icon: <BusinessIcon className='w-full h-full'/>, label: 'Interviews', href: '/interviews'},
-        {icon: <ChatIcon className='w-full h-full'/>, label: 'Blog', href: '/blog'},
+        {icon: <ConstructionIcon className='w-full h-full'/>, label: 'Tools', href: '/tools'},
         {icon: <SettingsIcon className='w-full h-full'/>, label: 'Settings', href: '/settings'},
       ].map(({icon, label, href}) => (
         <NavItem
