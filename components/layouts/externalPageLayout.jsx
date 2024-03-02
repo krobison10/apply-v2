@@ -16,7 +16,7 @@ function ExternalPageLayoutV1({children}) {
       <main className="flex-grow">{children}</main>
 
       <footer className="h-16 w-full flex items-center justify-center">
-        © 2024 | Version 1.4.2 | Made with ❤️ by Kyler Robison
+        © 2024 | Version 1.5.1 | Made with ❤️ by Kyler Robison
       </footer>
     </div>
   );
