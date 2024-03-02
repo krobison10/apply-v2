@@ -8,7 +8,7 @@ import ArticleIcon from '@mui/icons-material/Article';
 import LinkIcon from '@mui/icons-material/Link';
 import {formatSinceDateNicely} from '@/utils/helpers';
 import DownloadIcon from '@mui/icons-material/Download';
-import faviconFetch from 'favicon-fetch';
+// import faviconFetch from 'favicon-fetch';
 import PinnedBadge from '@/components/common/badges/PinnedBadge';
 import ArchivedBadge from '@/components/common/badges/ArchivedBadge';
 
@@ -62,12 +62,12 @@ export default function ApplicationCard({data}) {
   }
 
   function renderIcon() {
-    const faviconUrl = data.company_website && faviconFetch({uri: data.company_website});
-    if (faviconUrl) {
-      return <img className='m-1 w-10 h-10' src={faviconUrl} alt={data.company_name} width={36} height={36}/>;
-    } else {
-      return <ArticleIcon className="text-primary-dark inline-block w-10 h-10"/>;
-    }
+    // const faviconUrl = data.company_website && faviconFetch({uri: data.company_website});
+    // if (faviconUrl) {
+    //   return <img className='m-1 w-10 h-10' src={faviconUrl} alt={data.company_name} width={36} height={36}/>;
+    // } else {
+    return <ArticleIcon className="text-primary-dark inline-block w-10 h-10"/>;
+    // }
   }
 
   function renderDate() {

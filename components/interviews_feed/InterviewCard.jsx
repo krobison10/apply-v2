@@ -6,16 +6,16 @@ import InterviewCardMenu from '@/components/interviews_feed/InterviewCardMenu';
 import {Divider, Typography} from '@mui/material';
 import BusinessIcon from '@mui/icons-material/Business';
 import {formatSinceDateNicely} from '@/utils/helpers';
-import faviconFetch from 'favicon-fetch';
+// import faviconFetch from 'favicon-fetch';
 
 export default function InterviewCard({data}) {
   function renderIcon() {
-    const faviconUrl = data.company_website && faviconFetch({uri: data.company_website});
-    if (faviconUrl) {
-      return <img className='m-1 w-10 h-10' src={faviconUrl} alt={data.company_name} width={36} height={36}/>;
-    } else {
-      return <BusinessIcon className="text-primary-dark inline-block w-10 h-10"/>;
-    }
+    // const faviconUrl = data.company_website && faviconFetch({uri: data.company_website});
+    // if (faviconUrl) {
+    //   return <img className='m-1 w-10 h-10' src={faviconUrl} alt={data.company_name} width={36} height={36}/>;
+    // } else {
+    return <BusinessIcon className="text-primary-dark inline-block w-10 h-10"/>;
+    // }
   }
 
   const formatDate = (date) => {
