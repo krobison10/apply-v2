@@ -146,9 +146,12 @@ export default function Login() {
     <div>
       <Paper
         variant='outlined'
-        className='my-[220px] mx-auto w-[520px] p-8 pb-14'>
+        className='my-[220px] mx-auto w-[520px] p-8'>
         <Typography variant='h4' className='mt-0 text-center font-semibold'>Log in</Typography>
         {renderForm()}
+        <Typography variant='body1' className='text-center w-96 mx-auto mt-6'>
+          No account yet? Enter your email and choose a password here.
+        </Typography>
       </Paper>
     </div>
   );
