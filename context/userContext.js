@@ -19,6 +19,9 @@ const UserProvider = ({children}) => {
 
   useEffect(() => {
     if (data) {
+      if (!data.email_verified) {
+        window.location.href = '/onboarding';
+      }
       setUser(data); // Set the user data if fetched successfully
     }
   }, [data]);

@@ -67,9 +67,13 @@ export default function Login() {
   const [response, isLoading, error, clearError, login] = useApi('POST', 'login', [409]);
   // const router = useRouter();
 
-  if (response?.success || error?.code === 409) {
-    // router.push('/applications');
-    window.location.href = '/applications';
+  if (response?.success) {
+    // Handle this better to prevent user from getting stuck
+    if (response?.onboard) {
+      window.location.href = '/onboarding';
+    } else {
+      window.location.href = '/applications';
+    }
   }
 
   function handleChange(event, field) {
@@ -143,7 +147,7 @@ export default function Login() {
       <Paper
         variant='outlined'
         className='my-[220px] mx-auto w-[520px] p-8 pb-14'>
-        <Typography variant='h4' className='mt-0 text-center font-semibold'>Log into App.ly</Typography>
+        <Typography variant='h4' className='mt-0 text-center font-semibold'>Log in</Typography>
         {renderForm()}
       </Paper>
     </div>

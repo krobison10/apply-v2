@@ -36,7 +36,7 @@ export const useApi = (method, url, noDialogErrorCodes = []) => {
         const errorBody = await response.json();
         setError(errorBody);
         const message = errorBody.error ? `${errorBody.error} - ${errorBody.message}` : 'An error occurred';
-        if (!noDialogErrorCodes.includes(errorBody.code)) {
+        if (!noDialogErrorCodes.includes(errorBody.code) && !noDialogErrorCodes.includes('*')) {
           alert.error('Error: ' + message);
         }
         return;
