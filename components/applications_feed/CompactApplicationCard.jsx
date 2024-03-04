@@ -7,6 +7,8 @@ import {Divider, Typography} from '@mui/material';
 
 import ApplicationsCardMenu from '@/components/applications_feed/ApplicationCardMenu';
 import ApplicationIcon from '@/components/applications_feed/ApplicationIcon';
+import ArchivedBadge from '@/components/common/badges/ArchivedBadge';
+import PinnedBadge from '@/components/common/badges/PinnedBadge';
 
 /**
  * Compact application card component for the ApplicationsFeed
@@ -43,7 +45,12 @@ export default function ApplicationCard({data, first, last}) {
           </div>
         </>}
       </div>
-      <ApplicationsCardMenu aid={data.aid} data={data} className="flex items-center"/>
+
+      <div className='flex items-center'>
+        {Boolean(data.pinned) && <PinnedBadge className='mr-2'/>}
+        {Boolean(data.archived) && <ArchivedBadge className='mr-2'/>}
+        <ApplicationsCardMenu aid={data.aid} data={data} className="flex items-center"/>
+      </div>
     </div>
   );
 }
