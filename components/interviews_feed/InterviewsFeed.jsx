@@ -113,7 +113,7 @@ export default function InterviewsFeed() {
           scrollableTarget='scroll'
         >
           {allInterviews.map((interview) => (
-            <InterviewCard key={interview.aid} data={interview} />
+            <InterviewCard key={interview.iid} data={interview} />
           ))}
         </InfiniteScroll>}
         {showNoInterviews && renderNoInterviews()}

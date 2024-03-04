@@ -1,19 +1,21 @@
 'use client';
 
 import React from 'react';
+import {useContext} from 'react';
+
 import Avatar from '@mui/material/Avatar';
+import {Divider, Typography} from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Logout from '@mui/icons-material/Logout';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import PersonAdd from '@mui/icons-material/PersonAdd';
+import SchoolIcon from '@mui/icons-material/School';
 import Settings from '@mui/icons-material/Settings';
-import Logout from '@mui/icons-material/Logout';
+import Tooltip from '@mui/material/Tooltip';
+
 import {useApi} from '@/hooks/queries/useApi';
 import UserContext from '@/context/userContext';
-import {useContext} from 'react';
-import {Divider, Typography} from '@mui/material';
 
 
 export default function AvatarMenu() {
@@ -122,9 +124,9 @@ export default function AvatarMenu() {
         <Divider />
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
-            <PersonAdd fontSize="small" />
+            <SchoolIcon fontSize="small" />
           </ListItemIcon>
-          Add another account
+          Guide
         </MenuItem>
         <MenuItem onClick={() => window.location.href ='/settings?profile'}>
           <ListItemIcon>
@@ -136,7 +138,7 @@ export default function AvatarMenu() {
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          Logout
+          Log out
         </MenuItem>
       </Menu>
     );
