@@ -1,13 +1,12 @@
 'use client';
 
 import React, {useEffect} from 'react';
-import PropTypes from 'prop-types';
 import LoadingSpinner from '@/components/common/loadingSpinner';
 import {Button, Typography} from '@mui/material';
 import {useApi} from '@/hooks/queries/useApi';
 import UserForm from '@/components/settings/UserForm';
 
-export default function Settings({page}) {
+export default function UserPage() {
   // eslint-disable-next-line no-unused-vars
   const [userData, isLoading, userFetchError, clearUserFetchError, getUser] = useApi('GET', 'user');
 
@@ -41,7 +40,3 @@ export default function Settings({page}) {
     </div>
   );
 }
-
-Settings.propTypes = {
-  page: PropTypes.number,
-};

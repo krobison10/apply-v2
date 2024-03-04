@@ -1,22 +1,15 @@
 'use client';
 
-import React from 'react';
-import {useState, useEffect} from 'react';
-import PropTypes from 'prop-types';
-
 import {Box, Tab, Tabs, Typography} from '@mui/material';
-
+import React, {useState, useEffect} from 'react';
 import TabPanel from '@/components/common/TabPanel';
-import UserPage from '@/components/settings/UserPage';
-import NotificationsPage from '@/components/settings/NotificationsPage';
-import StatsPage from '@/components/settings/StatsPage';
-import PlatformPage from '@/components/settings/PlatformPage';
+import PropTypes from 'prop-types';
+import BulkArchivePage from '@/components/tools/BulkArchivePage';
+import CleanupPage from '@/components/tools/CleanupPage';
 
 const tabsMap = {
-  0: 'profile',
-  1: 'notifications',
-  2: 'stats',
-  3: 'platform',
+  0: 'bulk_archive',
+  1: 'clean_up',
 };
 
 export default function Settings({page}) {
@@ -39,26 +32,18 @@ export default function Settings({page}) {
 
   return (
     <Box className='w-full h-full p-8 pt-4 pb-12 flex flex-col'>
-      <Typography variant='h4' className='my-1'>Settings</Typography>
+      <Typography variant='h4' className='my-1'>Tools</Typography>
       <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
-        <Tabs value={tab} onChange={handleChange} aria-label="setting-tabs">
-          <Tab label="Profile" />
-          <Tab label="Notifications" />
-          <Tab label="Stats"/>
-          <Tab label="Platform"/>
+        <Tabs value={tab} onChange={handleChange} aria-label="tools-tabs">
+          <Tab label="Bulk Archive" />
+          <Tab label="Clean Up" />
         </Tabs>
       </Box>
       <TabPanel value={tab} index={0} className="flex-grow">
-        <UserPage/>
+        <BulkArchivePage/>
       </TabPanel>
       <TabPanel value={tab} index={1} className="flex-grow">
-        <NotificationsPage />
-      </TabPanel>
-      <TabPanel value={tab} index={2} className="flex-grow">
-        <StatsPage />
-      </TabPanel>
-      <TabPanel value={tab} index={3} className="flex-grow">
-        <PlatformPage />
+        <CleanupPage/>
       </TabPanel>
     </Box>
   );

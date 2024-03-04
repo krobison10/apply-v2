@@ -1,6 +1,7 @@
 import React from 'react';
 
 import InternalPageLayoutV1 from '@/components/layouts/InternalPageLayout';
+import Tools from '@/components/tools/Tools';
 
 export const metadata = {
   title: 'Tools | Apply',
@@ -10,12 +11,10 @@ export const metadata = {
  * Tools page
  * @return {React.Component}
  */
-export default function Tools() {
+export default function ToolsPage() {
   return (
     <InternalPageLayoutV1>
-      <div className='flex items-center justify-center h-screen'>
-        <h1>Tools</h1>
-      </div>
+      <Tools />
     </InternalPageLayoutV1>
   );
 }
