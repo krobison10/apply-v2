@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import ApplicationCard from '@/components/applications_feed/ApplicationCard';
 
 export default function ExpandedApplicationsList({applications}) {

@@ -1,18 +1,20 @@
 'use client';
 
 import React from 'react';
+import {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 
-import {useEffect, useState} from 'react';
-import {useApi} from '@/hooks/queries/useApi';
 import {CircularProgress, ToggleButton, ToggleButtonGroup, Typography} from '@mui/material';
-import CreateModalButton from '@/components/CreateModalButton';
-import useApplicationsFeedURL from '@/hooks/queries/useApplicationsFeedURL';
-import ApplicationsFeedParams from '@/components/applications_feed/ApplicationsFeedParams';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import ExpandedApplicationsList from '@/components/applications_feed/ExpandedApplicationsList';
 import Image from 'next/image';
+
+import ApplicationsFeedParams from '@/components/applications_feed/ApplicationsFeedParams';
+import {useApi} from '@/hooks/queries/useApi';
+import CreateModalButton from '@/components/CreateModalButton';
 import CompactApplicationsList from '@/components/applications_feed/CompactApplicationsList';
+import ExpandedApplicationsList from '@/components/applications_feed/ExpandedApplicationsList';
+import useApplicationsFeedURL from '@/hooks/queries/useApplicationsFeedURL';
+
 
 const defaultSearchParams = {
   priority_filters: [],

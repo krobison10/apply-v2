@@ -11,11 +11,11 @@ import PushPinIcon from '@mui/icons-material/PushPin';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import DeleteIcon from '@mui/icons-material/Delete';
-
 import {Divider, IconButton, ListItemText, Menu, MenuItem} from '@mui/material';
 import {ContentCut} from '@mui/icons-material';
-import {useApi} from '@/hooks/queries/useApi';
 import {useConfirm} from 'material-ui-confirm';
+
+import {useApi} from '@/hooks/queries/useApi';
 import EditApplicationModal from '@/components/applications/EditApplicationModal';
 import CreateInterviewModal from '@/components/interviews/CreateInterviewModal';
 import useModal from '@/components/providers/modalProvider';
@@ -23,7 +23,7 @@ import useModal from '@/components/providers/modalProvider';
 const fontSizeString = 'small';
 const menuItemClassName = 'ml-2';
 
-function ApplicationCardMenu({aid, data, className}) {
+export default function ApplicationCardMenu({aid, data, className}) {
   const [anchor, setAnchor] = useState(null);
   const {showModal} = useModal();
 
@@ -155,5 +155,3 @@ ApplicationCardMenu.propTypes = {
   data: PropTypes.object,
   className: PropTypes.string,
 };
-
-export default ApplicationCardMenu;

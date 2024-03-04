@@ -2,18 +2,20 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import ApplicationsCardMenu from '@/components/applications_feed/ApplicationCardMenu';
+
 import {Chip, Divider, Stack, Typography} from '@mui/material';
-import ArticleIcon from '@mui/icons-material/Article';
 import LinkIcon from '@mui/icons-material/Link';
 import {formatSinceDateNicely} from '@/utils/helpers';
 import DownloadIcon from '@mui/icons-material/Download';
-// import faviconFetch from 'favicon-fetch';
-import PinnedBadge from '@/components/common/badges/PinnedBadge';
+
 import ArchivedBadge from '@/components/common/badges/ArchivedBadge';
+import ApplicationIcon from '@/components/applications_feed/ApplicationIcon';
+import ApplicationsCardMenu from '@/components/applications_feed/ApplicationCardMenu';
+import PinnedBadge from '@/components/common/badges/PinnedBadge';
+
 
 /**
- * Application card component for the ApplicationsFeed
+ * Expanded application card component for the ApplicationsFeed
  * @param {Object} data Application object from the API response
  * @return {React.Component}
  */
@@ -61,15 +63,6 @@ export default function ApplicationCard({data}) {
       statusChipVariant = 'outlined';
   }
 
-  function renderIcon() {
-    // const faviconUrl = data.company_website && faviconFetch({uri: data.company_website});
-    // if (faviconUrl) {
-    //   return <img className='m-1 w-10 h-10' src={faviconUrl} alt={data.company_name} width={36} height={36}/>;
-    // } else {
-    return <ArticleIcon className="text-primary-dark inline-block w-10 h-10"/>;
-    // }
-  }
-
   function renderDate() {
     if (data.created_at === data.updated_at) {
       return <>Created {formatSinceDateNicely(data.created_at)}</>;
@@ -85,7 +78,7 @@ export default function ApplicationCard({data}) {
       {/* Top row */}
       <div style={{width: 'calc(100% - 3rem)'}} className='flex items-center flex-wrap -mr-20 line-clamp-1'>
         <div className='flex items-center'>
-          {renderIcon()}
+          <ApplicationIcon application={data}/>
           <Typography variant="h6" className="ml-1 font-semibold inline-block">{data.company_name}</Typography>
         </div>
         <Divider className='mx-2 h-8' orientation="vertical" variant="middle" flexItem />

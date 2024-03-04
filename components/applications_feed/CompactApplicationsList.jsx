@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CompactApplicationCard from '@/components/applications_feed/CompactApplicationCard';
+
 import {Divider} from '@mui/material';
+
+import CompactApplicationCard from '@/components/applications_feed/CompactApplicationCard';
 
 export default function ExpandedApplicationsList({applications}) {
   return (
-    <div className='w-full rounded-lg py-10'>
+    <div className='w-full my-4'>
       {applications.map((application, index) => {
         const first = index === 0;
         const last = index === applications.length - 1;

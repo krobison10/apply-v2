@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 
 import {Button, Checkbox, FormControl, FormControlLabel, InputLabel, ListItemText, MenuItem, OutlinedInput, Select} from '@mui/material';
 import {DateRangePicker} from '@mui/x-date-pickers-pro/DateRangePicker';
-import {capitalizeFirstLetter} from '@/utils/helpers';
 import dayjs from 'dayjs';
 
+import {capitalizeFirstLetter} from '@/utils/helpers';
 
 const MenuProps = {
   PaperProps: {
