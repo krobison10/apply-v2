@@ -97,13 +97,13 @@ export default function ApplicationsFeed({searchTerm}) {
   }
 
   function renderScrollEnd() {
-    return (
-      <div className='w-full h-32 flex items-center'>
-        <Typography variant='body1' className='text-center font-semibold w-full'>
-          Nothing to see here, get out and start applying!
-        </Typography>
-      </div>
-    );
+    // return (
+    //   <div className='w-full h-32 flex items-center'>
+    //     <Typography variant='body1' className='text-center font-semibold w-full'>
+    //       Nothing to see here, get out and start applying!
+    //     </Typography>
+    //   </div>
+    // );
   }
 
   function renderList() {
