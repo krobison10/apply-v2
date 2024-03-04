@@ -23,7 +23,7 @@ import useModal from '@/components/providers/modalProvider';
 const fontSizeString = 'small';
 const menuItemClassName = 'ml-2';
 
-function ApplicationCardMenu({aid, data}) {
+function ApplicationCardMenu({aid, data, className}) {
   const [anchor, setAnchor] = useState(null);
   const {showModal} = useModal();
 
@@ -49,6 +49,7 @@ function ApplicationCardMenu({aid, data}) {
   const open = Boolean(anchor);
 
   const handleOpenClick = (event) => {
+    event.preventDefault();
     setAnchor(event.currentTarget);
   };
 
@@ -75,7 +76,7 @@ function ApplicationCardMenu({aid, data}) {
   };
 
   return (
-    <div>
+    <div id={`application-${aid}-options-root`}>
       <IconButton
         aria-label="more"
         id={`application-${aid}-options`}
@@ -83,7 +84,7 @@ function ApplicationCardMenu({aid, data}) {
         aria-expanded={open ? 'true' : undefined}
         aria-haspopup="true"
         onClick={handleOpenClick}
-        className='absolute top-2 right-2'
+        className={className || 'absolute top-2 right-2'}
       >
         <MoreHorizIcon />
       </IconButton>
@@ -92,7 +93,10 @@ function ApplicationCardMenu({aid, data}) {
         id={`application-${aid}-options-menu`}
         anchorEl={anchor}
         open={open}
-        onClose={handleClose}
+        onClose={(e) => {
+          e.stopPropagation();
+          handleClose();
+        }}
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}
@@ -149,6 +153,7 @@ function ApplicationCardMenu({aid, data}) {
 ApplicationCardMenu.propTypes = {
   aid: PropTypes.number,
   data: PropTypes.object,
+  className: PropTypes.string,
 };
 
 export default ApplicationCardMenu;

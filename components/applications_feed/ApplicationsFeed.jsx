@@ -4,13 +4,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {useEffect, useState} from 'react';
-import ApplicationCard from './ApplicationCard';
 import {useApi} from '@/hooks/queries/useApi';
-import {CircularProgress, Typography} from '@mui/material';
+import {CircularProgress, ToggleButton, ToggleButtonGroup, Typography} from '@mui/material';
 import CreateModalButton from '@/components/CreateModalButton';
 import useApplicationsFeedURL from '@/hooks/queries/useApplicationsFeedURL';
 import ApplicationsFeedParams from '@/components/applications_feed/ApplicationsFeedParams';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import ExpandedApplicationsList from '@/components/applications_feed/ExpandedApplicationsList';
+import Image from 'next/image';
+import CompactApplicationsList from '@/components/applications_feed/CompactApplicationsList';
 
 const defaultSearchParams = {
   priority_filters: [],
@@ -37,6 +39,10 @@ export default function ApplicationsFeed({searchTerm}) {
   // eslint-disable-next-line no-unused-vars
   const [data, isLoading, error, setError, getApplications] = useApi('GET');
 
+  const savedUseExpandedView = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('useExpandedApplicationsView')) : false;
+  const [useExpandedView, setUseExpandedView] = useState(savedUseExpandedView);
+
+
   useEffect(() => {
     if (data?.results) {
       setAllApplications((prev) => [...prev, ...data.results]);
@@ -52,6 +58,10 @@ export default function ApplicationsFeed({searchTerm}) {
       getApplications(undefined, defaultNextUrl);
     }
   }, [searchParams]);
+
+  useEffect(() => {
+    localStorage.setItem('useExpandedApplicationsView', JSON.stringify(useExpandedView));
+  }, [useExpandedView]);
 
   function fetchApplications() {
     if (!isLoading) {
@@ -105,6 +115,14 @@ export default function ApplicationsFeed({searchTerm}) {
             className='display-block'>
             {`${data?.metadata.total_results || 0} Application${data?.metadata.total_results === 1 ? '' : 's'}`}
           </Typography>
+          <ToggleButtonGroup value={useExpandedView ? 'expanded' : 'compact'} size='small' className='ml-4' exclusive>
+            <ToggleButton value="expanded" onClick={() => setUseExpandedView(true)}>
+              <Image src='/icons/non-compact-icon.svg' alt='compact' width={16} height={16} />
+            </ToggleButton>
+            <ToggleButton value="compact" onClick={() => setUseExpandedView(false)}>
+              <Image src='/icons/compact-icon.svg' alt='compact' width={16} height={16} />
+            </ToggleButton>
+          </ToggleButtonGroup>
         </div>
         {!showNoApplications && <InfiniteScroll
           dataLength={allApplications.length}
@@ -114,9 +132,9 @@ export default function ApplicationsFeed({searchTerm}) {
           endMessage={renderScrollEnd()}
           scrollableTarget='scroll'
         >
-          {allApplications.map((application) => (
-            <ApplicationCard key={application.aid} data={application} />
-          ))}
+          {useExpandedView ?
+            <ExpandedApplicationsList applications={allApplications}/> :
+            <CompactApplicationsList applications={allApplications}/>}
         </InfiniteScroll>}
         {showNoApplications && renderNoApplications()}
       </>
