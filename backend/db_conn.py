@@ -6,7 +6,7 @@ load_dotenv(find_dotenv())
 
 username = "postgres"
 password = os.environ.get("DB_PASSWORD")
-host = "apply-dev-rds.cl6a4esq2qr9.us-west-2.rds.amazonaws.com"
+host = "apply-dev-rds.c5064iueo9i2.us-west-2.rds.amazonaws.com"
 db_name = "apply"
 
 try:
