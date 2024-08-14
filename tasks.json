@@ -1,0 +1,28 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Sync to Remote",
+            "type": "shell",
+            "command": "rsync",
+            "args": [
+                "-rav",
+                "--progress",
+                "--chmod=Dg=rwx,Fo=rw",
+                "--filter=:- .gitignore",
+                "--exclude=.git",
+                "--delete",
+                "-e",
+                "ssh",
+                "/Users/kyler/dev/applyV2/apply-v2/",
+                "apply-dev:~/apply"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "detail": "This task syncs the local directory to the remote server."
+        }
+    ]
+}
