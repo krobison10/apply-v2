@@ -7,7 +7,7 @@
       {
         "match": ".*",
         "isAsync": true,
-        "cmd": "rsync -rav --progress --chmod=Dg=rwx,Fo=rw --filter=':- .rsyncignore'  --exclude='.git' --delete -e 'ssh' /Users/kyler/Documents/dev//applyV2/apply-v2-web/ apply-dev:~/web"
+        "cmd": "rsync -rav --progress --chmod=Dg=rwx,Fo=rw --filter=':- .rsyncignore'  --exclude='.git' --delete -e 'ssh' /Users/kyler/Documents/dev/applyV2/apply-v2/ apply-dev:~/apply"
       }
     ]
   },

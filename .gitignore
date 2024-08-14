@@ -51,8 +51,8 @@ myenv/
 *.sqlite
 
 # IDE and editor files
-.vscode/
 .idea/
+.vscode/tasks.json
 *.swp
 *.swo
 *.swn
