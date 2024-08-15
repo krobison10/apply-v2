@@ -4,6 +4,7 @@
   // Define custom words or patterns to ignore
   "ignoreWords": [],
   "words": [
+    "applyapp",
     "bgcolor",
     "Dont",
     "firstname",
@@ -11,12 +12,17 @@
     "Horiz",
     "labelledby",
     "lastname",
+    "myenv",
     "nextjs",
     "noopener",
     "noreferrer",
+    "pycache",
     "roboto",
     "tabpanel",
     "tailwindcss",
-    "Unsubmitted"
+    "tsbuildinfo",
+    "Unsubmitted",
+    "venv",
+    "vercel"
   ]
 }

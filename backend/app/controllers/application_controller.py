@@ -161,13 +161,13 @@ def upload_application_doc(file, name) -> str:
     name = name.split(".")[0] + "-" + random_string + "." + extension
 
     file_bytes = base64.b64decode(file)
-    object_url = AWS.s3_upload_file("applyapp.applications.documents", name, file_bytes)
+    object_url = AWS.s3_upload_file("applyapp.applications.documents.dev", name, file_bytes)
     return object_url
 
 
 def delete_application_doc(url: str) -> bool:
     name = url.replace(
-        "https://applyapp.applications.documents.s3-us-west-2.amazonaws.com/", ""
+        "https://applyapp.applications.documents.dev.s3-us-west-2.amazonaws.com/", ""
     )
     AWS.s3_delete_file("applyapp.applications.documents", name)
     return True
